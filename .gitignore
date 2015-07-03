@@ -1,2 +1,6 @@
 *.suo
 *.cache
+*.dll
+Tedesco/Tedesco.Core.Tests/bin/Debug/Tedesco.Core.pdb
+*.pdb
+Tedesco/Tedesco.Core.Tests/obj/Debug/Tedesco.Core.Tests.csproj.FileListAbsolute.txt
