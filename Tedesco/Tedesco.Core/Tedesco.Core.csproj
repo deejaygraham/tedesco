@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Tedesco</RootNamespace>
     <AssemblyName>Tedesco.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -39,10 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MidiNoteValue.cs" />
-    <Compile Include="Pitch.cs" />
-    <Compile Include="PitchFrequencyConverter.cs" />
-    <Compile Include="PitchInterpreter.cs" />
+    <Compile Include="Model\Midi\MidiMath.cs" />
+    <Compile Include="Infrastructure\Parsers\NoteNameInterpreter.cs" />
+    <Compile Include="Model\Exceptions\NoteFormatException.cs" />
+    <Compile Include="Infrastructure\Parsers\FrequencyPitchRecognizer.cs" />
+    <Compile Include="Model\Pitch\IReadPitches.cs" />
+    <Compile Include="Model\Midi\MidiNoteValue.cs" />
+    <Compile Include="Model\Pitch\Interval.cs" />
+    <Compile Include="Model\Pitch\IntervalDistance.cs" />
+    <Compile Include="Model\Pitch\IUnderstandPitchFormat.cs" />
+    <Compile Include="Model\Pitch\Pitch.cs" />
+    <Compile Include="Infrastructure\Parsers\PitchReader.cs" />
+    <Compile Include="Infrastructure\Parsers\ABCPitchRecognizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
