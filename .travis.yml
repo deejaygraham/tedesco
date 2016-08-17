@@ -6,8 +6,8 @@ solution: Tedesco/Tedesco.sln
 
 install:
   - nuget restore Tedesco/Tedesco.sln
-  - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
+  - nuget install xunit.runners -Version 2.1.0 -OutputDirectory testrunner
 
 script:
   - xbuild /p:Configuration=Release Tedesco/Tedesco.sln
-  - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./Tedesco.Core.Tests/bin/Release/Tedesco.Core.Tests.dll
+  - mono ./packages/xunit.runners.2.1.0/tools/xunit.console.x86.exe ./Tedesco.Core.Tests/bin/Release/Tedesco.Core.Tests.dll
