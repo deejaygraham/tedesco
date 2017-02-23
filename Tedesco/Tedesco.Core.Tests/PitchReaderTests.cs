@@ -20,7 +20,7 @@ namespace Tedesco.Tests
 			var list = reader.ReadToEnd(" C5, G10,C0		,		C5").ToList();
 
 			Assert.Equal(4, list.Count());
-            Assert.Equal(new Pitch(60), list[0]);
+			Assert.Equal(new Pitch(60), list[0]);
 			Assert.Equal(new Pitch(127), list[1]);
 			Assert.Equal(new Pitch(0), list[2]);
 			Assert.Equal(new Pitch(60), list[3]);
@@ -32,7 +32,7 @@ namespace Tedesco.Tests
 			// c 0
 			var reader = new PitchReader(new FrequencyPitchRecognizer());
 			Assert.Equal(new Pitch(0), reader.ReadToEnd("8.1758").ToList()[0]);
-        }
+		}
 
 		[Fact]
 		public void Matches_Middle_C_To_Midi_60()

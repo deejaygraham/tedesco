@@ -3,9 +3,8 @@ using System;
 
 namespace Tedesco.Tests
 {
-    public class PitchTests
-    {
-
+	public class PitchTests
+	{
 		[Fact]
 		public void Pitch_Throws_An_Exception_For_Negative_Values()
 		{

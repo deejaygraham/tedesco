@@ -11,7 +11,7 @@ namespace Tedesco
 		public bool IsTokenCorrectFormat(string token)
 		{
 			const int MinTextLength = 2;
-			const int MaxTextLength = 3;
+			const int MaxTextLength = 4;
 
 			return (token.Length >= MinTextLength && token.Length <= MaxTextLength);
         }
@@ -20,7 +20,7 @@ namespace Tedesco
 		{
 			try
 			{
-				return NoteNameInterpreter.ToValue(token);
+				return NoteNamer.PitchOf(token);
 			}
 			catch (NoteFormatException)
 			{

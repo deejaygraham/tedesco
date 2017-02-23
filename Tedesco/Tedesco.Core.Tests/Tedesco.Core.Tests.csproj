@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IntervalTests.cs" />
-    <Compile Include="NoteNameInterpreterTests.cs" />
+    <Compile Include="NoteNamerTests.cs" />
     <Compile Include="PitchReaderTests.cs" />
     <Compile Include="PitchTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

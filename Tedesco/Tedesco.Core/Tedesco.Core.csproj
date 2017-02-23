@@ -44,17 +44,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Midi\MidiMath.cs" />
-    <Compile Include="Infrastructure\Parsers\NoteNameInterpreter.cs" />
     <Compile Include="Model\Exceptions\NoteFormatException.cs" />
     <Compile Include="Infrastructure\Parsers\FrequencyPitchRecognizer.cs" />
+    <Compile Include="Model\Pitch\IntervalNamer.cs" />
     <Compile Include="Model\Pitch\IReadPitches.cs" />
     <Compile Include="Model\Midi\MidiNoteValue.cs" />
     <Compile Include="Model\Pitch\Interval.cs" />
     <Compile Include="Model\Pitch\IntervalDistance.cs" />
     <Compile Include="Model\Pitch\IUnderstandPitchFormat.cs" />
+    <Compile Include="Model\Pitch\NoteNamer.cs" />
     <Compile Include="Model\Pitch\Pitch.cs" />
     <Compile Include="Infrastructure\Parsers\PitchReader.cs" />
     <Compile Include="Infrastructure\Parsers\ABCPitchRecognizer.cs" />
+    <Compile Include="Model\Pitch\ScaleDegree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

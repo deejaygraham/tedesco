@@ -10,22 +10,6 @@ namespace Tedesco
 
 		private IntervalDistance distance;
 
-		private static readonly string[] IntervalNames = new string[] {
-					"unison",
-					"minor second",
-					"major second",
-					"minor third",
-					"major third",
-					"perfect fourth",
-					"diminished fifth",
-					"perfect fifth",
-					"minor sixth",
-					"major sixth",
-					"minor seventh",
-					"major seventh",
-					"octave"
-				};
-
 		public Interval(int semitones)
 		{
 			if (semitones < 0) throw new ArgumentException("semitones", "Value is not recognised as a valid interval");
@@ -59,7 +43,7 @@ namespace Tedesco
 
 		public override string ToString()
 		{
-			return IntervalNames[(int)this.distance];
+			return IntervalNamer.NameOf(this.distance);
 		}
 
 		public override bool Equals(object obj)
@@ -91,6 +75,8 @@ namespace Tedesco
 
 		public int CompareTo(Interval other)
 		{
+			if (object.ReferenceEquals(other, null)) throw new ArgumentNullException("other");
+
 			return this.distance.CompareTo(other.distance);
 		}
 
@@ -123,7 +109,6 @@ namespace Tedesco
 		{
 			return left.CompareTo(right) >= 0;
 		}
-
 	}
 
 }

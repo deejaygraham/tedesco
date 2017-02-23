@@ -20,11 +20,9 @@ namespace Tedesco
 
 		public Pitch(int scaleDegree, int octave)
 		{
-			if (scaleDegree < 0)
-				throw new ArgumentOutOfRangeException("scaleDegree", "Value cannot be negative");
+			if (scaleDegree < 0) throw new ArgumentOutOfRangeException("scaleDegree", "Value cannot be negative");
 
-			if (octave < 0)
-				throw new ArgumentOutOfRangeException("octave", "Value cannot be negative");
+			if (octave < 0) throw new ArgumentOutOfRangeException("octave", "Value cannot be negative");
 
 			this.value = scaleDegree + (Interval.Octave.Semitones * octave);
 		}
@@ -34,12 +32,36 @@ namespace Tedesco
 			this.value = (int)value;
 		}
 
-		public bool Equals(Pitch other)
+		public string Name
 		{
-			if (other == null)
-				throw new ArgumentNullException("other");
+			get
+			{
+				return NoteNamer.NameOf(this.value);
+			}
+		}
 
-			return this.value == other.value;
+		public string MidiName
+		{
+			get
+			{
+				return string.Format("{0}{1}", this.Name, this.Octave);
+			}
+		}
+
+		public ScaleDegree Degree
+		{
+			get
+			{
+				return (ScaleDegree)(this.value % 12);
+			}
+		}
+
+		public int Octave
+		{
+			get
+			{
+				return this.value / 12;
+			}
 		}
 
 		public override int GetHashCode()
@@ -50,14 +72,6 @@ namespace Tedesco
 		public override string ToString()
 		{
 			return this.value.ToString();
-		}
-
-		public int CompareTo(Pitch other)
-		{
-			if (other == null)
-				throw new ArgumentNullException("other");
-
-			return this.value.CompareTo(other.value);
 		}
 
 		public override bool Equals(object obj)
@@ -71,79 +85,56 @@ namespace Tedesco
 			return this.Equals(obj as Pitch);
 		}
 
-		int IComparable.CompareTo(object obj)
+		public bool Equals(Pitch other)
+		{
+			if (object.ReferenceEquals(other, null)) throw new ArgumentNullException("other");
+
+			return this.value == other.value;
+		}
+
+		public int CompareTo(object obj)
 		{
 			Pitch other = obj as Pitch;
 
-			if (other == null)
-				throw new ArgumentException("Argument is not a valid pitch value", "obj");
+			if (object.ReferenceEquals(other, null)) throw new ArgumentException("Argument is not a valid pitch value", "obj");
 
 			return this.CompareTo(other);
 		}
 
+		public int CompareTo(Pitch other)
+		{
+			if (object.ReferenceEquals(other, null)) throw new ArgumentNullException("other");
+
+			return this.value.CompareTo(other.value);
+		}
+		
 		public static bool operator <(Pitch left, Pitch right)
 		{
-			if (left == null)
-				throw new ArgumentNullException("left");
-
-			if (right == null)
-				throw new ArgumentNullException("right");
-
 			return left.CompareTo(right) < 0;
 		}
 
 		public static bool operator <=(Pitch left, Pitch right)
 		{
-			if (left == null)
-				throw new ArgumentNullException("left");
-
-			if (right == null)
-				throw new ArgumentNullException("right");
-
 			return left.CompareTo(right) <= 0;
 		}
 
 		public static bool operator >(Pitch left, Pitch right)
 		{
-			if (left == null)
-				throw new ArgumentNullException("left");
-
-			if (right == null)
-				throw new ArgumentNullException("right");
-
 			return left.CompareTo(right) > 0;
 		}
 
 		public static bool operator >=(Pitch left, Pitch right)
 		{
-			if (left == null)
-				throw new ArgumentNullException("left");
-
-			if (right == null)
-				throw new ArgumentNullException("right");
-
 			return left.CompareTo(right) >= 0;
 		}
 
 		public static bool operator ==(Pitch left, Pitch right)
 		{
-			if (left == null)
-				throw new ArgumentNullException("left");
-
-			if (right == null)
-				throw new ArgumentNullException("right");
-
 			return left.CompareTo(right) == 0;
 		}
 
 		public static bool operator !=(Pitch left, Pitch right)
 		{
-			if (left == null)
-				throw new ArgumentNullException("left");
-
-			if (right == null)
-				throw new ArgumentNullException("right");
-
 			return left.CompareTo(right) != 0;
 		}
 
