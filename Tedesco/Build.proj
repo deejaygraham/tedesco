@@ -1,0 +1,27 @@
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <UsingTask AssemblyFile="packages\xunit.MSBuild.2.0.0.0\tools\xunit.runner.msbuild.dll" TaskName="Xunit.Runner.MSBuild.xunit" />
+
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+  </PropertyGroup>
+
+  <Target Name="Build">
+    <MsBuild
+      Projects="Tedesco.sln"
+			Targets="Build"
+			StopOnFirstFailure="true"
+			/>
+  </Target>
+
+
+  <Target Name="Test" DependsOnTargets="Build">
+
+    <ItemGroup>
+      <TestAssemblies Include="**\bin\$(Configuration)\*.Tests.dll" />
+    </ItemGroup>
+
+    <xunit Assemblies="@(TestAssemblies)" />
+
+  </Target>
+</Project>
