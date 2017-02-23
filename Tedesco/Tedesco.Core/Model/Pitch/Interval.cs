@@ -2,7 +2,7 @@
 
 namespace Tedesco
 {
-	public class Interval
+	public class Interval : IEquatable<Interval>, IComparable<Interval>, IComparable
 	{
 		public static readonly Interval Semitone = new Interval(IntervalDistance.MinorSecond);
 		public static readonly Interval Tone = new Interval(IntervalDistance.MajorSecond);
@@ -28,8 +28,7 @@ namespace Tedesco
 
 		public Interval(int semitones)
 		{
-			if (semitones < 0)
-				throw new ArgumentException("semitones", "Value is not recognised as a valid interval");
+			if (semitones < 0) throw new ArgumentException("semitones", "Value is not recognised as a valid interval");
 
 			while (semitones > (int)IntervalDistance.PerfectOctave)
 				semitones -= (int)IntervalDistance.PerfectOctave;
@@ -58,26 +57,41 @@ namespace Tedesco
 			return this.distance.GetHashCode();
 		}
 
+		public override string ToString()
+		{
+			return IntervalNames[(int)this.distance];
+		}
+
 		public override bool Equals(object obj)
 		{
+			if (object.ReferenceEquals(obj, null)) return false;
+
+			if (object.ReferenceEquals(this, obj)) return true;
+
+			if (this.GetType() != obj.GetType()) return false;
+
+			return this.Equals(obj as Interval);
+		}
+
+		public bool Equals(Interval other)
+		{
+			if (object.ReferenceEquals(other, null)) throw new ArgumentNullException("other");
+
+			return this.distance == other.distance;
+		}
+
+		public int CompareTo(object obj)
+		{
+			if (!(obj is Interval)) throw new ArgumentException("Argument is not an Interval object", "obj");
+
 			Interval other = obj as Interval;
 
-			if (other == null)
-			{
-				return false;
-			}
-
-			return other.distance == this.distance;
+			return this.CompareTo(other);
 		}
 
 		public int CompareTo(Interval other)
 		{
 			return this.distance.CompareTo(other.distance);
-		}
-
-		public override string ToString()
-		{
-			return IntervalNames[(int)this.distance];
 		}
 
 		public static bool operator ==(Interval left, Interval right)
