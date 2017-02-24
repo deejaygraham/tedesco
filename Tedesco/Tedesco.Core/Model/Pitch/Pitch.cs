@@ -8,9 +8,12 @@ namespace Tedesco
 	{
 		private readonly int value;
 
-		public Pitch(Pitch p)
+		public Pitch(Pitch copy)
 		{
-			this.value = p.value;
+			if (copy == null)
+				throw new ArgumentNullException("copy", "pitch cannot be null");
+
+			this.value = copy.value;
 		}
 
 		public Pitch(int scaleDegree)
@@ -87,7 +90,7 @@ namespace Tedesco
 
 		public bool Equals(Pitch other)
 		{
-			if (object.ReferenceEquals(other, null)) throw new ArgumentNullException("other");
+			if (object.ReferenceEquals(other, null)) return false;
 
 			return this.value == other.value;
 		}
@@ -110,31 +113,49 @@ namespace Tedesco
 		
 		public static bool operator <(Pitch left, Pitch right)
 		{
+			if (object.ReferenceEquals(left, null)) throw new ArgumentException("note is not a valid pitch value", "left");
+			if (object.ReferenceEquals(right, null)) throw new ArgumentException("note is not a valid pitch value", "right");
+
 			return left.CompareTo(right) < 0;
 		}
 
 		public static bool operator <=(Pitch left, Pitch right)
 		{
+			if (object.ReferenceEquals(left, null)) throw new ArgumentException("note is not a valid pitch value", "left");
+			if (object.ReferenceEquals(right, null)) throw new ArgumentException("note is not a valid pitch value", "right");
+
 			return left.CompareTo(right) <= 0;
 		}
 
 		public static bool operator >(Pitch left, Pitch right)
 		{
+			if (object.ReferenceEquals(left, null)) throw new ArgumentException("note is not a valid pitch value", "left");
+			if (object.ReferenceEquals(right, null)) throw new ArgumentException("note is not a valid pitch value", "right");
+
 			return left.CompareTo(right) > 0;
 		}
 
 		public static bool operator >=(Pitch left, Pitch right)
 		{
+			if (object.ReferenceEquals(left, null)) throw new ArgumentException("note is not a valid pitch value", "left");
+			if (object.ReferenceEquals(right, null)) throw new ArgumentException("note is not a valid pitch value", "right");
+
 			return left.CompareTo(right) >= 0;
 		}
 
 		public static bool operator ==(Pitch left, Pitch right)
 		{
+			if (object.ReferenceEquals(left, null)) return false;
+			if (object.ReferenceEquals(right, null)) return false;
+
 			return left.CompareTo(right) == 0;
 		}
 
 		public static bool operator !=(Pitch left, Pitch right)
 		{
+			if (object.ReferenceEquals(left, null)) return true;
+			if (object.ReferenceEquals(right, null)) return true;
+
 			return left.CompareTo(right) != 0;
 		}
 
@@ -170,31 +191,46 @@ namespace Tedesco
 
 		public static Pitch Add(Pitch note, Interval interval)
 		{
+			if (object.ReferenceEquals(note, null)) throw new ArgumentException("note is not a valid pitch value", "note");
+			if (object.ReferenceEquals(interval, null)) throw new ArgumentException("interval is not a valid interval value", "interval");
+
 			return new Pitch(note.value + interval.Semitones);
 		}
 
 		public static Pitch Add(Pitch note, int offset)
 		{
+			if (object.ReferenceEquals(note, null)) throw new ArgumentException("note is not a valid pitch value", "note");
+
 			return new Pitch(note.value + offset);
 		}
 
 		public static Pitch Subtract(Pitch note, Interval interval)
 		{
+			if (object.ReferenceEquals(note, null)) throw new ArgumentException("note is not a valid pitch value", "note");
+			if (object.ReferenceEquals(interval, null)) throw new ArgumentException("interval is not a valid interval value", "interval");
+
 			return new Pitch(note.value - interval.Semitones);
 		}
 
 		public static Pitch Subtract(Pitch note, int offset)
 		{
+			if (object.ReferenceEquals(note, null)) throw new ArgumentException("note is not a valid pitch value", "note");
+
 			return new Pitch(note.value - offset);
 		}
 
 		public static Pitch Flatten(Pitch note)
 		{
+			if (object.ReferenceEquals(note, null)) throw new ArgumentException("note is not a valid pitch value", "note");
+
 			return new Pitch(note.value - 1);
 		}
 
 		public static Interval Difference(Pitch left, Pitch right)
 		{
+			if (object.ReferenceEquals(left, null)) throw new ArgumentException("note is not a valid pitch value", "left");
+			if (object.ReferenceEquals(right, null)) throw new ArgumentException("note is not a valid pitch value", "right");
+
 			return new Interval(Math.Abs(left.value - right.value));
 		}
 

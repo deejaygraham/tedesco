@@ -50,8 +50,6 @@ namespace Tedesco
 		{
 			if (value < 0) throw new NoteFormatException();
 
-			int index = value % 12;
-
 			return NoteNames[value % 12];
 		}
 

@@ -12,19 +12,15 @@ namespace Tedesco
 
 		public Interval(int semitones)
 		{
-			if (semitones < 0) throw new ArgumentException("semitones", "Value is not recognised as a valid interval");
+			if (semitones < 0) throw new ArgumentException("value is not recognised as a valid interval", "semitones");
 
 			while (semitones > (int)IntervalDistance.PerfectOctave)
 				semitones -= (int)IntervalDistance.PerfectOctave;
 
-			if (Enum.IsDefined(typeof(IntervalDistance), semitones))
-			{
-				this.distance = (IntervalDistance)semitones;
-			}
-			else
-			{
-				throw new ArgumentException("semitones", "Value is not recognised as a valid interval");
-			}
+			if (!Enum.IsDefined(typeof(IntervalDistance), semitones))
+				throw new ArgumentException("value is not recognised as a valid interval", "semitones");
+
+			this.distance = (IntervalDistance)semitones;
 		}
 
 		public Interval(IntervalDistance distance)
@@ -59,16 +55,16 @@ namespace Tedesco
 
 		public bool Equals(Interval other)
 		{
-			if (object.ReferenceEquals(other, null)) throw new ArgumentNullException("other");
+			if (object.ReferenceEquals(other, null)) return false;
 
 			return this.distance == other.distance;
 		}
 
 		public int CompareTo(object obj)
 		{
-			if (!(obj is Interval)) throw new ArgumentException("Argument is not an Interval object", "obj");
-
 			Interval other = obj as Interval;
+
+			if (object.ReferenceEquals(other, null)) throw new ArgumentException("Argument is not a valid pitch value", "obj");
 
 			return this.CompareTo(other);
 		}
@@ -82,31 +78,49 @@ namespace Tedesco
 
 		public static bool operator ==(Interval left, Interval right)
 		{
+			if (object.ReferenceEquals(left, null)) return false;
+			if (object.ReferenceEquals(right, null)) return false;
+
 			return left.distance == right.distance;
 		}
 
 		public static bool operator !=(Interval left, Interval right)
 		{
+			if (object.ReferenceEquals(left, null)) return true;
+			if (object.ReferenceEquals(right, null)) return true;
+
 			return !(left == right);
 		}
 
 		public static bool operator <(Interval left, Interval right)
 		{
+			if (object.ReferenceEquals(left, null)) return false;
+			if (object.ReferenceEquals(right, null)) return false;
+
 			return left.CompareTo(right) < 0;
 		}
 
 		public static bool operator <=(Interval left, Interval right)
 		{
+			if (object.ReferenceEquals(left, null)) return false;
+			if (object.ReferenceEquals(right, null)) return false;
+
 			return left.CompareTo(right) <= 0;
 		}
 
 		public static bool operator >(Interval left, Interval right)
 		{
+			if (object.ReferenceEquals(left, null)) return false;
+			if (object.ReferenceEquals(right, null)) return false;
+
 			return left.CompareTo(right) > 0;
 		}
 
 		public static bool operator >=(Interval left, Interval right)
 		{
+			if (object.ReferenceEquals(left, null)) return false;
+			if (object.ReferenceEquals(right, null)) return false;
+
 			return left.CompareTo(right) >= 0;
 		}
 	}

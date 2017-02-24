@@ -6,6 +6,9 @@ namespace Tedesco
 	{
 		public bool IsTokenCorrectFormat(string token)
 		{
+			if (string.IsNullOrEmpty(token))
+				return false;
+
 			const int MinTextLength = 2;
 			const int MaxTextLength = 4;
 
