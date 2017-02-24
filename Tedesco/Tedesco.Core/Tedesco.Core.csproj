@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Model\Midi\MidiMath.cs" />
     <Compile Include="Model\Exceptions\NoteFormatException.cs" />
     <Compile Include="Infrastructure\Parsers\FrequencyPitchRecognizer.cs" />
