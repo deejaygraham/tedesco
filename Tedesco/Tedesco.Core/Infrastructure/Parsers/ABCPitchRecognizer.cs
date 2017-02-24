@@ -4,6 +4,8 @@ namespace Tedesco
 {
 	public class ABCPitchRecognizer : IUnderstandPitchFormat
 	{
+		public MidiOctaveFormat Format { get; set; }
+
 		public bool IsTokenCorrectFormat(string token)
 		{
 			if (string.IsNullOrEmpty(token))
@@ -19,7 +21,7 @@ namespace Tedesco
 		{
 			try
 			{
-				return NoteNamer.PitchOf(token);
+				return NoteNamer.PitchOf(token, this.Format);
 			}
 			catch (NoteFormatException)
 			{

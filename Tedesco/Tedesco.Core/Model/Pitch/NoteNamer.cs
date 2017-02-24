@@ -48,12 +48,12 @@ namespace Tedesco
 
 		public static string NameOf(int value)
 		{
-			if (value < 0) throw new NoteFormatException();
-
-			return NoteNames[value % 12];
+			if (value < 0) throw new NoteFormatException(value);
+			
+			return NoteNames[PitchScaler.Scale(value)];
 		}
 
-		public static Pitch PitchOf(string note)
+		public static Pitch PitchOf(string note, MidiOctaveFormat format = MidiOctaveFormat.Standard)
 		{
 			const int MinimumTextLength = 2;
 
@@ -86,6 +86,9 @@ namespace Tedesco
 
 			string octaveText = note.Substring(NamePartLength);
 			int octaveValue = Convert.ToInt32(octaveText);
+
+			//if (format == MidiOctaveFormat.HighC)
+			//	octaveValue++;
 
 			return new Pitch(scaleDegree, octaveValue);
 		}

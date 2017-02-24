@@ -44,9 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Model\Chord\Chord.cs" />
+    <Compile Include="Model\Exceptions\IntervalFormatException.cs" />
+    <Compile Include="Model\Exceptions\PitchValueException.cs" />
+    <Compile Include="Model\Exceptions\OctaveValueException.cs" />
     <Compile Include="Model\Midi\MidiMath.cs" />
     <Compile Include="Model\Exceptions\NoteFormatException.cs" />
     <Compile Include="Infrastructure\Parsers\FrequencyPitchRecognizer.cs" />
+    <Compile Include="Model\Midi\MidiOctaveFormat.cs" />
     <Compile Include="Model\Pitch\IntervalNamer.cs" />
     <Compile Include="Model\Pitch\IReadPitches.cs" />
     <Compile Include="Model\Midi\MidiNoteValue.cs" />
@@ -54,10 +59,14 @@
     <Compile Include="Model\Pitch\IntervalDistance.cs" />
     <Compile Include="Model\Pitch\IUnderstandPitchFormat.cs" />
     <Compile Include="Model\Pitch\NoteNamer.cs" />
+    <Compile Include="Model\Pitch\OctaveCalculator.cs" />
     <Compile Include="Model\Pitch\Pitch.cs" />
     <Compile Include="Infrastructure\Parsers\PitchReader.cs" />
     <Compile Include="Infrastructure\Parsers\ABCPitchRecognizer.cs" />
+    <Compile Include="Model\Pitch\PitchScaler.cs" />
     <Compile Include="Model\Pitch\ScaleDegree.cs" />
+    <Compile Include="Model\Pitch\IntervalPattern.cs" />
+    <Compile Include="Model\Scale\Scale.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,8 +11,13 @@ namespace Tedesco
 		{
 		}
 
+		public NoteFormatException(int value)
+			: base(string.Format("Value \'{0}\' is not a valid value", value))
+		{
+		}
+
 		public NoteFormatException(string message)
-			: base(message)
+			: base(string.Format("Note \'{0}\' is not recognised as a valid format", message))
 		{
 		}
 

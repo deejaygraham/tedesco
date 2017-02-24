@@ -12,13 +12,12 @@ namespace Tedesco
 
 		public Interval(int semitones)
 		{
-			if (semitones < 0) throw new ArgumentException("value is not recognised as a valid interval", "semitones");
+			if (semitones < 0) throw new IntervalFormatException(semitones);
 
-			while (semitones > (int)IntervalDistance.PerfectOctave)
-				semitones -= (int)IntervalDistance.PerfectOctave;
+			semitones = PitchScaler.Scale(semitones);
 
 			if (!Enum.IsDefined(typeof(IntervalDistance), semitones))
-				throw new ArgumentException("value is not recognised as a valid interval", "semitones");
+				throw new IntervalFormatException(semitones);
 
 			this.distance = (IntervalDistance)semitones;
 		}

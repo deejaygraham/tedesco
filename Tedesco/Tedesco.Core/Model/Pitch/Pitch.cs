@@ -17,17 +17,18 @@ namespace Tedesco
 		}
 
 		public Pitch(int scaleDegree)
-			: this (scaleDegree, 0)
 		{
+			this.value = Math.Abs(scaleDegree);
 		}
 
-		public Pitch(int scaleDegree, int octave)
+		public Pitch(int scaleDegree, int octave, MidiOctaveFormat format = MidiOctaveFormat.Standard)
 		{
-			if (scaleDegree < 0) throw new ArgumentOutOfRangeException("scaleDegree", "Value cannot be negative");
+			if (octave < -2)
+				throw new OctaveValueException(octave);
 
-			if (octave < 0) throw new ArgumentOutOfRangeException("octave", "Value cannot be negative");
+			int octaveModifier = format == MidiOctaveFormat.Standard ? 2 : 1;
 
-			this.value = scaleDegree + (Interval.Octave.Semitones * octave);
+			this.value = PitchScaler.Scale(scaleDegree) + (Interval.Octave.Semitones * (octaveModifier + octave));
 		}
 
 		public Pitch(MidiNoteValue value)
@@ -55,7 +56,7 @@ namespace Tedesco
 		{
 			get
 			{
-				return (ScaleDegree)(this.value % 12);
+				return (ScaleDegree)(PitchScaler.Scale(this.value));
 			}
 		}
 
@@ -63,7 +64,7 @@ namespace Tedesco
 		{
 			get
 			{
-				return this.value / 12;
+				return OctaveCalculator.OctaveOf(this.value);
 			}
 		}
 

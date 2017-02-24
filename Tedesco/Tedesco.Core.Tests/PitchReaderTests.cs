@@ -12,12 +12,14 @@ namespace Tedesco.Tests
 			Assert.Equal(0, reader.ReadToEnd("                                                  ").Count());
 		}
 
+		// c-1 is 0, c#-1 is 1, db-1 db0 db1 / g8 is 127
+
 		[Fact]
 		public void Recognizes_Comma_Delimited_ABC_Values()
 		{
 			var reader = new PitchReader(new ABCPitchRecognizer());
 
-			var list = reader.ReadToEnd(" C5, G10,C0		,		C5").ToList();
+			var list = reader.ReadToEnd(" C3, G8,C-2		,		C3").ToList();
 
 			Assert.Equal(4, list.Count());
 			Assert.Equal(new Pitch(60), list[0]);

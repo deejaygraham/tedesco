@@ -14,7 +14,7 @@ namespace Tedesco
 			double frequency = 0.0;
 
 			if (Double.TryParse(token, out frequency))
-				return MidiMath.ToNote(frequency);
+				return MidiMath.ToPitch(frequency);
 
 			throw new NoteFormatException(token);
         }
