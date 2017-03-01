@@ -68,10 +68,32 @@ namespace Tedesco.Tests
 		}
 
 		[Fact]
+		public void Sharpen_Leaves_Original_Pitch_Unchanged()
+		{
+			var n1 = new Pitch(125);
+			var n2 = new Pitch(125);
+
+			n2.SharpenBy(1);
+
+			Assert.Equal(n1, n2);
+		}
+
+		[Fact]
 		public void Flattened_Pitch_Is_Lower_Than_Original()
 		{
 			var original = new Pitch(100);
 			Assert.True(original.Flatten() < original);
+		}
+
+		[Fact]
+		public void Flatten_Leaves_Original_Pitch_Unchanged()
+		{
+			var n1 = new Pitch(125);
+			var n2 = new Pitch(125);
+
+			n2.FlattenBy(1);
+
+			Assert.Equal(n1, n2);
 		}
 
 		[Fact]

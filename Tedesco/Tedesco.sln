@@ -1,11 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tedesco.Core", "Tedesco.Core\Tedesco.Core.csproj", "{FDAFE162-AEDF-448B-8C6A-D0E45DB09B4C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tedesco.Core.Tests", "Tedesco.Core.Tests\Tedesco.Core.Tests.csproj", "{BD95915D-3B5B-4366-8F27-6574DE14AA31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tedesco.Midi", "Tedesco.Midi\Tedesco.Midi.csproj", "{2A0E0CC1-8763-4662-89B3-4287B222F97C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tedesco.Evolution", "Tedesco.Evolution\Tedesco.Evolution.csproj", "{E741390A-96E2-4200-B9B4-92D52CDAFE7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tedesco.WalkingSkeleton", "Tedesco.WalkingSkeleton\Tedesco.WalkingSkeleton.csproj", "{9160B146-3474-4D58-BC59-E6131DB63D57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tedesco.Evolution.Tests", "Tedesco.Evolution.Tests\Tedesco.Evolution.Tests.csproj", "{55E2D936-DEB0-46AA-862F-C3000A5009BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +29,22 @@ Global
 		{BD95915D-3B5B-4366-8F27-6574DE14AA31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD95915D-3B5B-4366-8F27-6574DE14AA31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD95915D-3B5B-4366-8F27-6574DE14AA31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A0E0CC1-8763-4662-89B3-4287B222F97C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A0E0CC1-8763-4662-89B3-4287B222F97C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A0E0CC1-8763-4662-89B3-4287B222F97C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A0E0CC1-8763-4662-89B3-4287B222F97C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E741390A-96E2-4200-B9B4-92D52CDAFE7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E741390A-96E2-4200-B9B4-92D52CDAFE7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E741390A-96E2-4200-B9B4-92D52CDAFE7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E741390A-96E2-4200-B9B4-92D52CDAFE7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9160B146-3474-4D58-BC59-E6131DB63D57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9160B146-3474-4D58-BC59-E6131DB63D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9160B146-3474-4D58-BC59-E6131DB63D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9160B146-3474-4D58-BC59-E6131DB63D57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55E2D936-DEB0-46AA-862F-C3000A5009BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55E2D936-DEB0-46AA-862F-C3000A5009BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55E2D936-DEB0-46AA-862F-C3000A5009BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55E2D936-DEB0-46AA-862F-C3000A5009BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

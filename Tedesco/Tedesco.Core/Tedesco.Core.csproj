@@ -48,6 +48,15 @@
     <Compile Include="Model\Exceptions\IntervalFormatException.cs" />
     <Compile Include="Model\Exceptions\PitchValueException.cs" />
     <Compile Include="Model\Exceptions\OctaveValueException.cs" />
+    <Compile Include="Model\Fingerboard\FingerboardInstrument.cs" />
+    <Compile Include="Model\Fingerboard\SixStringGuitarInstrument.cs" />
+    <Compile Include="Model\Fingerboard\TunedString.cs" />
+    <Compile Include="Model\Fingering\DuplicateFingeringFinder.cs" />
+    <Compile Include="Model\Fingering\Fingering.cs" />
+    <Compile Include="Model\Fingering\FingeringPrinter.cs" />
+    <Compile Include="Model\Fingering\FingerPosition.cs" />
+    <Compile Include="Model\Fingering\FingerSearchArgs.cs" />
+    <Compile Include="Model\Melody\Melody.cs" />
     <Compile Include="Model\Midi\MidiMath.cs" />
     <Compile Include="Model\Exceptions\NoteFormatException.cs" />
     <Compile Include="Infrastructure\Parsers\FrequencyPitchRecognizer.cs" />
@@ -69,6 +78,7 @@
     <Compile Include="Model\Scale\Scale.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

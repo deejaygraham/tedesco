@@ -25,7 +25,7 @@ namespace Tedesco.Tests
 		[Fact]
 		public void Recognizes_C4_As_Higher_Middle_C()
 		{
-			Assert.Equal(new Pitch(72), NoteNamer.PitchOf("C4", MidiOctaveFormat.Higher));
+			Assert.Equal(new Pitch(60), NoteNamer.PitchOf("C4", MidiOctaveFormat.Higher));
 		}
 
 		[Fact]

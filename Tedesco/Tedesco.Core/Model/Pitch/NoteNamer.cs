@@ -87,10 +87,7 @@ namespace Tedesco
 			string octaveText = note.Substring(NamePartLength);
 			int octaveValue = Convert.ToInt32(octaveText);
 
-			//if (format == MidiOctaveFormat.HighC)
-			//	octaveValue++;
-
-			return new Pitch(scaleDegree, octaveValue);
+			return new Pitch(scaleDegree, octaveValue, format);
 		}
 	}
 }

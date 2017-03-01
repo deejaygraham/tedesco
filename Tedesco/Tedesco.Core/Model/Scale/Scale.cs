@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Tedesco
@@ -9,6 +10,10 @@ namespace Tedesco
 
 		public Scale(Pitch tonic, IntervalPattern pattern)
 		{
+			if (tonic == null) throw new ArgumentNullException("tonic");
+
+			if (pattern == null) throw new ArgumentNullException("pattern");
+
 			this.scale.Add(tonic);
 
 			Pitch current = tonic;
