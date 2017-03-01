@@ -16,7 +16,10 @@ namespace Tedesco.Tests
 
 			var intervals = dictionary[WellKnownScale.Chromatic];
 
-			Assert.Equal(8, intervals.Values.Count());
+			foreach(var v in intervals.Values)
+			{
+				Assert.Equal(1, v.Semitones);
+			}
 		}
 	}
 }
