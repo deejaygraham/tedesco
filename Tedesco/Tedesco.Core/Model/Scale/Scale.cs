@@ -9,6 +9,11 @@ namespace Tedesco
 		private List<Pitch> scale = new List<Pitch>();
 
 		public Scale(Pitch tonic, IntervalPattern pattern)
+			: this(tonic, pattern, 1)
+		{
+		}
+
+		public Scale(Pitch tonic, IntervalPattern pattern, int octaves)
 		{
 			if (tonic == null) throw new ArgumentNullException("tonic");
 
@@ -18,10 +23,13 @@ namespace Tedesco
 
 			Pitch current = tonic;
 
-			foreach(Interval v in pattern.Values)
+			for (int i = 0; i < octaves; ++i)
 			{
-				current = current + v;
-				this.scale.Add(current);
+				foreach (Interval v in pattern.Values)
+				{
+					current = current + v;
+					this.scale.Add(current);
+				}
 			}
 		}
 
@@ -32,19 +40,5 @@ namespace Tedesco
 				return new ReadOnlyCollection<Pitch>(this.scale);
 			}
 		}
-
-		public static Scale Chromatic(Pitch tonic, int octaves = 1)
-		{
-			var pattern = new IntervalPattern();
-
-			for (int i = 0; i < ((int)IntervalDistance.PerfectOctave * octaves); ++i)
-			{
-				pattern.Add(Interval.Semitone);
-			}
-
-			return new Scale(tonic, pattern);
-		}
-
-		// need major, melodic minor etc.
 	}
 }

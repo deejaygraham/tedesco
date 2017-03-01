@@ -69,6 +69,7 @@
     <Compile Include="PitchReaderTests.cs" />
     <Compile Include="PitchTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScaleTests.cs" />
     <Compile Include="SixStringGuitarInstrumentTests.cs" />
     <Compile Include="TunedStringTests.cs" />
   </ItemGroup>
