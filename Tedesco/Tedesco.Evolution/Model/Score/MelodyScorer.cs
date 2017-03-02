@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tedesco.Evolution
 {
-	public class MelodyScorer : IRelativeScorer<Melody>
+	public class MelodyScorer : IScoreRelative<Melody>
 	{
 		private ComparisonMode comparisonMode = ComparisonMode.Loose;
 

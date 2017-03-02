@@ -2,17 +2,13 @@
 
 namespace Tedesco.Evolution
 {
-	public class RandomValueSelector : IValueSelector
+	public class RandomValueSelector : ISelectValue
 	{
 		private Random random = new Random((int)DateTime.Now.Ticks);
 
-		public RandomValueSelector()
+		public int Upto(int length)
 		{
-		}
-
-		public int Index(int arrayLength)
-		{
-			return random.Next(0, arrayLength);
+			return random.Next(0, length);
 		}
 
 		public bool Boolean()
@@ -20,14 +16,14 @@ namespace Tedesco.Evolution
 			return random.Next(0, 2) == 1;
 		}
 
-		public int Integer(int lowestValue, int highestValue)
+		public int Between(int lowestValue, int highestValue)
 		{
 			return random.Next(lowestValue, highestValue + 1);
 		}
 
-		public int Integer(int highestValue)
+		public int BetweenZeroAnd(int highestValue)
 		{
-			return random.Next(highestValue + 1);
+			return Between(0, highestValue);
 		}
 	}
 

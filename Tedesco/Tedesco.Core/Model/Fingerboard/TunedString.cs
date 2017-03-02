@@ -65,6 +65,11 @@ namespace Tedesco
 			return list;
 		}
 
+		public IEnumerable<FingerPosition> FindAllPositionsFor(Pitch p)
+		{
+			return this.FindAllPositionsFor(22, p);
+		}
+
 		public IEnumerable<FingerPosition> FindAllPositionsFor(int fretRange, Pitch p)
 		{
 			return this.FindAllPositionsFor(fretRange, args => args.Pitch == p);

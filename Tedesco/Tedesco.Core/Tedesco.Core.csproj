@@ -55,10 +55,11 @@
     <Compile Include="Model\Fingerboard\UkeleleInstrument.cs" />
     <Compile Include="Model\Fingering\DuplicateFingeringFinder.cs" />
     <Compile Include="Model\Fingering\Fingering.cs" />
-    <Compile Include="Model\Fingering\FingeringPrinter.cs" />
+    <Compile Include="Infrastructure\Printers\FingeringPrinter.cs" />
     <Compile Include="Model\Fingering\FingerPosition.cs" />
     <Compile Include="Model\Fingering\FingerSearchArgs.cs" />
     <Compile Include="Model\Melody\Melody.cs" />
+    <Compile Include="Model\Melody\MelodyMaker.cs" />
     <Compile Include="Model\Midi\MidiMath.cs" />
     <Compile Include="Model\Exceptions\NoteFormatException.cs" />
     <Compile Include="Infrastructure\Parsers\FrequencyPitchRecognizer.cs" />

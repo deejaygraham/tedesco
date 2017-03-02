@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tedesco.Evolution
 {
-	public class StringSpreadScorer : IScorer<Fingering>
+	public class StringSpreadScorer : IScore<Fingering>
 	{
 		public int Score(Fingering item)
 		{

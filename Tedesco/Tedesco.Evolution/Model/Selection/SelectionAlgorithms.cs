@@ -17,7 +17,7 @@ namespace Tedesco.Evolution
 			return list.Take(howMany);
 		}
 
-		public static IEnumerable<T> PickFrom(IEnumerable<T> selection, int howMany, IValueSelector randomness)
+		public static IEnumerable<T> PickFrom(IEnumerable<T> selection, int howMany, ISelectValue randomness)
 		{
 			if (howMany > selection.Count())
 				throw new ArgumentOutOfRangeException("howMany", "Count cannot be more the number of values");
@@ -27,7 +27,7 @@ namespace Tedesco.Evolution
 
 			for (int i = 0; i < howMany; ++i)
 			{
-				int randomIndex = randomness.Integer(list.Count);
+				int randomIndex = randomness.BetweenZeroAnd(list.Count);
 
 				T candidateSolution = list[randomIndex];
 				randomCandidates.Add(candidateSolution);

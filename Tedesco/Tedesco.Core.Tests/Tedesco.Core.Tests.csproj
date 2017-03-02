@@ -62,7 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FakeNoteParser.cs" />
+    <Compile Include="FingerPositionTests.cs" />
     <Compile Include="IntervalTests.cs" />
+    <Compile Include="MelodyMakerTests.cs" />
     <Compile Include="MidiMathTests.cs" />
     <Compile Include="NoteNamerTests.cs" />
     <Compile Include="OctaveCalculatorTests.cs" />

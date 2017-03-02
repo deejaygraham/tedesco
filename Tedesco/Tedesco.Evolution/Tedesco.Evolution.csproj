@@ -42,15 +42,21 @@
   <ItemGroup>
     <Compile Include="Model\Evolution\FingeringCreator.cs" />
     <Compile Include="Model\Evolution\RecombinationAlgorithms.cs" />
+    <Compile Include="Model\Evolution\SimpleEvolutionAlgorithm.cs" />
+    <Compile Include="Model\Matching\IMatchMaker.cs" />
+    <Compile Include="Model\Population\BestPopulation.cs" />
+    <Compile Include="Model\Population\IControlPopulation.cs" />
+    <Compile Include="Model\Population\ISelectPopulation.cs" />
+    <Compile Include="Model\Population\RandomPopulation.cs" />
     <Compile Include="Model\Score\ComparisonMode.cs" />
     <Compile Include="Model\Score\EasiestFingeringOrder.cs" />
     <Compile Include="Model\Score\FingeringScorer.cs" />
     <Compile Include="Model\Score\FretSpreadScorer.cs" />
-    <Compile Include="Model\Score\IRelativeScorer.cs" />
-    <Compile Include="Model\Score\IScorer.cs" />
+    <Compile Include="Model\Score\IScoreRelative.cs" />
+    <Compile Include="Model\Score\IScore.cs" />
     <Compile Include="Model\Score\MelodyScorer.cs" />
     <Compile Include="Model\Score\StringSpreadScorer.cs" />
-    <Compile Include="Model\Selection\IValueSelector.cs" />
+    <Compile Include="Model\Selection\ISelectValue.cs" />
     <Compile Include="Model\Selection\RandomValueSelector.cs" />
     <Compile Include="Model\Selection\SelectionAlgorithms.cs" />
     <Compile Include="Model\Selection\FixedValueSelector.cs" />

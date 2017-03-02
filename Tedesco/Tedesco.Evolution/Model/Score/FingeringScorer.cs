@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tedesco.Evolution
 {
-	public class FingeringScorer : IScorer<Fingering>
+	public class FingeringScorer : IScore<Fingering>
 	{
 		public int Score(Fingering item)
 		{

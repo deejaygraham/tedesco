@@ -1,7 +1,12 @@
+# User specific
 *.suo
+*.user
 *.cache
 *.dll
-Tedesco/Tedesco.Core/obj/Debug/
-Tedesco/Tedesco.Core.Tests/bin/Debug/
-Tedesco/Tedesco.Core.Tests/obj/Debug/
 *.pdb
+*.txt
+
+# Built files
+[Dd]ebug/
+[Rr]elease/
+[Oo]bj/

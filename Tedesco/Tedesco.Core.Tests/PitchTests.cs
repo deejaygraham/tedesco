@@ -108,5 +108,28 @@ namespace Tedesco.Tests
 			Assert.Equal(IntervalDistance.MajorSecond, (higher - original).Distance);
 		}
 
+		[Fact]
+		public void Pitch_Name_Is_Note()
+		{
+			var low = new Pitch(0);
+
+			Assert.Equal("C", low.Name);
+		}
+
+		[Fact]
+		public void Pitch_Name_Is_Note_And_Modifier()
+		{
+			var low = new Pitch(1);
+
+			Assert.Equal("C#", low.Name);
+		}
+
+		[Fact]
+		public void Pitch_MidiName_Includes_Octave()
+		{
+			var low = new Pitch(0);
+
+			Assert.Equal("C-2", low.MidiName);
+		}
 	}
 }

@@ -5,9 +5,9 @@ namespace Tedesco.Evolution
 	/// <summary>
 	/// Always returns fixed values to allow testing of "random" selection.
 	/// </summary>
-	public class FixedValueSelector : IValueSelector
+	public class FixedValueSelector : ISelectValue
 	{
-		public int Index(int arrayLength)
+		public int Upto(int length)
 		{
 			return 0;
 		}
@@ -17,12 +17,12 @@ namespace Tedesco.Evolution
 			return true;
 		}
 
-		public int Integer(int lowestValue, int highestValue)
+		public int Between(int lowestValue, int highestValue)
 		{
 			return lowestValue;
 		}
 
-		public int Integer(int highestValue)
+		public int BetweenZeroAnd(int highestValue)
 		{
 			return 0;
 		}

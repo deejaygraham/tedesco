@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tedesco.Evolution.Tests
 {
-	public class PredictableValueSelector : IValueSelector
+	public class PredictableValueSelector : ISelectValue
 	{
 		public PredictableValueSelector(int intValue, bool boolValue)
 		{
@@ -17,10 +17,10 @@ namespace Tedesco.Evolution.Tests
 		private int nextInt;
 		private bool nextBool;
 
-		public int Index(int arrayLength)
+		public int Upto(int length)
 		{
-			if (arrayLength >= nextInt)
-				return arrayLength - 1;
+			if (length >= nextInt)
+				return length - 1;
 
 			return nextInt;
 		}
@@ -30,12 +30,12 @@ namespace Tedesco.Evolution.Tests
 			return this.nextBool;
 		}
 
-		public int Integer(int highestValue)
+		public int BetweenZeroAnd(int highestValue)
 		{
 			return this.nextInt;
 		}
 
-		public int Integer(int lowestValue, int highestValue)
+		public int Between(int lowestValue, int highestValue)
 		{
 			return this.nextInt;
 		}

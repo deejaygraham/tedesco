@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tedesco.Evolution
 {
-	public class FretSpreadScorer : IScorer<Fingering>
+	public class FretSpreadScorer : IScore<Fingering>
 	{
 		public int Score(Fingering item)
 		{

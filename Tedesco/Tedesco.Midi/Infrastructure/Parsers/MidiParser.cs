@@ -1,6 +1,7 @@
 ﻿using NAudio.Midi;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,30 +11,46 @@ namespace Tedesco.Midi
 {
 	public class MidiParser : IReadPitches
     {
-		private readonly string file;
-
 		public MidiParser(string filename)
 		{
-			this.file = filename;
+			this.MidiFile = filename;
 		}
+
+		public MidiParser(string filename, int track)
+		{
+			this.MidiFile = filename;
+			this.Track = track;
+		}
+
+		public string MidiFile { get; private set; }
+
+		public int? Track { get; private set; }
 
 		public IEnumerable<Pitch> ReadToEnd()
 		{
-			var pitches = new List<Pitch>();
+			if (!File.Exists(this.MidiFile))
+				throw new FileNotFoundException("Midi file not found", this.MidiFile);
 
-			var midiFile = new NAudio.Midi.MidiFile(this.file);
+			var midi = new NAudio.Midi.MidiFile(this.MidiFile);
 
-			const int FirstTrack = 0;
-
-			foreach (var noteOnEvent in midiFile.Events.GetTrackEvents(FirstTrack).Where(e => e.CommandCode == MidiCommandCode.NoteOn))
+			for (int track = 0; track < midi.Tracks; ++track)
 			{
-				NoteEvent noteEvent = noteOnEvent as NoteEvent;
+				if (this.Track.HasValue && this.Track != track)
+					continue;
 
-				if (noteEvent != null)
-					pitches.Add(new Pitch(noteEvent.NoteNumber));
+				foreach (MidiEvent @event in midi.Events[track])
+				{
+					if (MidiCommandCode.NoteOn == @event.CommandCode)
+					{
+						NoteOnEvent noteOn = @event as NoteOnEvent;
+
+						if (noteOn != null)
+						{
+							yield return new Pitch(noteOn.NoteNumber);
+						}
+					}
+				}
 			}
-
-			return pitches;
 		}
 	}
 }

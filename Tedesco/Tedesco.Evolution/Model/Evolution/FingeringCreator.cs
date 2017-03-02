@@ -8,7 +8,7 @@ namespace Tedesco.Evolution
 {
 	public static class FingeringCreator
 	{
-		public static Fingering CreateFingeringFor(this FingerboardInstrument instrument, Melody piece, IValueSelector randomness)
+		public static Fingering CreateFingeringFor(this FingerboardInstrument instrument, Melody piece, ISelectValue randomness)
 		{
 			var notes = piece.Notes;
 
@@ -18,7 +18,7 @@ namespace Tedesco.Evolution
 			{
 				var possibleAlternatives = instrument.PositionsFor(p);
 
-				int randomIndex = randomness.Integer(0, possibleAlternatives.Count - 1);
+				int randomIndex = randomness.BetweenZeroAnd(possibleAlternatives.Count - 1);
 				FingerPosition selected = possibleAlternatives[randomIndex];
 
 				fingering.Add(new FingerPosition(selected.Fret, selected.String));
