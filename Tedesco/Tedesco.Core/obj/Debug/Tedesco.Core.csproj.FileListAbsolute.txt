@@ -2,3 +2,4 @@ D:\Dev\OpenSource\GitHub\tedesco\Tedesco\Tedesco.Core\bin\Debug\Tedesco.Core.dll
 D:\Dev\OpenSource\GitHub\tedesco\Tedesco\Tedesco.Core\bin\Debug\Tedesco.Core.pdb
 D:\Dev\OpenSource\GitHub\tedesco\Tedesco\Tedesco.Core\obj\Debug\Tedesco.Core.dll
 D:\Dev\OpenSource\GitHub\tedesco\Tedesco\Tedesco.Core\obj\Debug\Tedesco.Core.pdb
+D:\Dev\OpenSource\GitHub\tedesco\Tedesco\Tedesco.Core\obj\Debug\Tedesco.Core.csprojResolveAssemblyReference.cache
