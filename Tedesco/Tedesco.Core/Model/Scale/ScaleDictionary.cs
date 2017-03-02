@@ -157,6 +157,11 @@ namespace Tedesco
 
 		public Scale Build(Pitch root, WellKnownScale scale)
 		{
+			return this.Build(root, scale, 1);
+		}
+
+		public Scale Build(Pitch root, WellKnownScale scale, int octaves)
+		{
 			if (!this.scaleLookup.ContainsKey(scale))
 			{
 				throw new ArgumentOutOfRangeException();
@@ -164,7 +169,7 @@ namespace Tedesco
 
 			string intervalSequence = this.scaleLookup[scale];
 
-			return new Scale(root, this.Build(intervalSequence));
+			return new Scale(root, this.Build(intervalSequence), octaves);
 		}
 
 		private IntervalPattern Build(string pattern)
