@@ -20,5 +20,11 @@ namespace Tedesco.Evolution
 
 			return spread;
 		}
+
+
+		public bool CloseEnough(Fingering guess)
+		{
+			return true;
+		}
 	}
 }

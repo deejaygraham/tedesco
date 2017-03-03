@@ -28,5 +28,10 @@ namespace Tedesco.Evolution
 		{
 			return array.Zip(array.Skip(1), (a, b) => (a + 1) == b).All(x => x);
 		}
+		
+		public bool CloseEnough(Fingering guess)
+		{
+			return true;
+		}
 	}
 }

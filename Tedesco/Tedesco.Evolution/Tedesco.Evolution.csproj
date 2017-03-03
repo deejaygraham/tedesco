@@ -40,12 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Evolution\EvolutionaryAlgorithm.cs" />
+    <Compile Include="Model\Evolution\EvolutionEventArgs.cs" />
     <Compile Include="Model\Evolution\FingeringCreator.cs" />
     <Compile Include="Model\Evolution\RecombinationAlgorithms.cs" />
     <Compile Include="Model\Evolution\SimpleEvolutionAlgorithm.cs" />
     <Compile Include="Model\Matching\IMatchMaker.cs" />
     <Compile Include="Model\Population\BestPopulation.cs" />
     <Compile Include="Model\Population\IControlPopulation.cs" />
+    <Compile Include="Model\Population\ICreatePopulation.cs" />
+    <Compile Include="Model\Population\IMutator.cs" />
     <Compile Include="Model\Population\ISelectPopulation.cs" />
     <Compile Include="Model\Population\RandomPopulation.cs" />
     <Compile Include="Model\Score\ComparisonMode.cs" />
