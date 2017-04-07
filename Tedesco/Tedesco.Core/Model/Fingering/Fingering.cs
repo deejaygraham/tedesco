@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Tedesco
 {
@@ -20,6 +21,34 @@ namespace Tedesco
 				return new ReadOnlyCollection<FingerPosition>(this.positions);
 			}
 		}
+
+
+		public List<HandPosition> HandPositions()
+		{
+			var list = new List<HandPosition>();
+
+			var lowToHigh = this.positions.OrderBy(p => p.Fret).Distinct();
+
+			int firstPosition = lowToHigh.First().Fret;
+
+			int handSpan = 4;
+			HandPosition first = new HandPosition(firstPosition, firstPosition + handSpan);
+
+			list.Add(first);
+
+			foreach (var p in lowToHigh.Skip(1))
+			{
+				var covered = list.FirstOrDefault(x => x.Covers(p));
+
+				if (covered == null)
+				{
+					list.Add(new HandPosition(p.Fret, p.Fret + handSpan));
+				}
+			}
+
+			return list;
+		}
+
 
 		public override int GetHashCode()
 		{
