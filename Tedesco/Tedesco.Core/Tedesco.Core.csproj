@@ -58,6 +58,7 @@
     <Compile Include="Infrastructure\Printers\FingeringPrinter.cs" />
     <Compile Include="Model\Fingering\FingerPosition.cs" />
     <Compile Include="Model\Fingering\FingerSearchArgs.cs" />
+    <Compile Include="Model\Fingering\HandPosition.cs" />
     <Compile Include="Model\Melody\Melody.cs" />
     <Compile Include="Model\Melody\MelodyMaker.cs" />
     <Compile Include="Model\Midi\MidiMath.cs" />
