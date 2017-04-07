@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Tedesco
 {
-	[DebuggerDisplay("[{@string}, {fret}]")]
+	[DebuggerDisplay("[S:{@string}, F:{fret}]")]
 	public class FingerPosition : IEquatable<FingerPosition>, IComparable<FingerPosition>, IComparable
 	{
 		private readonly int fret;
