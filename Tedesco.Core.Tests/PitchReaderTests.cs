@@ -9,7 +9,7 @@ namespace Tedesco.Tests
 		public void Recognizes_Empty_String_As_Empty()
 		{
 			var reader = new PitchReader(new ABCPitchRecognizer());
-			Assert.Equal(0, reader.ReadToEnd("                                                  ").Count());
+			Assert.Empty(reader.ReadToEnd("                                                  "));
 		}
 
 		// c-1 is 0, c#-1 is 1, db-1 db0 db1 / g8 is 127

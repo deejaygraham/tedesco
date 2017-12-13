@@ -49,7 +49,7 @@ namespace Tedesco.Tests
 			var pitch = new Pitch(100);
 			var ts = new TunedString(pitch, 1);
 
-			Assert.Equal(1, ts.FindAllPositionsFor(pitch.Sharpen()).Count());
+			Assert.Single(ts.FindAllPositionsFor(pitch.Sharpen()));
 		}
 
 		[Fact]
@@ -58,7 +58,7 @@ namespace Tedesco.Tests
 			var pitch = new Pitch(20);
 			var ts = new TunedString(pitch, 1);
 
-			Assert.Equal(0, ts.FindAllPositionsFor(new Pitch(220)).Count());
+			Assert.Empty(ts.FindAllPositionsFor(new Pitch(220)));
 		}
 
 		[Fact]
@@ -67,7 +67,7 @@ namespace Tedesco.Tests
 			var pitch = new Pitch(100);
 			var ts = new TunedString(pitch, 1);
 
-			Assert.Equal(0, ts.FindAllPositionsFor(pitch.Flatten()).Count());
+			Assert.Empty(ts.FindAllPositionsFor(pitch.Flatten()));
 		}
 
 	}

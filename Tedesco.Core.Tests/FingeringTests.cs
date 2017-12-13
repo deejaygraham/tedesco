@@ -17,7 +17,7 @@ namespace Tedesco.Tests
 			f.Add(new FingerPosition(2, 1));
 			f.Add(new FingerPosition(3, 1));
 
-			Assert.Equal(1, f.HandPositions().Count);
+			Assert.Single(f.HandPositions());
 		}
 
 		[Fact]
