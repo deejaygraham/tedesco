@@ -10,3 +10,7 @@
 [Dd]ebug/
 [Rr]elease/
 [Oo]bj/
+
+# Nuget
+/packages/
+!packages/repositories.config
