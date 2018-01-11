@@ -14,3 +14,4 @@
 # Nuget
 /packages/
 !packages/repositories.config
+/.vs/config/applicationhost.config

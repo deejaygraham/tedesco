@@ -7,7 +7,7 @@ namespace Tedesco.Tests
 		[Fact]
 		public void Recognizes_Concert_A_As_440()
 		{
-			Assert.Equal(new Pitch(69), MidiMath.ToPitch(440.0));
+			Assert.Equal(new Note(69), MidiMath.NoteFromFrequency(440.0));
 		}
 
 		//[Fact]
@@ -23,9 +23,9 @@ namespace Tedesco.Tests
 		[Fact]
 		public void Recognizes_Lowest_Piano_Frequency()
 		{
-			var pitch = MidiMath.ToPitch(27.5);
+			var pitch = MidiMath.NoteFromFrequency(27.5);
 
-			Assert.Equal(new Pitch(21), pitch);
+			Assert.Equal(new Note(21), pitch);
 			Assert.Equal("A", pitch.Name);
 		}
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Tedesco
 {
@@ -6,12 +7,17 @@ namespace Tedesco
 	{
 		public bool Equals(Fingering x, Fingering y)
 		{
-			return x.ToString().CompareTo(y.ToString()) == 0;
+            if (x == null) throw new ArgumentNullException("x");
+            if (y == null) throw new ArgumentNullException("y");
+
+            return x.ToString().CompareTo(y.ToString()) == 0;
 		}
 
 		public int GetHashCode(Fingering obj)
 		{
-			return obj.GetHashCode();
+            if (obj == null) throw new ArgumentNullException("obj");
+
+            return obj.GetHashCode();
 		}
 	}
 }

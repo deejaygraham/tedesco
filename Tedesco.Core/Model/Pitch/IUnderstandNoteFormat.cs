@@ -1,9 +1,9 @@
 ﻿
 namespace Tedesco
 {
-	public interface IUnderstandPitchFormat
+	public interface IUnderstandNoteFormat
 	{
-		Pitch Recognize(string token);
+		Note Recognize(string token);
 
 		bool IsTokenCorrectFormat(string token);
 	}

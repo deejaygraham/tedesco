@@ -18,7 +18,7 @@ namespace Tedesco.Evolution.Tests
 			Assert.Equal(5, child[0]);
 			Assert.Equal(6, child[1]);
 			Assert.Equal(1, child[2]);
-			Assert.Equal(0, child.Except(parent).Count());
+			Assert.Empty(child.Except(parent));
 		}
 
 		[Fact]
@@ -29,10 +29,10 @@ namespace Tedesco.Evolution.Tests
 
 			RecombinationAlgorithms<int>.CrossFill(child, parent, 4);
 
-			Assert.Equal(0, child.Except(parent).Count());
-		}
+            Assert.Empty(child.Except(parent));
+        }
 
-		[Fact]
+        [Fact]
 		public void CrossFill_Handles_End_To_Start()
 		{
 			List<int> parent = new List<int> { 1, 2, 3, 4, 5, 6 };

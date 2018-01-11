@@ -9,7 +9,7 @@ namespace Tedesco.Evolution
 
 			var fingering = new Fingering();
 
-			foreach (Pitch p in notes)
+			foreach (Note p in notes)
 			{
 				var possibleAlternatives = instrument.PositionsFor(p);
 

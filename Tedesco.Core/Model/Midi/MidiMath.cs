@@ -4,7 +4,7 @@ namespace Tedesco
 {
 	public static class MidiMath
 	{
-		public static Pitch ToPitch(double frequencyInHertz)
+		public static Note NoteFromFrequency(double frequencyInHertz)
 		{
 			const double ConcertAInHertz = 440.0;
 			const int ConcertAInMidi = 69;
@@ -16,7 +16,7 @@ namespace Tedesco
 			//if (semitones < (int)MidiNoteValue.C0 || semitones > (int)MidiNoteValue.G10)
 			//	throw new ArgumentOutOfRangeException("frequency", "frequency cannot be expressed as a midi value");
 
-			return new Pitch(semitones);
+			return new Note(semitones);
 		}
 
 		//Hertz = 440.0 * pow(2.0, (midi note - 69)/12); 

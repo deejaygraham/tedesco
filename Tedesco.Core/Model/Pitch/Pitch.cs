@@ -3,6 +3,7 @@ using System.Diagnostics;
 
 namespace Tedesco
 {
+    [Obsolete("Use Note instead")]
 	[DebuggerDisplay("{value}")]
 	public class Pitch : IEquatable<Pitch>, IComparable<Pitch>, IComparable
 	{
@@ -31,7 +32,7 @@ namespace Tedesco
 			this.value = PitchScaler.Scale(scaleDegree) + (Interval.Octave.Semitones * (octaveModifier + octave));
 		}
 
-		public Pitch(MidiNoteValue value)
+		public Pitch(MidiValue value)
 		{
 			this.value = (int)value;
 		}
@@ -170,7 +171,12 @@ namespace Tedesco
 			return new Pitch(this.value + (int)semitones);
 		}
 
-		public Pitch SharpenBy(int semitones)
+        public Pitch SharpenBy(ScaleDegree degree)
+        {
+            return new Pitch(this.value + (2 * (int)degree));
+        }
+
+        public Pitch SharpenBy(int semitones)
 		{
 			return new Pitch(this.value + semitones);
 		}
@@ -185,7 +191,12 @@ namespace Tedesco
 			return new Pitch(this.value - (int)semitones);
 		}
 
-		public Pitch FlattenBy(int semitones)
+        public Pitch FlattenBy(ScaleDegree degree)
+        {
+            return new Pitch(this.value - (2 * (int)degree));
+        }
+
+        public Pitch FlattenBy(int semitones)
 		{
 			return new Pitch(this.value - semitones);
 		}
@@ -240,7 +251,12 @@ namespace Tedesco
 			return Pitch.Add(note, interval);
 		}
 
-		public static Pitch operator +(Pitch note, int offset)
+        public static Pitch operator +(Pitch note, ScaleDegree degree)
+        {
+            return note.SharpenBy(degree);
+        }
+
+        public static Pitch operator +(Pitch note, int offset)
 		{
 			return Pitch.Add(note, offset);
 		}
@@ -250,7 +266,12 @@ namespace Tedesco
 			return Pitch.Subtract(note, interval);
 		}
 
-		public static Pitch operator -(Pitch note, int offset)
+        public static Pitch operator -(Pitch note, ScaleDegree degree)
+        {
+            return note.FlattenBy(degree);
+        }
+
+        public static Pitch operator -(Pitch note, int offset)
 		{
 			return Pitch.Subtract(note, offset);
 		}

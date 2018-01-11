@@ -8,41 +8,43 @@ namespace Tedesco
 	[DebuggerDisplay("{open}")]
 	public class TunedString
 	{
-		private Pitch open;
+		private Note open;
 
 		public TunedString()
 		{
-			this.open = new Pitch(0);
+			this.open = new Note(0);
 			this.Number = 0;
 		}
 
-		public TunedString(Pitch p, int number)
+		public TunedString(Note p, int number)
 		{
-			this.open = new Pitch(p);
+			this.open = new Note(p);
 			this.Number = number;
 		}
 
-		public Pitch Open
+		public Note Open
 		{
 			get
 			{
-				return new Pitch(this.open);
+				return new Note(this.open);
 			}
 		}
 
 		public int Number { get; private set; }
 
-		public void TuneTo(Pitch p)
+		public void TuneTo(Note openPitch)
 		{
-			this.open = new Pitch(p);
+			this.open = new Note(openPitch);
 		}
 
-		public Pitch PitchAt(int fret)
+		public Note PitchAt(int fret)
 		{
 			if (fret < 0)
 				throw new ArgumentOutOfRangeException("fret", "Fret must be zero or positive");
 
-			return this.open.SharpenBy(fret);
+            var interval = new Interval(fret);
+
+			return this.open + interval;
 		}
 
 		public IEnumerable<FingerPosition> FindAllPositionsFor(int fretRange, Predicate<FingerSearchArgs> decider)
@@ -51,7 +53,7 @@ namespace Tedesco
 
 			foreach (var fret in Enumerable.Range(0, fretRange + 1))
 			{
-				Pitch candidate = this.PitchAt(fret);
+				Note candidate = this.PitchAt(fret);
 
 				var position = new FingerPosition(fret, this.Number);
 				var args = new FingerSearchArgs { Pitch = candidate, Position = position };
@@ -65,19 +67,19 @@ namespace Tedesco
 			return list;
 		}
 
-		public IEnumerable<FingerPosition> FindAllPositionsFor(Pitch p)
+		public IEnumerable<FingerPosition> FindAllPositionsFor(Note pitch)
 		{
-			return this.FindAllPositionsFor(22, p);
+			return this.FindAllPositionsFor(22, pitch);
 		}
 
-		public IEnumerable<FingerPosition> FindAllPositionsFor(int fretRange, Pitch p)
+		public IEnumerable<FingerPosition> FindAllPositionsFor(int fretRange, Note pitch)
 		{
-			return this.FindAllPositionsFor(fretRange, args => args.Pitch == p);
+			return this.FindAllPositionsFor(fretRange, args => args.Pitch == pitch);
 		}
 
-		public IEnumerable<FingerPosition> FindAllPositionsForNote(int fretRange, Pitch p)
+		public IEnumerable<FingerPosition> FindAllPositionsForNote(int fretRange, Note pitch)
 		{
-			return this.FindAllPositionsFor(fretRange, args => args.Pitch.Degree == p.Degree);
+			return this.FindAllPositionsFor(fretRange, args => args.Pitch.Degree == pitch.Degree);
 		}
 	}
 

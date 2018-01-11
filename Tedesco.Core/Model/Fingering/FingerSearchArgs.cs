@@ -5,6 +5,6 @@ namespace Tedesco
 	{
 		public FingerPosition Position { get; set; }
 
-		public Pitch Pitch { get; set; }
+		public Note Pitch { get; set; }
 	}
 }

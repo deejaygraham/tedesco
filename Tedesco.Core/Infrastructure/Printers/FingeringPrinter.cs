@@ -1,11 +1,16 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace Tedesco
 {
-	public class FingeringPrinter
+	public static class FingeringPrinter
 	{
-		public string Print(Fingering fingering, FingerboardInstrument instrument)
+		public static string Print(Fingering fingering, FingerboardInstrument instrument)
 		{
+            if (fingering == null) throw new ArgumentNullException("fingering");
+
+            if (instrument == null) throw new ArgumentNullException("instrument");
+
 			var builder = new StringBuilder();
 
 			foreach(var s in instrument.Strings)

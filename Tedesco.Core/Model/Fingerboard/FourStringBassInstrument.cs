@@ -2,20 +2,20 @@
 
 namespace Tedesco
 {
-	class FourStringBassInstrument : FingerboardInstrument
+	public class FourStringBassInstrument : FingerboardInstrument
 	{
-		public static readonly MidiNoteValue EString = MidiNoteValue.E0;
-		public static readonly MidiNoteValue AString = MidiNoteValue.A0;
-		public static readonly MidiNoteValue DString = MidiNoteValue.D1;
-		public static readonly MidiNoteValue GString = MidiNoteValue.G1;
+		public static readonly MidiValue EString = MidiValue.E0;
+		public static readonly MidiValue AString = MidiValue.A0;
+		public static readonly MidiValue DString = MidiValue.D1;
+		public static readonly MidiValue GString = MidiValue.G1;
 
 		public FourStringBassInstrument()
-			: base(new List<Pitch> 
+			: base(new List<Note> 
 			{ 
-				new Pitch(EString), 
-				new Pitch(AString), 
-				new Pitch(DString), 
-				new Pitch(GString) }, 
+				new Note(EString), 
+				new Note(AString), 
+				new Note(DString), 
+				new Note(GString) }, 
 				22)
 		{
 		}

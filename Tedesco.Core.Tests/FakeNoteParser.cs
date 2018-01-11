@@ -2,23 +2,23 @@
 
 namespace Tedesco.Tests
 {
-	public class FakeNoteParser : IReadPitches
+	public class FakeNoteParser : IReadNotes
 	{
-		private List<Pitch> pitches = new List<Pitch>();
+		private List<Note> pitches = new List<Note>();
 
 		public static FakeNoteParser Parser()
 		{
 			return new FakeNoteParser();
 		}
 
-		public FakeNoteParser WithPitch(Pitch p)
+		public FakeNoteParser WithPitch(Note p)
 		{
 			this.pitches.Add(p);
 
 			return this;
 		}
 
-		public IEnumerable<Pitch> ReadToEnd()
+		public IEnumerable<Note> ReadToEnd()
 		{
 			return this.pitches;
 		}

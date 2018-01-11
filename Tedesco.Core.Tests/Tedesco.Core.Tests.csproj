@@ -47,6 +47,14 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Xbehave.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=e4957f48888f9fe8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xbehave.Core.2.3.0\lib\net452\Xbehave.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xbehave.Execution.desktop, Version=2.3.0.0, Culture=neutral, PublicKeyToken=e4957f48888f9fe8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xbehave.Core.2.3.0\lib\net452\Xbehave.Execution.desktop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.abstractions.2.0.1\lib\net35\xunit.abstractions.dll</HintPath>
       <Private>True</Private>
@@ -65,18 +73,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChordDictionaryTests.cs" />
+    <Compile Include="Examples\NoteTests.cs" />
     <Compile Include="FakeNoteParser.cs" />
     <Compile Include="FingeringTests.cs" />
     <Compile Include="FingerPositionTests.cs" />
     <Compile Include="HandPositionTests.cs" />
+    <Compile Include="IntervalPatternTests.cs" />
     <Compile Include="IntervalTests.cs" />
     <Compile Include="MelodyMakerTests.cs" />
     <Compile Include="MidiMathTests.cs" />
     <Compile Include="NoteNamerTests.cs" />
+    <Compile Include="NoteTests.cs" />
     <Compile Include="OctaveCalculatorTests.cs" />
     <Compile Include="PitchReaderTests.cs" />
     <Compile Include="PitchTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScaleBuilderTests.cs" />
     <Compile Include="ScaleTests.cs" />
     <Compile Include="SixStringGuitarInstrumentTests.cs" />
     <Compile Include="TunedStringTests.cs" />
@@ -91,6 +104,7 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

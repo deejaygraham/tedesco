@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Tedesco.Midi
 {
-	public class MidiParser : IReadPitches
+	public class MidiParser : IReadNotes
     {
 		public MidiParser(string filename)
 		{
@@ -21,7 +21,7 @@ namespace Tedesco.Midi
 
 		public int? Track { get; private set; }
 
-		public IEnumerable<Pitch> ReadToEnd()
+		public IEnumerable<Note> ReadToEnd()
 		{
 			if (!File.Exists(this.MidiFile))
 				throw new FileNotFoundException("Midi file not found", this.MidiFile);
@@ -41,7 +41,7 @@ namespace Tedesco.Midi
 
 						if (noteOn != null)
 						{
-							yield return new Pitch(noteOn.NoteNumber);
+							yield return new Note(noteOn.NoteNumber);
 						}
 					}
 				}

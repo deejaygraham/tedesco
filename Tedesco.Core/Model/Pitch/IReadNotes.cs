@@ -2,8 +2,8 @@
 
 namespace Tedesco
 {
-	public interface IReadPitches
+	public interface IReadNotes
 	{
-		IEnumerable<Pitch> ReadToEnd();
+		IEnumerable<Note> ReadToEnd();
 	}
 }

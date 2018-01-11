@@ -16,9 +16,7 @@ namespace Tedesco.WalkingSkeleton
 			walkingBassFingering.Add(new FingerPosition(2, 1));
 			walkingBassFingering.Add(new FingerPosition(3, 1));
 
-			FingeringPrinter printer = new FingeringPrinter();
-
-			Console.WriteLine(printer.Print(walkingBassFingering, instrument));
+			Console.WriteLine(FingeringPrinter.Print(walkingBassFingering, instrument));
 
 			// build the list of notes
 			var melody = walkingBassFingering.ToMelody(instrument);
@@ -26,7 +24,7 @@ namespace Tedesco.WalkingSkeleton
 			// can we build the simples reconstruction ?
 			var roundTripFingering = FingeringCreator.CreateFingeringFor(instrument, melody, new FixedValueSelector());
 
-			Console.WriteLine(printer.Print(roundTripFingering, instrument));
+			Console.WriteLine(FingeringPrinter.Print(roundTripFingering, instrument));
 
 			Console.ReadKey();
 		}

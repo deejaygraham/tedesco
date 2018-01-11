@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Tedesco
 {
-    public class PitchReader : IReadPitches
+    public class NoteReader : IReadNotes
     {
-		public PitchReader(string text, IUnderstandPitchFormat formatRecognizer)
+		public NoteReader(string text, IUnderstandNoteFormat formatRecognizer)
 			: this(formatRecognizer)
 		{
 			this.Text = text;
 		}
 
-		public PitchReader(IUnderstandPitchFormat formatRecognizer)
+		public NoteReader(IUnderstandNoteFormat formatRecognizer)
 		{
 			this.Delimiter = ',';
 			this.FormatRecognizer = formatRecognizer;
@@ -21,12 +21,11 @@ namespace Tedesco
 
 		public char Delimiter { get; set; }
 
-		private IUnderstandPitchFormat FormatRecognizer { get; set; }
+		private IUnderstandNoteFormat FormatRecognizer { get; set; }
 
-		public IEnumerable<Pitch> ReadToEnd(string text)
+		public IEnumerable<Note> ReadToEnd(string text)
 		{
-			if (string.IsNullOrEmpty(text))
-				throw new ArgumentNullException("text", "Text cannot be blank");
+			if (string.IsNullOrEmpty(text)) throw new ArgumentNullException("text", "Text cannot be blank");
 
 			string[] tokens = text.Split(new char[] { this.Delimiter });
 
@@ -39,7 +38,7 @@ namespace Tedesco
 			}
 		}
 
-		public IEnumerable<Pitch> ReadToEnd()
+		public IEnumerable<Note> ReadToEnd()
 		{
 			return this.ReadToEnd(this.Text);
 		}

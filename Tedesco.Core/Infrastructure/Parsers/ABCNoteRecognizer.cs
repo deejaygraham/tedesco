@@ -2,7 +2,7 @@
 
 namespace Tedesco
 {
-	public class ABCPitchRecognizer : IUnderstandPitchFormat
+	public class ABCNoteRecognizer : IUnderstandNoteFormat
 	{
 		public MidiOctaveFormat Format { get; set; }
 
@@ -17,11 +17,11 @@ namespace Tedesco
 			return (token.Length >= MinTextLength && token.Length <= MaxTextLength);
         }
 
-		public Pitch Recognize(string token)
+		public Note Recognize(string token)
 		{
 			try
 			{
-				return NoteNamer.PitchOf(token, this.Format);
+                return NoteNamer.PitchOf(token, this.Format);
 			}
 			catch (NoteFormatException)
 			{

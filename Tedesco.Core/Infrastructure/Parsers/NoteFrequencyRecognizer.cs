@@ -2,19 +2,19 @@
 
 namespace Tedesco
 {
-	public class FrequencyPitchRecognizer : IUnderstandPitchFormat
+	public class NoteFrequencyRecognizer : IUnderstandNoteFormat
 	{
 		public bool IsTokenCorrectFormat(string token)
 		{
 			return !string.IsNullOrWhiteSpace(token);
 		}
 
-		public Pitch Recognize(string token)
+		public Note Recognize(string token)
 		{
 			double frequency = 0.0;
 
 			if (Double.TryParse(token, out frequency))
-				return MidiMath.ToPitch(frequency);
+				return MidiMath.NoteFromFrequency(frequency);
 
 			throw new NoteFormatException(token);
         }

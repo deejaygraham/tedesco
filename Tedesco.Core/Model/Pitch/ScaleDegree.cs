@@ -3,15 +3,15 @@ namespace Tedesco
 {
 	public enum ScaleDegree
 	{
-		First,
+		First = 0,
 		Tonic = First,
-		Second,
+		Second, 
 		Supertonic = Second,
-		Third,
+		Third, 
 		Mediant = Third,
-		Fourth,
+		Fourth, 
 		Subdominant = Fourth,
-		Fifth,
+		Fifth, 
 		Dominant = Fifth,
 		Sixth,
 		Submediant = Sixth,

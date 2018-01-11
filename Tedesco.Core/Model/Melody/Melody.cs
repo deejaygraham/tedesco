@@ -6,49 +6,49 @@ namespace Tedesco
 {
 	public class Melody
 	{
-		private List<Pitch> notes = new List<Pitch>();
+		private List<Note> notes = new List<Note>();
 				
 		public Melody()
 		{
 		}
 
-		public Melody(IEnumerable<Pitch> list)
+		public Melody(IEnumerable<Note> list)
 		{
-			this.notes = new List<Pitch>(list);
+			this.notes = new List<Note>(list);
 		}
 
-		public static Melody CreateFrom(IReadPitches parser)
+		public static Melody CreateFrom(IReadNotes parser)
 		{
 			return new Melody(parser.ReadToEnd());
 		}
 
-		public Melody ModulateBy(int semitones)
+		public Melody ModulateBy(Interval semitones)
 		{
 			var newComposition = new Melody();
 
 			foreach (var note in this.notes)
 			{
-				newComposition.notes.Add(note.SharpenBy(semitones));
+				newComposition.notes.Add(note + semitones);
 			}
 
 			return newComposition;
 		}
 
-		public Pitch LowestNote()
+		public Note LowestNote()
 		{
-			return new Pitch(this.notes.Min());
+			return new Note(this.notes.Min());
 		}
 
-		public Pitch HighestNote()
+		public Note HighestNote()
 		{
-			return new Pitch(this.notes.Max());
+			return new Note(this.notes.Max());
 		}
 
-		public IReadOnlyCollection<Pitch> Notes
+		public IReadOnlyCollection<Note> Notes
 		{
 			get
 			{
-				return new ReadOnlyCollection<Pitch>(this.notes);
+				return new ReadOnlyCollection<Note>(this.notes);
 			}
 		}
 	}

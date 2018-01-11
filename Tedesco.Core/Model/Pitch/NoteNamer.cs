@@ -53,7 +53,7 @@ namespace Tedesco
 			return NoteNames[PitchScaler.Scale(value)];
 		}
 
-		public static Pitch PitchOf(string note, MidiOctaveFormat format = MidiOctaveFormat.Standard)
+        public static Note PitchOf(string note, MidiOctaveFormat format = MidiOctaveFormat.Standard)
 		{
 			const int MinimumTextLength = 2;
 
@@ -87,7 +87,7 @@ namespace Tedesco
 			string octaveText = note.Substring(NamePartLength);
 			int octaveValue = Convert.ToInt32(octaveText);
 
-			return new Pitch(scaleDegree, octaveValue, format);
+			return new Note(scaleDegree, octaveValue, format);
 		}
 	}
 }

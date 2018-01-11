@@ -6,9 +6,11 @@ namespace Tedesco
 {
 	public class Chord
 	{
-		private List<Pitch> chord = new List<Pitch>();
+		private List<Note> chord = new List<Note>();
 
-		public Chord(Pitch tonic, IntervalPattern pattern)
+        // root and scale degree list
+
+		public Chord(Note tonic, DegreePattern pattern)
 		{
 			if (tonic == null) throw new ArgumentNullException("tonic");
 
@@ -16,20 +18,21 @@ namespace Tedesco
 
 			this.chord.Add(tonic);
 
-			Pitch current = tonic;
+			//Pitch current = tonic;
 
-			foreach(Interval i in pattern.Values)
-			{
-				current = current + i;
-				this.chord.Add(current);
-			}
+			//foreach(ScaleDegree i in pattern.Values)
+			//{
+   //             //Pitch next = new Pitch(tonic + )
+			//	//current = current + i;
+			//	this.chord.Add(tonic + i);
+			//}
 		}
 
-		public IReadOnlyCollection<Pitch> Values
+		public IReadOnlyCollection<Note> Values
 		{
 			get
 			{
-				return new ReadOnlyCollection<Pitch>(this.chord);
+				return new ReadOnlyCollection<Note>(this.chord);
 			}
 		}
 

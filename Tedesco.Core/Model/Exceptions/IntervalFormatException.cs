@@ -17,7 +17,7 @@ namespace Tedesco
 		}
 
 		public IntervalFormatException(string message)
-			: base(string.Format("Interval \'{0}\' is not recognised as a valid format", message))
+			: base(string.Format("Interval \'{0}\' is not recognized as a valid format", message))
 		{
 		}
 

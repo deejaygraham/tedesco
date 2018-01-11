@@ -7,7 +7,7 @@ namespace Tedesco
 	{
 		public Melody Compose(FingerboardInstrument instrument, Fingering fingering)
 		{
-			var notes = new List<Pitch>();
+			var notes = new List<Note>();
 
 			fingering.Positions.ToList().ForEach(
 				position =>
@@ -17,7 +17,7 @@ namespace Tedesco
 			return new Melody(notes);
 		}
 
-		public Melody Compose(IReadPitches parser)
+		public Melody Compose(IReadNotes parser)
 		{
 			return new Melody(parser.ReadToEnd());
 		}

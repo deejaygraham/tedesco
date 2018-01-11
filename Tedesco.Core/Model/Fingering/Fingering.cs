@@ -23,7 +23,7 @@ namespace Tedesco
 		}
 
 
-		public List<HandPosition> HandPositions()
+		public ReadOnlyCollection<HandPosition> HandPositions()
 		{
 			var list = new List<HandPosition>();
 
@@ -46,7 +46,7 @@ namespace Tedesco
 				}
 			}
 
-			return list;
+			return new ReadOnlyCollection<HandPosition>(list);
 		}
 
 
@@ -62,7 +62,9 @@ namespace Tedesco
 
 		public Melody ToMelody(FingerboardInstrument instrument)
 		{
-			var notes = new List<Pitch>();
+            if (instrument == null) throw new ArgumentNullException("instrument");
+
+			var notes = new List<Note>();
 
 			foreach (var position in this.positions)
 			{

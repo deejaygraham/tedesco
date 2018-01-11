@@ -10,12 +10,12 @@ namespace Tedesco.Tests
 		{
 			var gtr = new SixStringGuitarInstrument();
 
-			Assert.Equal(new Pitch(SixStringGuitarInstrument.HighEString), gtr.Strings.FirstOrDefault(s => s.Number == 1).Open);
-			Assert.Equal(new Pitch(SixStringGuitarInstrument.BString), gtr.Strings.FirstOrDefault(s => s.Number == 2).Open);
-			Assert.Equal(new Pitch(SixStringGuitarInstrument.GString), gtr.Strings.FirstOrDefault(s => s.Number == 3).Open);
-			Assert.Equal(new Pitch(SixStringGuitarInstrument.DString), gtr.Strings.FirstOrDefault(s => s.Number == 4).Open);
-			Assert.Equal(new Pitch(SixStringGuitarInstrument.AString), gtr.Strings.FirstOrDefault(s => s.Number == 5).Open);
-			Assert.Equal(new Pitch(SixStringGuitarInstrument.LowEString), gtr.Strings.FirstOrDefault(s => s.Number == 6).Open);
+			Assert.Equal(new Note(SixStringGuitarInstrument.HighEString), gtr.Strings.FirstOrDefault(s => s.Number == 1).Open);
+			Assert.Equal(new Note(SixStringGuitarInstrument.BString), gtr.Strings.FirstOrDefault(s => s.Number == 2).Open);
+			Assert.Equal(new Note(SixStringGuitarInstrument.GString), gtr.Strings.FirstOrDefault(s => s.Number == 3).Open);
+			Assert.Equal(new Note(SixStringGuitarInstrument.DString), gtr.Strings.FirstOrDefault(s => s.Number == 4).Open);
+			Assert.Equal(new Note(SixStringGuitarInstrument.AString), gtr.Strings.FirstOrDefault(s => s.Number == 5).Open);
+			Assert.Equal(new Note(SixStringGuitarInstrument.LowEString), gtr.Strings.FirstOrDefault(s => s.Number == 6).Open);
 		}
 
 		[Fact]
@@ -23,7 +23,7 @@ namespace Tedesco.Tests
 		{
 			var gtr = new SixStringGuitarInstrument();
 
-			Assert.Equal(new Pitch(40), gtr.PitchAt(new FingerPosition(0, 6)));
+			Assert.Equal(new Note(40), gtr.PitchAt(new FingerPosition(0, 6)));
 		}
 
 		[Fact]
@@ -109,7 +109,7 @@ namespace Tedesco.Tests
 		{
 			var gtr = new SixStringGuitarInstrument();
 
-			Assert.Equal(1, gtr.PositionsFor(new Pitch(40)).Count);
+			Assert.Equal(1, gtr.PositionsFor(new Note(40)).Count);
 		}
 
 		[Fact]

@@ -5,7 +5,7 @@ namespace Tedesco
 	/// Represents the range of note values in 
 	/// the midi standard: 0 - 127, using standard format
 	/// </summary>
-	public enum MidiNoteValue
+	public enum MidiValue
 	{
 		CMinus2,
 		CSharpMinus2,

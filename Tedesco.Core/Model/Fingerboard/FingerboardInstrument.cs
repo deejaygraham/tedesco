@@ -10,17 +10,18 @@ namespace Tedesco
 		private List<TunedString> strings;
 		private int frets;
 
-		public FingerboardInstrument(IEnumerable<Pitch> tuningLowToHigh, int fretCount)
+		public FingerboardInstrument(IEnumerable<Note> tuningLowToHigh, int fretCount)
 		{
-			if (fretCount <= 0)
-				throw new ArgumentOutOfRangeException("fretCount", "Frets must be positive");
+            if (tuningLowToHigh == null) throw new ArgumentNullException("tuningLowToHigh");
+
+			if (fretCount <= 0) throw new ArgumentOutOfRangeException("fretCount", "Frets must be positive");
 
 			this.frets = fretCount;
 			this.strings = new List<TunedString>();
 
 			int stringNumber = tuningLowToHigh.Count();
 
-			foreach (Pitch p in tuningLowToHigh)
+			foreach (Note p in tuningLowToHigh)
 			{
 				this.strings.Add(new TunedString(p, stringNumber--));
 			}
@@ -34,11 +35,11 @@ namespace Tedesco
 			}
 		}
 
-		public Pitch PitchAt(FingerPosition position)
+		public Note PitchAt(FingerPosition position)
 		{
 			if (position == null) throw new ArgumentNullException("position");
 
-			int stringIndex = this.strings.Count() - position.String;
+			int stringIndex = this.strings.Count - position.String;
 
 			if (stringIndex < 0)
 				throw new ArgumentOutOfRangeException("position", "Position value is not available on this instrument");
@@ -58,11 +59,11 @@ namespace Tedesco
 			return list;
 		}
 
-		public IList<FingerPosition> PositionsFor(Pitch p)
+		public IList<FingerPosition> PositionsFor(Note pitch)
 		{
-			if (p == null) throw new ArgumentNullException("p");
+			if (pitch == null) throw new ArgumentNullException("pitch");
 
-			return this.PositionsFor(args => args.Pitch == p);
+			return this.PositionsFor(args => args.Pitch == pitch);
 		}
 
 		public IList<FingerPosition> OtherExactPositionsFor(FingerPosition position)

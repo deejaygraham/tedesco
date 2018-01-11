@@ -4,7 +4,7 @@ namespace Tedesco
 	/// <summary>
 	/// All the scales thats fit to print
 	/// </summary>
-	public enum WellKnownScale
+	public enum WellKnownIntervalPattern
 	{
 		Aeolian,
 		Algerian,

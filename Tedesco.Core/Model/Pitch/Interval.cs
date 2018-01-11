@@ -2,43 +2,68 @@
 
 namespace Tedesco
 {
-	public class Interval : IEquatable<Interval>, IComparable<Interval>, IComparable
+	public sealed class Interval : IEquatable<Interval>, IComparable<Interval>, IComparable
 	{
-		public static readonly Interval Semitone = new Interval(IntervalDistance.MinorSecond);
-		public static readonly Interval Tone = new Interval(IntervalDistance.MajorSecond);
-		public static readonly Interval Octave = new Interval(IntervalDistance.PerfectOctave);
+        private readonly int distance;
 
-		private IntervalDistance distance;
+        public static readonly Interval Semitone = new Interval(1);
+        public static readonly Interval HalfStep = new Interval(1);
+        public static readonly Interval MinorSecond = new Interval(1);
+
+        public static readonly Interval Tone = new Interval(2);
+        public static readonly Interval Step = new Interval(2);
+
+        public static readonly Interval MinorThird = new Interval(3);
+        public static readonly Interval MajorThird = new Interval(4);
+
+        public static readonly Interval Fourth = new Interval(5);
+
+        public static readonly Interval Tritone = new Interval(6);
+
+        public static readonly Interval Fifth = new Interval(7);
+
+        public static readonly Interval MinorSixth = new Interval(8);
+        public static readonly Interval MajorSixth = new Interval(9);
+        public static readonly Interval MinorSeventh = new Interval(10);
+        public static readonly Interval MajorSeventh = new Interval(11);
+
+        public static readonly Interval Octave = new Interval(12);
+
+        public static readonly Interval MinorNinth = new Interval(13);
+        public static readonly Interval Ninth = new Interval(14);
+        
 
 		public Interval(int semitones)
 		{
-			if (semitones < 0) throw new IntervalFormatException(semitones);
-
-			semitones = PitchScaler.Scale(semitones);
-
-			if (!Enum.IsDefined(typeof(IntervalDistance), semitones))
-				throw new IntervalFormatException(semitones);
-
-			this.distance = (IntervalDistance)semitones;
+			this.distance = semitones;
 		}
 
-		public Interval(IntervalDistance distance)
-		{
-			this.distance = distance;
-		}
+		public int Semitones { get { return this.distance; } }
 
-		public int Semitones { get { return (int)this.distance; } }
+        public bool Ascending
+        {
+            get
+            {
+                return this.distance >= 0;
+            }
+        }
 
-		public IntervalDistance Distance { get { return this.distance; } }
+        public bool Descending
+        {
+            get
+            {
+                return this.distance < 0;
+            }
+        }
 
-		public override int GetHashCode()
+        public override int GetHashCode()
 		{
 			return this.distance.GetHashCode();
 		}
 
 		public override string ToString()
 		{
-			return IntervalNamer.NameOf(this.distance);
+            return IntervalNamer.NameOf(this);
 		}
 
 		public override bool Equals(object obj)
@@ -75,7 +100,14 @@ namespace Tedesco
 			return this.distance.CompareTo(other.distance);
 		}
 
-		public static bool operator ==(Interval left, Interval right)
+        public bool RelatedTo(Interval other)
+        {
+            if (object.ReferenceEquals(other, null)) throw new ArgumentNullException("other");
+
+            return (this.distance % 12 == other.distance % 12);
+        }
+
+        public static bool operator ==(Interval left, Interval right)
 		{
 			if (object.ReferenceEquals(left, null)) return false;
 			if (object.ReferenceEquals(right, null)) return false;

@@ -1,7 +1,7 @@
 ﻿
 namespace Tedesco
 {
-	public static class IntervalNamer
+	internal static class IntervalNamer
 	{
 		private static readonly string[] IntervalNames = new string[] {
 			"unison",
@@ -16,12 +16,19 @@ namespace Tedesco
 			"major sixth",
 			"minor seventh",
 			"major seventh",
-			"octave"
+			"octave",
+            "minor ninth",
+            "ninth"
 		};
 
-		public static string NameOf(IntervalDistance distance)
+		public static string NameOf(Interval interval)
 		{
-			return IntervalNames[(int)distance];
+            int distance = System.Math.Abs(interval.Semitones);
+
+            if (distance >= IntervalNames.Length)
+                return "unknown";
+
+			return IntervalNames[distance];
 		}
 	}
 }

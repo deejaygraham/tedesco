@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Model\Chord\Chord.cs" />
+    <Compile Include="Model\Chord\ChordDictionary.cs" />
+    <Compile Include="Model\Chord\WellKnownChord.cs" />
     <Compile Include="Model\Exceptions\IntervalFormatException.cs" />
     <Compile Include="Model\Exceptions\PitchValueException.cs" />
     <Compile Include="Model\Exceptions\OctaveValueException.cs" />
@@ -63,25 +65,30 @@
     <Compile Include="Model\Melody\MelodyMaker.cs" />
     <Compile Include="Model\Midi\MidiMath.cs" />
     <Compile Include="Model\Exceptions\NoteFormatException.cs" />
-    <Compile Include="Infrastructure\Parsers\FrequencyPitchRecognizer.cs" />
+    <Compile Include="Infrastructure\Parsers\NoteFrequencyRecognizer.cs" />
     <Compile Include="Model\Midi\MidiOctaveFormat.cs" />
+    <Compile Include="Model\Pitch\DegreePattern.cs" />
     <Compile Include="Model\Pitch\IntervalNamer.cs" />
-    <Compile Include="Model\Pitch\IReadPitches.cs" />
-    <Compile Include="Model\Midi\MidiNoteValue.cs" />
+    <Compile Include="Model\Pitch\IntervalPatternDictionary.cs" />
+    <Compile Include="Model\Pitch\IReadNotes.cs" />
+    <Compile Include="Model\Midi\MidiValue.cs" />
     <Compile Include="Model\Pitch\Interval.cs" />
     <Compile Include="Model\Pitch\IntervalDistance.cs" />
-    <Compile Include="Model\Pitch\IUnderstandPitchFormat.cs" />
+    <Compile Include="Model\Pitch\IUnderstandNoteFormat.cs" />
+    <Compile Include="Model\Pitch\Key.cs" />
+    <Compile Include="Model\Pitch\Note.cs" />
     <Compile Include="Model\Pitch\NoteNamer.cs" />
     <Compile Include="Model\Pitch\OctaveCalculator.cs" />
     <Compile Include="Model\Pitch\Pitch.cs" />
-    <Compile Include="Infrastructure\Parsers\PitchReader.cs" />
-    <Compile Include="Infrastructure\Parsers\ABCPitchRecognizer.cs" />
+    <Compile Include="Infrastructure\Parsers\NoteReader.cs" />
+    <Compile Include="Infrastructure\Parsers\ABCNoteRecognizer.cs" />
     <Compile Include="Model\Pitch\PitchScaler.cs" />
     <Compile Include="Model\Pitch\ScaleDegree.cs" />
     <Compile Include="Model\Pitch\IntervalPattern.cs" />
+    <Compile Include="Model\Pitch\Solfa.cs" />
     <Compile Include="Model\Scale\Scale.cs" />
-    <Compile Include="Model\Scale\ScaleDictionary.cs" />
-    <Compile Include="Model\Scale\WellKnownScale.cs" />
+    <Compile Include="Model\Scale\ScaleBuilder.cs" />
+    <Compile Include="Model\Pitch\WellKnownPattern.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
