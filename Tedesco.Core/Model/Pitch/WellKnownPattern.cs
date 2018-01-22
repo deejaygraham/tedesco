@@ -56,6 +56,7 @@ namespace Tedesco
 		Lydian,
 		LydianMinor,
 		Major,
+        Diatonic = Major,
 		MajorLocrian,
 		MajorPentatonic,
 		MelaBhavapriya,

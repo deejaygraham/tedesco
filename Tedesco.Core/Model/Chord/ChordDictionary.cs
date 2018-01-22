@@ -8,7 +8,7 @@ namespace Tedesco
         // chord root and quality
         // 7th, minor 7th, 7 sharp 11
 
-        private Dictionary<WellKnownChord, string> chordLookup = new Dictionary<WellKnownChord, string>
+        private readonly Dictionary<WellKnownChord, string> chordLookup = new Dictionary<WellKnownChord, string>
             {
                 { WellKnownChord.Major,  "1,3,5" },
                 { WellKnownChord.Minor,  "1,b3,5" }
@@ -105,54 +105,15 @@ dim11       1-b3-b5-bb7-9-11
 
     */
 
-        public DegreePattern this[WellKnownChord chord]
+        public ChordPattern this[WellKnownChord pattern]
         {
             get
             {
-                if (!this.chordLookup.ContainsKey(chord))
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
+                if (!this.chordLookup.ContainsKey(pattern)) throw new ArgumentOutOfRangeException("chord", "Unknown interval pattern");
 
-                string intervalSequence = this.chordLookup[chord];
-
-                return this.Build(intervalSequence);
+                return ChordPattern.FromString(this.chordLookup[pattern]);
             }
         }
-
-        public Chord Build(Note root, WellKnownChord chord)
-        {
-            if (!this.chordLookup.ContainsKey(chord))
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-
-            string intervalSequence = this.chordLookup[chord];
-
-            return new Chord(root, this.Build(intervalSequence));
-        }
-
-        private DegreePattern Build(string pattern)
-        {
-            var ip = new DegreePattern();
-
-            string[] words = pattern.Split(new char[] { ',' });
-
-            foreach (string word in words)
-            {
-                if (!string.IsNullOrEmpty(word))
-                {
-                    ScaleDegree degree = ScaleDegree.Tonic;
-
-                    // ignore the first or one that doesn't make sense.
-                    if (Enum.TryParse<ScaleDegree>(word.Trim(), out degree) && degree != ScaleDegree.Tonic)
-                        ip.Add(degree);
-                }
-            }
-
-            return ip;
-        }
-
     }
 }
 

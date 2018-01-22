@@ -3,7 +3,7 @@ namespace Tedesco
 {
 	public enum ScaleDegree
 	{
-		First = 0,
+		First,
 		Tonic = First,
 		Second, 
 		Supertonic = Second,
@@ -16,6 +16,12 @@ namespace Tedesco
 		Sixth,
 		Submediant = Sixth,
 		Seventh,
-		Octave
+		Octave,   // 8
+        FlatNinth,
+        Ninth,
+        SharpNinth,
+        Eleventh,
+        SharpEleventh,
+        Thirteen
 	}
 }

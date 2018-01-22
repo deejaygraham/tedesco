@@ -45,7 +45,9 @@
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Model\Chord\Chord.cs" />
+    <Compile Include="Model\Chord\ChordBuilder.cs" />
     <Compile Include="Model\Chord\ChordDictionary.cs" />
+    <Compile Include="Model\Chord\ChordPattern.cs" />
     <Compile Include="Model\Chord\WellKnownChord.cs" />
     <Compile Include="Model\Exceptions\IntervalFormatException.cs" />
     <Compile Include="Model\Exceptions\PitchValueException.cs" />
@@ -86,9 +88,11 @@
     <Compile Include="Model\Pitch\ScaleDegree.cs" />
     <Compile Include="Model\Pitch\IntervalPattern.cs" />
     <Compile Include="Model\Pitch\Solfa.cs" />
+    <Compile Include="Model\Scale\Mode.cs" />
     <Compile Include="Model\Scale\Scale.cs" />
     <Compile Include="Model\Scale\ScaleBuilder.cs" />
     <Compile Include="Model\Pitch\WellKnownPattern.cs" />
+    <Compile Include="Model\Scale\Solfege.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

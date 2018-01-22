@@ -6,6 +6,17 @@ namespace Tedesco.Tests
 	public class ScaleTests
 	{
         [Fact]
+        public void Scale_Starts_And_Ends_With_Same_Note()
+        {
+            var scale = new ScaleBuilder().FromPattern(new Note((int)MidiValue.MiddleC), WellKnownIntervalPattern.Major, 2);
+
+            var firstNote = scale.Values.First();
+            var secondNote = scale.Values.Last();
+
+            Assert.Equal(firstNote.Name, secondNote.Name);
+        }
+
+        [Fact]
         public void C_Major_Scale_Single_Octave_Does_Not_Contain_Accidentals_Notes()
         {
             var dictionary = new ScaleBuilder();
@@ -72,29 +83,51 @@ namespace Tedesco.Tests
         }
 
         [Fact]
-        public void Scale_Mode_C_Major_First_Mode_Is_C()
+        public void Scale_Mode_C_Major_Ionian_Mode_Is_C()
         {
             var cMajor = new ScaleBuilder().FromPattern(MidiValue.MiddleC, WellKnownIntervalPattern.Major);
             Assert.Equal("C", cMajor.Root().Name);
 
             string[] dModal = new string[] { "C", "D", "E", "F", "G", "A", "B", "C" };
 
-            var modeNames = cMajor.Mode(1).Values.Select(n => n.Name);
+            var modeNames = cMajor.Mode(Mode.Ionian).Values.Select(n => n.Name);
 
             Assert.True(modeNames.SequenceEqual(dModal));
         }
 
         [Fact]
-        public void Scale_Mode_C_Major_Second_Mode_Starts_At_D()
+        public void Scale_Mode_C_Major_Dorian_Mode_Starts_At_D()
         {
             var cMajor = new ScaleBuilder().FromPattern(MidiValue.MiddleC, WellKnownIntervalPattern.Major);
             Assert.Equal("C", cMajor.Root().Name);
 
             string[] dModal = new string[] { "D", "E", "F", "G", "A", "B", "C", "D" };
 
-            var modeNames = cMajor.Mode(2).Values.Select(n => n.Name);
+            var modeNames = cMajor.Mode(Mode.Dorian).Values.Select(n => n.Name);
 
             Assert.True(modeNames.SequenceEqual(dModal));
         }
+
+        [Fact]
+        public void Scale_Major_Solfege_Is_Classic_Do_Re_Mi()
+        {
+            var cMajor = new ScaleBuilder().FromPattern(MidiValue.MiddleC, WellKnownIntervalPattern.Major);
+
+            var majorSolfa = new Solfege[] {
+                Solfege.Do,
+                Solfege.Re,
+                Solfege.Mi,
+                Solfege.Fa,
+                Solfege.So,
+                Solfege.La,
+                Solfege.Ti,
+                Solfege.Do
+            };
+
+            var solfa = cMajor.AsSolfege();
+
+            Assert.True(solfa.SequenceEqual(majorSolfa));
+        }
+
     }
 }

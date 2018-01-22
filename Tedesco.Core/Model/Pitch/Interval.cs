@@ -154,6 +154,28 @@ namespace Tedesco
 
 			return left.CompareTo(right) >= 0;
 		}
+
+        public Solfege AsSolfege()
+        {
+            Solfege[] solfa = new Solfege[] {
+                Solfege.Do,
+                Solfege.Di,
+                Solfege.Re,
+                Solfege.Ri,
+                Solfege.Mi,
+                Solfege.Fa,
+                Solfege.Fi,
+                Solfege.So,
+                Solfege.Si,
+                Solfege.La,
+                Solfege.Li,
+                Solfege.Ti
+            };
+
+            int degree = this.distance % solfa.Length;
+
+            return solfa[degree];
+        }
 	}
 
 }

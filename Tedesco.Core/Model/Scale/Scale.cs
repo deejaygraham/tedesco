@@ -52,6 +52,18 @@ namespace Tedesco
 			}
 		}
 
+        public Note this[ScaleDegree degree]
+        {
+            get
+            {
+                int index = (int)degree;
+
+                if (index < 0 || index >= this.scale.Count) throw new ArgumentOutOfRangeException("degree", "This degree does not exist in this scale");
+
+                return this.scale[index];
+            }
+        }
+
         public Scale Transpose(Interval interval)
         {
             var transposedNotes = new List<Note>();
@@ -64,18 +76,47 @@ namespace Tedesco
             return new Scale(transposedNotes);
         }
 
-        public Scale Mode(int number)
+        public Scale Mode(Mode mode)
         {
-            if ((number > 7) || (number <= 0)) throw new ArgumentOutOfRangeException("number");
-
-            number -= 1;
-
+            int number = (int) mode;
+            
             var modalNotes = new List<Note>();
 
             modalNotes.AddRange(this.scale.Skip(number));
             modalNotes.AddRange(this.scale.Skip(1).Take(this.scale.Count - modalNotes.Count));
 
             return new Scale(modalNotes);
+        }
+
+        public IntervalPattern Pattern()
+        {
+            var pattern = new IntervalPattern();
+
+            var previous = this.Root();
+
+            foreach(var note in this.scale.Skip(1))
+            {
+                var interval = note - previous;
+
+                pattern.Add(interval);
+                previous = note;
+            }
+
+            return pattern;
+        }
+
+        public IReadOnlyCollection<Solfege> AsSolfege()
+        {
+            var list = new List<Solfege>();
+
+            foreach (var note in this.scale)
+            {
+                var interval = note - this.Root();
+
+                list.Add(interval.AsSolfege());
+            }
+
+            return new ReadOnlyCollection<Solfege>(list);
         }
 
         public Note Root()

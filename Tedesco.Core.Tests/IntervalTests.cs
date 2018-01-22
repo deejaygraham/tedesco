@@ -63,5 +63,11 @@ namespace Tedesco.Tests
             Assert.True(new Interval(2).RelatedTo(new Interval(14)));
         }
 
+        [Fact]
+        public void Intervals_Solfege_Zero_Is_Do()
+        {
+            Assert.Equal(Solfege.Do, new Interval(0).AsSolfege());
+        }
+
     }
 }

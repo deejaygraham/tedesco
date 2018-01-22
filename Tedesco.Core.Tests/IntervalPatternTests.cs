@@ -60,5 +60,6 @@ namespace Tedesco.Tests
                 Assert.Equal(2, interval.Semitones);
             }
         }
+
     }
 }

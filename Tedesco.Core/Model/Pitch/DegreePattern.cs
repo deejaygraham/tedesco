@@ -11,7 +11,9 @@ namespace Tedesco
     /// List of intervals with reference to a tonic note. 
     /// E.g. Major Triad : 1, 3, 5
     /// </summary>
+    [Obsolete("Using IntervalPattern instead")]
     public class DegreePattern
+ 
     {
         private List<ScaleDegree> pattern;
 

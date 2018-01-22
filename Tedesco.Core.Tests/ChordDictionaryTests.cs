@@ -12,13 +12,21 @@ namespace Tedesco.Tests
         [Fact]
         public void ChordDictionary_Major_Chord_Is_135()
         {
-            //var d = new ChordDictionary();
+            var fMajor = new ChordBuilder()
+                .FromPattern(
+                    new ScaleBuilder()
+                    .FromPattern(MidiValue.F3, WellKnownIntervalPattern.Major), 
+                    WellKnownChord.Major);
 
-            //var cmajor = d.Build(new Note((int)MidiPitch.C5), WellKnownChord.Major);
+            string[] expected = new string[] { "F", "A", "C" };
 
-            //Assert.Equal(new Pitch(MidiPitch.C5), cmajor.Values.First());
-            //Assert.Equal(new Pitch(MidiPitch.E5), cmajor.Values.Skip(1).First());
-            //Assert.Equal(new Pitch(MidiPitch.G5), cmajor.Values.Skip(2).First());
+            var noteNames = fMajor.Values.Select(n => n.Name);
+
+            Assert.True(noteNames.SequenceEqual(expected));
+
+            // roman numerals 1 2 4 5 etc. 
+
+            // kodaly ?
         }
     }
 }
