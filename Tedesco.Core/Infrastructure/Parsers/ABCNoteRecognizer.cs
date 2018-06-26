@@ -2,7 +2,8 @@
 
 namespace Tedesco
 {
-	public class ABCNoteRecognizer : IUnderstandNoteFormat
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "ABC")]
+    public class ABCNoteRecognizer : IUnderstandNoteFormat
 	{
 		public MidiOctaveFormat Format { get; set; }
 
@@ -21,7 +22,7 @@ namespace Tedesco
 		{
 			try
 			{
-                return NoteNamer.PitchOf(token, this.Format);
+                return NoteNamer.FromName(token, this.Format);
 			}
 			catch (NoteFormatException)
 			{

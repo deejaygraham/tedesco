@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Tedesco
 {
-	public static class NoteNamer
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Namer")]
+    public static class NoteNamer
 	{
 		public static readonly char Sharp = '#';
 		public static readonly char Flat = 'b';
@@ -53,7 +55,12 @@ namespace Tedesco
 			return NoteNames[PitchScaler.Scale(value)];
 		}
 
-        public static Note PitchOf(string note, MidiOctaveFormat format = MidiOctaveFormat.Standard)
+        public static Note FromName(string note)
+        {
+            return NoteNamer.FromName(note, MidiOctaveFormat.Standard);
+        }
+
+        public static Note FromName(string note, MidiOctaveFormat format)
 		{
 			const int MinimumTextLength = 2;
 
@@ -62,11 +69,11 @@ namespace Tedesco
 			if (!Char.IsLetter(note.First()))
 				throw new NoteFormatException("Note must start with a letter");
 
-			char candidateAccidental = note.Skip(1).First();
+            Accidental accidental = Accidental.FromString(note.Substring(1, 1));
 
 			int NamePartLength = 1;
 
-			if (candidateAccidental == Sharp || candidateAccidental == Flat)
+			if (accidental != null)
 			{
 				NamePartLength = 2;
 			}
@@ -85,7 +92,7 @@ namespace Tedesco
 			}
 
 			string octaveText = note.Substring(NamePartLength);
-			int octaveValue = Convert.ToInt32(octaveText);
+			int octaveValue = Convert.ToInt32(octaveText, CultureInfo.CurrentCulture);
 
 			return new Note(scaleDegree, octaveValue, format);
 		}

@@ -1,6 +1,7 @@
 ﻿using NAudio.Midi;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Tedesco.Midi
 {
@@ -9,6 +10,7 @@ namespace Tedesco.Midi
 		public MidiParser(string filename)
 		{
 			this.MidiFile = filename;
+            this.Track = 1;
 		}
 
 		public MidiParser(string filename, int track)
@@ -28,21 +30,32 @@ namespace Tedesco.Midi
 
 			var midi = new NAudio.Midi.MidiFile(this.MidiFile);
 
-			for (int track = 0; track < midi.Tracks; ++track)
+            var timeSignature = midi.Events[0].OfType<TimeSignatureEvent>().FirstOrDefault();
+
+            int ticksPerQuarterNote = midi.DeltaTicksPerQuarterNote;
+            //int ticksPerBar = ticksPerQuarterNote * 4;
+
+            int quarterNote = 96;
+
+            int track = (this.Track.HasValue) ? this.Track.Value : 0;
+
+            if (track >= midi.Tracks)
+                track = midi.Tracks - 1;
+
+			foreach (MidiEvent @event in midi.Events[track])
 			{
-				if (this.Track.HasValue && this.Track != track)
-					continue;
-
-				foreach (MidiEvent @event in midi.Events[track])
+				if (MidiCommandCode.NoteOn == @event.CommandCode)
 				{
-					if (MidiCommandCode.NoteOn == @event.CommandCode)
-					{
-						NoteOnEvent noteOn = @event as NoteOnEvent;
+					NoteOnEvent noteOn = @event as NoteOnEvent;
 
-						if (noteOn != null)
-						{
-							yield return new Note(noteOn.NoteNumber);
-						}
+					if (noteOn != null)
+					{
+                        int ticks = noteOn.NoteLength;
+
+                        yield return new Note(noteOn.NoteNumber)
+                        {
+                            Duration = ticks / quarterNote
+                        };
 					}
 				}
 			}

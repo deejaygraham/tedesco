@@ -1,25 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Tedesco
 {
-	public class MelodyMaker
+	public static class MelodyMaker
 	{
-		public Melody Compose(FingerboardInstrument instrument, Fingering fingering)
+		public static Melody Compose(FingerboardInstrument instrument, Fingering fingering)
 		{
-			var notes = new List<Note>();
+            if (instrument == null) throw new ArgumentNullException("instrument", "FingerboardInstrument argument cannot be null");
+            if (fingering == null) throw new ArgumentNullException("fingering", "Fingering argument cannot be null");
+
+            var notes = new List<Note>();
 
 			fingering.Positions.ToList().ForEach(
 				position =>
-					notes.Add(instrument.PitchAt(position))
+					notes.Add(instrument[position])
 					);
 
 			return new Melody(notes);
 		}
 
-		public Melody Compose(IReadNotes parser)
+		public static Melody Compose(IReadNotes parser)
 		{
-			return new Melody(parser.ReadToEnd());
+            if (parser == null) throw new ArgumentNullException("parser", "IReadNotes argument cannot be null");
+
+            return new Melody(parser.ReadToEnd());
 		}
 	}
 }

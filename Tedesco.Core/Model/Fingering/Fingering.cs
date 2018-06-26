@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Tedesco
 {
-	public class Fingering
+	public sealed class Fingering : IEquatable<Fingering>
 	{
-		private List<FingerPosition> positions = new List<FingerPosition>();
+		private readonly List<FingerPosition> positions = new List<FingerPosition>();
 
 		public void Add(FingerPosition position)
 		{
@@ -25,28 +25,28 @@ namespace Tedesco
 
 		public ReadOnlyCollection<HandPosition> HandPositions()
 		{
-			var list = new List<HandPosition>();
+			var handPositions = new List<HandPosition>();
 
-			var lowToHigh = this.positions.OrderBy(p => p.Fret).Distinct();
+			var positionsLowToHigh = this.positions.OrderBy(p => p.Fret).Distinct();
 
-			int firstPosition = lowToHigh.First().Fret;
+			//var lowestPosition = positionsLowToHigh.First();
 
 			int handSpan = 4;
-			HandPosition first = new HandPosition(firstPosition, firstPosition + handSpan);
+			//HandPosition firstPosition = new HandPosition(lowestPosition.Fret, lowestPosition.Fret + handSpan - 1);
 
-			list.Add(first);
+			//handPositions.Add(firstPosition);
 
-			foreach (var p in lowToHigh.Skip(1))
+			foreach (var fingering in positionsLowToHigh) //.Skip(1))
 			{
-				var covered = list.FirstOrDefault(x => x.Covers(p));
+				bool isCovered = handPositions.Any(hand => hand.Covers(fingering));
 
-				if (covered == null)
+				if (!isCovered)
 				{
-					list.Add(new HandPosition(p.Fret, p.Fret + handSpan));
+					handPositions.Add(new HandPosition(fingering.Fret, fingering.Fret + handSpan - 1));
 				}
 			}
 
-			return new ReadOnlyCollection<HandPosition>(list);
+			return new ReadOnlyCollection<HandPosition>(handPositions);
 		}
 
 
@@ -55,7 +55,25 @@ namespace Tedesco
 			return this.ToString().GetHashCode();
 		}
 
-		public override string ToString()
+        public override bool Equals(object obj)
+        {
+            if (object.ReferenceEquals(obj, null)) return false;
+
+            if (object.ReferenceEquals(this, obj)) return true;
+
+            if (this.GetType() != obj.GetType()) return false;
+
+            return this.Equals(obj as Fingering);
+        }
+
+        public bool Equals(Fingering other)
+        {
+            if (object.ReferenceEquals(other, null)) return false;
+
+            return this.positions.SequenceEqual(other.positions);
+        }
+
+        public override string ToString()
 		{
 			return String.Join(" ", this.positions);
 		}
@@ -66,10 +84,7 @@ namespace Tedesco
 
 			var notes = new List<Note>();
 
-			foreach (var position in this.positions)
-			{
-				notes.Add(instrument.PitchAt(position));
-			}
+            this.positions.ForEach(p => notes.Add(instrument[p]));
 
 			return new Melody(notes);
 		}

@@ -76,7 +76,7 @@ namespace Tedesco
             return new Scale(transposedNotes);
         }
 
-        public Scale Mode(Mode mode)
+        public Scale ToMode(Mode mode)
         {
             int number = (int) mode;
             
@@ -105,6 +105,7 @@ namespace Tedesco
             return pattern;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Solfege")]
         public IReadOnlyCollection<Solfege> AsSolfege()
         {
             var list = new List<Solfege>();
@@ -148,6 +149,11 @@ namespace Tedesco
             if (object.ReferenceEquals(other, null)) return false;
 
             return this.Values.SequenceEqual(other.Values);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Values.GetHashCode();
         }
     }
 }

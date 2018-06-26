@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Runtime.Serialization;
 
 namespace Tedesco
@@ -12,7 +13,7 @@ namespace Tedesco
 		}
 
 		public PitchValueException(int value)
-			: base(string.Format("Note \'{0}\' is not a valid value", value))
+			: base(string.Format(CultureInfo.CurrentCulture, "Note \'{0}\' is not a valid value", value))
 		{
 		}
 

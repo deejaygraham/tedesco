@@ -23,7 +23,7 @@ namespace Tedesco.Tests
 		{
 			var gtr = new SixStringGuitarInstrument();
 
-			Assert.Equal(new Note(40), gtr.PitchAt(new FingerPosition(0, 6)));
+			Assert.Equal(new Note(40), gtr.NoteAt(new FingerPosition(0, 6)));
 		}
 
 		[Fact]
@@ -31,8 +31,8 @@ namespace Tedesco.Tests
 		{
 			var gtr = new SixStringGuitarInstrument();
 
-			var sixOpen = gtr.PitchAt(new FingerPosition(0, 6));
-			var fiveOpen = gtr.PitchAt(new FingerPosition(0, 5));
+			var sixOpen = gtr.NoteAt(new FingerPosition(0, 6));
+			var fiveOpen = gtr.NoteAt(new FingerPosition(0, 5));
 
 			Assert.True(sixOpen < fiveOpen);
 		}
@@ -42,8 +42,8 @@ namespace Tedesco.Tests
 		{
 			var gtr = new SixStringGuitarInstrument();
 
-			var fiveOpen = gtr.PitchAt(new FingerPosition(0, 5));
-			var fourOpen = gtr.PitchAt(new FingerPosition(0, 4));
+			var fiveOpen = gtr.NoteAt(new FingerPosition(0, 5));
+			var fourOpen = gtr.NoteAt(new FingerPosition(0, 4));
 
 			Assert.True(fiveOpen < fourOpen);
 		}
@@ -53,8 +53,8 @@ namespace Tedesco.Tests
 		{
 			var gtr = new SixStringGuitarInstrument();
 
-			var fourOpen = gtr.PitchAt(new FingerPosition(0, 4));
-			var threeOpen = gtr.PitchAt(new FingerPosition(0, 3));
+			var fourOpen = gtr.NoteAt(new FingerPosition(0, 4));
+			var threeOpen = gtr.NoteAt(new FingerPosition(0, 3));
 
 			Assert.True(fourOpen < threeOpen);
 		}
@@ -64,8 +64,8 @@ namespace Tedesco.Tests
 		{
 			var gtr = new SixStringGuitarInstrument();
 
-			var threeOpen = gtr.PitchAt(new FingerPosition(0, 3));
-			var twoOpen = gtr.PitchAt(new FingerPosition(0, 2));
+			var threeOpen = gtr.NoteAt(new FingerPosition(0, 3));
+			var twoOpen = gtr.NoteAt(new FingerPosition(0, 2));
 
 			Assert.True(threeOpen < twoOpen);
 		}
@@ -75,8 +75,8 @@ namespace Tedesco.Tests
 		{
 			var gtr = new SixStringGuitarInstrument();
 
-			var twoOpen = gtr.PitchAt(new FingerPosition(0, 2));
-			var oneOpen = gtr.PitchAt(new FingerPosition(0, 1));
+			var twoOpen = gtr.NoteAt(new FingerPosition(0, 2));
+			var oneOpen = gtr.NoteAt(new FingerPosition(0, 1));
 
 			Assert.True(twoOpen < oneOpen);
 		}
@@ -88,7 +88,7 @@ namespace Tedesco.Tests
 
 			for (int s = 6; s > 5; s--)
 			{
-				Assert.True(gtr.PitchAt(new FingerPosition(0, s)) < gtr.PitchAt(new FingerPosition(0, s - 1)));
+				Assert.True(gtr.NoteAt(new FingerPosition(0, s)) < gtr.NoteAt(new FingerPosition(0, s - 1)));
 			}
 		}
 
@@ -97,11 +97,11 @@ namespace Tedesco.Tests
 		{
 			var gtr = new SixStringGuitarInstrument();
 
-			Assert.Equal(gtr.PitchAt(new FingerPosition(5, 6)), gtr.PitchAt(new FingerPosition(0, 5)));
-			Assert.Equal(gtr.PitchAt(new FingerPosition(5, 5)), gtr.PitchAt(new FingerPosition(0, 4)));
-			Assert.Equal(gtr.PitchAt(new FingerPosition(5, 4)), gtr.PitchAt(new FingerPosition(0, 3)));
-			Assert.Equal(gtr.PitchAt(new FingerPosition(4, 3)), gtr.PitchAt(new FingerPosition(0, 2)));
-			Assert.Equal(gtr.PitchAt(new FingerPosition(5, 2)), gtr.PitchAt(new FingerPosition(0, 1)));
+			Assert.Equal(gtr.NoteAt(new FingerPosition(5, 6)), gtr.NoteAt(new FingerPosition(0, 5)));
+			Assert.Equal(gtr.NoteAt(new FingerPosition(5, 5)), gtr.NoteAt(new FingerPosition(0, 4)));
+			Assert.Equal(gtr.NoteAt(new FingerPosition(5, 4)), gtr.NoteAt(new FingerPosition(0, 3)));
+			Assert.Equal(gtr.NoteAt(new FingerPosition(4, 3)), gtr.NoteAt(new FingerPosition(0, 2)));
+			Assert.Equal(gtr.NoteAt(new FingerPosition(5, 2)), gtr.NoteAt(new FingerPosition(0, 1)));
 		}
 
 		[Fact]

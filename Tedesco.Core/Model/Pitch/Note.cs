@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,10 @@ namespace Tedesco
 
         public Note(Note note)
         {
+            if (note == null) throw new ArgumentNullException("note", "Note value cannot be null");
+
             this.value = note.value;
+            this.Duration = note.Duration;
         }
 
         public Note(int midiValue)
@@ -27,25 +31,34 @@ namespace Tedesco
             if (midiValue < 0) throw new ArgumentOutOfRangeException("midiValue", "Value cannot be negative");
 
             this.value = midiValue;
+            this.Duration = 1;
         }
 
-        public Note(int scaleDegree, int octave, MidiOctaveFormat format = MidiOctaveFormat.Standard)
+        public Note(int scaleDegree, int octave)
+            : this(scaleDegree, octave, MidiOctaveFormat.Standard)
+        {
+        }
+
+        public Note(int scaleDegree, int octave, MidiOctaveFormat format)
         {
             if (octave < -2) throw new OctaveValueException(octave);
 
             int octaveModifier = format == MidiOctaveFormat.Standard ? 2 : 1;
 
             this.value = PitchScaler.Scale(scaleDegree) + (Interval.Octave.Semitones * (octaveModifier + octave));
+            this.Duration = 1;
         }
 
-        public static implicit operator MidiValue(Note n)
+        public static implicit operator MidiValue(Note note)
         {
-            return (MidiValue)n.value;
+            if (note == null) return MidiValue.C0;
+
+            return (MidiValue)note.value;
         }
         
-        public static implicit operator Note(MidiValue mp)
+        public static implicit operator Note(MidiValue value)
         {
-            return new Note(mp);
+            return new Note(value);
         }
 
         public override int GetHashCode()
@@ -55,7 +68,7 @@ namespace Tedesco
 
         public override string ToString()
         {
-            return this.value.ToString();
+            return this.value.ToString(CultureInfo.CurrentCulture);
         }
         
         public string Name
@@ -70,7 +83,7 @@ namespace Tedesco
         {
             get
             {
-                return string.Format("{0}{1}", this.Name, this.Octave);
+                return string.Format(CultureInfo.CurrentCulture, "{0}{1}", this.Name, this.Octave);
             }
         }
 
@@ -97,6 +110,10 @@ namespace Tedesco
                 return (MidiValue) this.value;
             }
         }
+
+        // fraction of a whole note 4 = 1/4
+        public int Duration { get; set; }
+
         public override bool Equals(object obj)
         {
             if (object.ReferenceEquals(obj, null)) return false;
@@ -146,7 +163,14 @@ namespace Tedesco
 
         public static Note operator ++(Note obj)
         {
+            if (obj == null) throw new ArgumentNullException("obj", "Note argument cannot be null");
+
             return obj.Sharpen();
+        }
+
+        public Note Increment()
+        {
+            return this.Sharpen();
         }
 
         public Note Flatten()
@@ -159,9 +183,16 @@ namespace Tedesco
             return this.value == (int)other;
         }
 
-        public static Note operator --(Note obj)
+        public static Note operator --(Note note)
         {
-            return obj.Flatten();
+            if (note == null) throw new ArgumentNullException("note", "Note argument cannot be null");
+
+            return note.Flatten();
+        }
+
+        public Note Decrement()
+        {
+            return this.Flatten();
         }
 
         // Operator overloads
@@ -252,29 +283,34 @@ namespace Tedesco
         /// <returns></returns>
         public static Interval operator- (Note left, Note right)
         {
+            if (left == null) throw new ArgumentNullException("left", "Note argument cannot be null");
+            if (right == null) throw new ArgumentNullException("right", "Note argument cannot be null");
+
+            return new Interval(left.value - right.value);
+        }
+
+        public static Interval Subtract(Note left, Note right)
+        {
+            if (left == null) throw new ArgumentNullException("left", "Note argument cannot be null");
+            if (right == null) throw new ArgumentNullException("right", "Note argument cannot be null");
+
             return new Interval(left.value - right.value);
         }
 
         public static Note operator +(Note note, Interval interval)
         {
+            if (note == null) throw new ArgumentNullException("note", "Note argument cannot be null");
+            if (interval == null) throw new ArgumentNullException("interval", "Interval argument cannot be null");
+
             return new Note(note.value + interval.Semitones);
         }
 
+        public static Interval Add(Note left, Note right)
+        {
+            if (left == null) throw new ArgumentNullException("left", "Note argument cannot be null");
+            if (right == null) throw new ArgumentNullException("right", "Note argument cannot be null");
 
-        //public static Note operator +(Note note, Interval interval)
-        //{
-        //    return Pitch.Add(note, interval);
-        //}
-
-        //public static Pitch operator -(Pitch note, int offset)
-        //{
-        //    return Pitch.Subtract(note, offset);
-        //}
-
-        //public static Interval operator -(Pitch left, Pitch right)
-        //{
-        //    return Pitch.Difference(left, right);
-        //}
-
+            return new Interval(left.value + right.value);
+        }
     }
 }

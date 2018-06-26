@@ -16,9 +16,9 @@ namespace Tedesco
 			this.Number = 0;
 		}
 
-		public TunedString(Note p, int number)
+		public TunedString(Note rootNote, int number)
 		{
-			this.open = new Note(p);
+			this.open = new Note(rootNote);
 			this.Number = number;
 		}
 
@@ -58,7 +58,7 @@ namespace Tedesco
 				var position = new FingerPosition(fret, this.Number);
 				var args = new FingerSearchArgs { Pitch = candidate, Position = position };
 
-				if (decider(args))
+				if (decider != null && decider(args))
 				{
 					list.Add(position);
 				}

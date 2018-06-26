@@ -5,37 +5,46 @@ using System.Linq;
 
 namespace Tedesco
 {
-	public class FingerboardInstrument
-	{
-		private List<TunedString> strings;
-		private int frets;
+    public class FingerboardInstrument
+    {
+        private List<TunedString> strings;
+        private int frets;
 
-		public FingerboardInstrument(IEnumerable<Note> tuningLowToHigh, int fretCount)
-		{
+        public FingerboardInstrument(IEnumerable<Note> tuningLowToHigh, int fretCount)
+        {
             if (tuningLowToHigh == null) throw new ArgumentNullException("tuningLowToHigh");
 
-			if (fretCount <= 0) throw new ArgumentOutOfRangeException("fretCount", "Frets must be positive");
+            if (fretCount <= 0) throw new ArgumentOutOfRangeException("fretCount", "Frets must be positive");
 
-			this.frets = fretCount;
-			this.strings = new List<TunedString>();
+            this.frets = fretCount;
+            this.strings = new List<TunedString>();
 
-			int stringNumber = tuningLowToHigh.Count();
+            int stringNumber = tuningLowToHigh.Count();
 
-			foreach (Note p in tuningLowToHigh)
-			{
-				this.strings.Add(new TunedString(p, stringNumber--));
-			}
-		}
+            foreach (Note p in tuningLowToHigh)
+            {
+                this.strings.Add(new TunedString(p, stringNumber--));
+            }
+        }
 
-		public IReadOnlyCollection<TunedString> Strings
-		{
-			get
-			{
-				return new ReadOnlyCollection<TunedString>(this.strings);
-			}
-		}
+        public IReadOnlyCollection<TunedString> Strings
+        {
+            get
+            {
+                return new ReadOnlyCollection<TunedString>(this.strings);
+            }
+        }
 
-		public Note PitchAt(FingerPosition position)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1043:UseIntegralOrStringArgumentForIndexers")]
+        public Note this[FingerPosition position]
+        {
+            get
+            {
+                return this.NoteAt(position);
+            }
+        }
+    
+        public Note NoteAt(FingerPosition position)
 		{
 			if (position == null) throw new ArgumentNullException("position");
 
@@ -70,7 +79,7 @@ namespace Tedesco
 		{
 			if (position == null) throw new ArgumentNullException("position");
 
-			var pitch = this.PitchAt(position);
+			var pitch = this[position];
 
 			return this.PositionsFor(args => args.Pitch == pitch && args.Position != position);
 		}
@@ -79,7 +88,7 @@ namespace Tedesco
 		{
 			if (position == null) throw new ArgumentNullException("position");
 
-			var pitch = this.PitchAt(position);
+			var pitch = this[position];
 
 			return this.PositionsFor(args => args.Pitch.Degree == pitch.Degree && args.Position != position);
 		}

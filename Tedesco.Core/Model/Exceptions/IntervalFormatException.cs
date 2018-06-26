@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Runtime.Serialization;
 
 namespace Tedesco
@@ -12,12 +13,12 @@ namespace Tedesco
 		}
 
 		public IntervalFormatException(int value)
-			: base(string.Format("Interval \'{0}\' is not a valid value", value))
+			: base(string.Format(CultureInfo.CurrentCulture, "Interval \'{0}\' is not a valid value", value))
 		{
 		}
 
 		public IntervalFormatException(string message)
-			: base(string.Format("Interval \'{0}\' is not recognized as a valid format", message))
+			: base(string.Format(CultureInfo.CurrentCulture, "Interval \'{0}\' is not recognized as a valid format", message))
 		{
 		}
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Runtime.Serialization;
 
 namespace Tedesco
@@ -12,7 +13,7 @@ namespace Tedesco
 		}
 
 		public OctaveValueException(int value)
-			: base(string.Format("Octave \'{0}\' is not a valid value", value))
+			: base(string.Format(CultureInfo.CurrentCulture, "Octave \'{0}\' is not a valid value", value))
 		{
 		}
 

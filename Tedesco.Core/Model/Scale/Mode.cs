@@ -12,8 +12,10 @@ namespace Tedesco
         Dorian,
         Phrygian,
         Lydian,
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Myxolydian")]
         Myxolydian,
         Aeolian,
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Locrian")]
         Locrian
     }
 }

@@ -7,10 +7,9 @@ namespace Tedesco
 	{
 		public bool Equals(Fingering x, Fingering y)
 		{
-            if (x == null) throw new ArgumentNullException("x");
-            if (y == null) throw new ArgumentNullException("y");
+            if (x == null || y == null) return false;
 
-            return x.ToString().CompareTo(y.ToString()) == 0;
+            return String.Compare(x.ToString(), y.ToString(), StringComparison.OrdinalIgnoreCase) == 0;
 		}
 
 		public int GetHashCode(Fingering obj)

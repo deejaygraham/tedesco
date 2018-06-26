@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Tedesco
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
     public sealed class IntervalPatternDictionary
     {
         private readonly Dictionary<WellKnownIntervalPattern, string> scaleLookup = new Dictionary<WellKnownIntervalPattern, string>
@@ -141,7 +142,7 @@ namespace Tedesco
         {
             get
             {
-                if (!this.scaleLookup.ContainsKey(pattern)) throw new ArgumentOutOfRangeException("scale", "Unknown interval pattern");
+                if (!this.scaleLookup.ContainsKey(pattern)) throw new ArgumentOutOfRangeException("pattern", "Unknown interval pattern");
 
                 return IntervalPattern.FromString(this.scaleLookup[pattern]);
             }

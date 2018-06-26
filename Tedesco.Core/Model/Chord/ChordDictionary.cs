@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Tedesco
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
     public class ChordDictionary
     {
         // chord root and quality
@@ -109,7 +110,7 @@ dim11       1-b3-b5-bb7-9-11
         {
             get
             {
-                if (!this.chordLookup.ContainsKey(pattern)) throw new ArgumentOutOfRangeException("chord", "Unknown interval pattern");
+                if (!this.chordLookup.ContainsKey(pattern)) throw new ArgumentOutOfRangeException("pattern", "Unknown interval pattern");
 
                 return ChordPattern.FromString(this.chordLookup[pattern]);
             }

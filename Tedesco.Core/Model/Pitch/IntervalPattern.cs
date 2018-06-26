@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 
 namespace Tedesco
@@ -11,7 +12,7 @@ namespace Tedesco
     /// </summary>
 	public class IntervalPattern
 	{
-		private List<Interval> pattern = new List<Interval>();
+		private readonly List<Interval> pattern = new List<Interval>();
 
         public static IntervalPattern FromString(string pattern)
         {
@@ -23,26 +24,20 @@ namespace Tedesco
 
             foreach (string word in words.Where(w => !String.IsNullOrWhiteSpace(w)))
             {
-                int accidental = 0;
-
                 string candidate = word.Trim();
 
-                if (candidate.StartsWith("#"))
-                {
-                    accidental = 1;
-                    candidate = candidate.Substring(1);
-                }
-                else if (candidate.StartsWith("b"))
-                {
-                    accidental = -1;
-                    candidate = candidate.Substring(1);
-                }
+                Accidental accidental = Accidental.FromString(candidate);
 
-                int value = Convert.ToInt32(candidate);
+                if (accidental != null)
+                    candidate = candidate.Substring(1);
+
+                int value = Convert.ToInt32(candidate, CultureInfo.CurrentCulture);
 
                 if (value > 0)
                 {
-                    value += accidental;
+                    if (accidental != null)
+                        value += accidental.Value;
+
                     ip.Add(new Interval(value));
                 }
             }
@@ -50,9 +45,11 @@ namespace Tedesco
             return ip;
         }
 
-        public void Add(Interval i)
+        public void Add(Interval interval)
 		{
-			this.pattern.Add(i);
+            if (interval == null) throw new ArgumentNullException("interval", "Interval value cannot be null");
+
+            this.pattern.Add(interval);
 		}
 
         public IReadOnlyCollection<Interval> Values

@@ -90,7 +90,7 @@ namespace Tedesco.Tests
 
             string[] dModal = new string[] { "C", "D", "E", "F", "G", "A", "B", "C" };
 
-            var modeNames = cMajor.Mode(Mode.Ionian).Values.Select(n => n.Name);
+            var modeNames = cMajor.ToMode(Mode.Ionian).Values.Select(n => n.Name);
 
             Assert.True(modeNames.SequenceEqual(dModal));
         }
@@ -103,7 +103,7 @@ namespace Tedesco.Tests
 
             string[] dModal = new string[] { "D", "E", "F", "G", "A", "B", "C", "D" };
 
-            var modeNames = cMajor.Mode(Mode.Dorian).Values.Select(n => n.Name);
+            var modeNames = cMajor.ToMode(Mode.Dorian).Values.Select(n => n.Name);
 
             Assert.True(modeNames.SequenceEqual(dModal));
         }

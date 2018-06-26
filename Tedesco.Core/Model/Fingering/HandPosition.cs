@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Tedesco
 {
-	[DebuggerDisplay("[S:{@string}, F:{fret}]")]
+	[DebuggerDisplay("[From:{minFret}, To:{maxFret}]")]
 	public class HandPosition : IEquatable<HandPosition>, IComparable<HandPosition>, IComparable
 	{
 		private readonly int minFret, maxFret;
@@ -28,9 +29,11 @@ namespace Tedesco
 
 		public int Highest { get { return this.maxFret; } }
 
-		public bool Covers(FingerPosition pos)
+		public bool Covers(FingerPosition position)
 		{
-			return pos.Fret >= this.Lowest && pos.Fret <= this.Highest;
+            if (position == null) throw new ArgumentNullException("position", "FingerPosition is not a valid object");
+
+			return position.Fret >= this.Lowest && position.Fret <= this.Highest;
 		}
 
 		public override int GetHashCode()
@@ -40,7 +43,7 @@ namespace Tedesco
 
 		public override string ToString()
 		{
-			return string.Format("[{0} -> {1}]", this.minFret, this.maxFret);
+			return string.Format(CultureInfo.CurrentCulture, "[{0} -> {1}]", this.minFret, this.maxFret);
 		}
 
 		public override bool Equals(object obj)
@@ -84,6 +87,55 @@ namespace Tedesco
 
 			return comparison;
 		}
-	}
+
+        public static bool operator ==(HandPosition left, HandPosition right)
+        {
+            if (object.ReferenceEquals(left, null)) return false;
+            if (object.ReferenceEquals(right, null)) return false;
+
+            return left.CompareTo(right) == 0;
+        }
+
+        public static bool operator !=(HandPosition left, HandPosition right)
+        {
+            if (object.ReferenceEquals(left, null)) return true;
+            if (object.ReferenceEquals(right, null)) return true;
+
+            return !(left == right);
+        }
+
+        public static bool operator <(HandPosition left, HandPosition right)
+        {
+            if (object.ReferenceEquals(left, null)) return false;
+            if (object.ReferenceEquals(right, null)) return false;
+
+            return left.CompareTo(right) < 0;
+        }
+
+        public static bool operator <=(HandPosition left, HandPosition right)
+        {
+            if (object.ReferenceEquals(left, null)) return false;
+            if (object.ReferenceEquals(right, null)) return false;
+
+            return left.CompareTo(right) <= 0;
+        }
+
+        public static bool operator >(HandPosition left, HandPosition right)
+        {
+            if (object.ReferenceEquals(left, null)) return false;
+            if (object.ReferenceEquals(right, null)) return false;
+
+            return left.CompareTo(right) > 0;
+        }
+
+        public static bool operator >=(HandPosition left, HandPosition right)
+        {
+            if (object.ReferenceEquals(left, null)) return false;
+            if (object.ReferenceEquals(right, null)) return false;
+
+            return left.CompareTo(right) >= 0;
+        }
+
+    }
 
 }

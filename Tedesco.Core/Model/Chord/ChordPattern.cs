@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,26 +22,21 @@ namespace Tedesco
 
             foreach (string word in words.Where(w => !String.IsNullOrWhiteSpace(w)))
             {
-                int accidental = 0;
-
                 string candidate = word.Trim();
 
-                if (candidate.StartsWith("#"))
+                Accidental accidental = Accidental.FromString(candidate);
+                
+                if (accidental != null)
                 {
-                    accidental = 1;
-                    candidate = candidate.Substring(1);
-                }
-                else if (candidate.StartsWith("b"))
-                {
-                    accidental = -1;
                     candidate = candidate.Substring(1);
                 }
 
-                int value = Convert.ToInt32(candidate);
+                int value = Convert.ToInt32(candidate, CultureInfo.CurrentCulture);
 
                 if (value > 0)
                 {
-                    value += accidental;
+                    if (accidental != null)
+                        value += accidental.Value;
 
                     var degrees = new ScaleDegree[] 
                     {
@@ -62,7 +58,7 @@ namespace Tedesco
                     };
 
                     if (value < 1 || value > degrees.Length)
-                        throw new ArgumentOutOfRangeException("pattern", string.Format("Don't understand chord degree {0} -> {1}", words, value));
+                        throw new ArgumentOutOfRangeException("pattern", string.Format(CultureInfo.CurrentCulture, "Don't understand chord degree {0} -> {1}", words, value));
 
                     cp.Add(degrees[value - 1]);
                 }
@@ -71,9 +67,9 @@ namespace Tedesco
             return cp;
         }
 
-        public void Add(ScaleDegree s)
+        public void Add(ScaleDegree degree)
         {
-            this.pattern.Add(s);
+            this.pattern.Add(degree);
         }
 
         public IReadOnlyCollection<ScaleDegree> Values

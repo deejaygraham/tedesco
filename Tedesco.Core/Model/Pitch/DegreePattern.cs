@@ -13,9 +13,8 @@ namespace Tedesco
     /// </summary>
     [Obsolete("Using IntervalPattern instead")]
     public class DegreePattern
- 
     {
-        private List<ScaleDegree> pattern;
+        private readonly List<ScaleDegree> pattern;
 
         public DegreePattern()
         {
@@ -25,9 +24,11 @@ namespace Tedesco
         public DegreePattern(IEnumerable<ScaleDegree> degrees)
             : this()
         {
-            foreach(var d in degrees)
+            if (degrees == null) throw new ArgumentNullException("degrees", "ScaleDegree collection cannot be null");
+
+            foreach(var degree in degrees)
             {
-                this.pattern.Add(d);
+                this.pattern.Add(degree);
             }
         }
 

@@ -7,14 +7,16 @@ namespace Tedesco
 		Tonic = First,
 		Second, 
 		Supertonic = Second,
-		Third, 
-		Mediant = Third,
+		Third,
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Mediant")]
+        Mediant = Third,
 		Fourth, 
 		Subdominant = Fourth,
 		Fifth, 
 		Dominant = Fifth,
 		Sixth,
-		Submediant = Sixth,
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Submediant")]
+        Submediant = Sixth,
 		Seventh,
 		Octave,   // 8
         FlatNinth,

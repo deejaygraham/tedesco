@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Tedesco
 {
@@ -11,11 +12,9 @@ namespace Tedesco
 
 		public FingerPosition(int fretNumber, int stringNumber)
 		{
-			if (fretNumber < 0)
-				throw new ArgumentException("fretNumber must be positive");
+			if (fretNumber < 0) throw new ArgumentException("fretNumber must be positive");
 
-			if (stringNumber < 1)
-				throw new ArgumentException("stringNumber must be 1 or greater");
+			if (stringNumber < 1) throw new ArgumentException("stringNumber must be 1 or greater");
 
 			this.fret = fretNumber;
 			this.@string = stringNumber;
@@ -32,7 +31,7 @@ namespace Tedesco
 
 		public override string ToString()
 		{
-			return string.Format("[{0}, {1}]", this.@string, this.fret);
+			return string.Format(CultureInfo.CurrentCulture, "[{0}, {1}]", this.@string, this.fret);
 		}
 
 		public override bool Equals(object obj)
@@ -76,5 +75,54 @@ namespace Tedesco
 
 			return comparison;
 		}
-	}
+
+        public static bool operator ==(FingerPosition left, FingerPosition right)
+        {
+            if (object.ReferenceEquals(left, null)) return false;
+            if (object.ReferenceEquals(right, null)) return false;
+
+            return left.CompareTo(right) == 0;
+        }
+
+        public static bool operator !=(FingerPosition left, FingerPosition right)
+        {
+            if (object.ReferenceEquals(left, null)) return true;
+            if (object.ReferenceEquals(right, null)) return true;
+
+            return !(left == right);
+        }
+
+        public static bool operator <(FingerPosition left, FingerPosition right)
+        {
+            if (object.ReferenceEquals(left, null)) return false;
+            if (object.ReferenceEquals(right, null)) return false;
+
+            return left.CompareTo(right) < 0;
+        }
+
+        public static bool operator <=(FingerPosition left, FingerPosition right)
+        {
+            if (object.ReferenceEquals(left, null)) return false;
+            if (object.ReferenceEquals(right, null)) return false;
+
+            return left.CompareTo(right) <= 0;
+        }
+
+        public static bool operator >(FingerPosition left, FingerPosition right)
+        {
+            if (object.ReferenceEquals(left, null)) return false;
+            if (object.ReferenceEquals(right, null)) return false;
+
+            return left.CompareTo(right) > 0;
+        }
+
+        public static bool operator >=(FingerPosition left, FingerPosition right)
+        {
+            if (object.ReferenceEquals(left, null)) return false;
+            if (object.ReferenceEquals(right, null)) return false;
+
+            return left.CompareTo(right) >= 0;
+        }
+
+    }
 }

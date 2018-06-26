@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -19,12 +20,16 @@ namespace Tedesco
 
 		public static Melody CreateFrom(IReadNotes parser)
 		{
+            if (parser == null) throw new ArgumentNullException("parser", "IReadNotes argument cannot be null");
+
 			return new Melody(parser.ReadToEnd());
 		}
 
 		public Melody ModulateBy(Interval semitones)
 		{
-			var newComposition = new Melody();
+            if (semitones == null) throw new ArgumentNullException("semitones", "Interval argument cannot be null");
+
+            var newComposition = new Melody();
 
 			foreach (var note in this.notes)
 			{

@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Infrastructure\Printers\MicrobitPrinter.cs" />
     <Compile Include="Model\Chord\Chord.cs" />
     <Compile Include="Model\Chord\ChordBuilder.cs" />
     <Compile Include="Model\Chord\ChordDictionary.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Model\Exceptions\NoteFormatException.cs" />
     <Compile Include="Infrastructure\Parsers\NoteFrequencyRecognizer.cs" />
     <Compile Include="Model\Midi\MidiOctaveFormat.cs" />
+    <Compile Include="Model\Pitch\Accidental.cs" />
     <Compile Include="Model\Pitch\DegreePattern.cs" />
     <Compile Include="Model\Pitch\IntervalNamer.cs" />
     <Compile Include="Model\Pitch\IntervalPatternDictionary.cs" />
@@ -87,7 +89,6 @@
     <Compile Include="Model\Pitch\PitchScaler.cs" />
     <Compile Include="Model\Pitch\ScaleDegree.cs" />
     <Compile Include="Model\Pitch\IntervalPattern.cs" />
-    <Compile Include="Model\Pitch\Solfa.cs" />
     <Compile Include="Model\Scale\Mode.cs" />
     <Compile Include="Model\Scale\Scale.cs" />
     <Compile Include="Model\Scale\ScaleBuilder.cs" />
