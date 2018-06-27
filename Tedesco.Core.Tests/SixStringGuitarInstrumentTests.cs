@@ -117,7 +117,7 @@ namespace Tedesco.Tests
 		{
 			var gtr = new SixStringGuitarInstrument();
 
-			Assert.Equal(1, gtr.OtherExactPositionsFor(new FingerPosition(22, 1)).Count);
+			Assert.Equal(0, gtr.OtherExactPositionsFor(new FingerPosition(22, 1)).Count);
 		}
 
 		[Fact]
@@ -125,7 +125,8 @@ namespace Tedesco.Tests
 		{
 			var gtr = new SixStringGuitarInstrument();
 
-			Assert.Equal(5, gtr.OtherExactPositionsFor(new FingerPosition(0, 1)).Count);
+            // ignore first string, too far up sixth string so only 4 other candidates.
+			Assert.Equal(gtr.Strings.Count - 2, gtr.OtherExactPositionsFor(new FingerPosition(0, 1)).Count);
 		}
 
 		[Fact]
@@ -133,7 +134,8 @@ namespace Tedesco.Tests
 		{
 			var gtr = new SixStringGuitarInstrument();
 
-			Assert.Equal(12, gtr.OtherFuzzyPositionsFor(new FingerPosition(0, 1)).Count);
+            // two notes on each string, 12 frets apart. Ignore original first position.
+			Assert.Equal((gtr.Strings.Count * 2) - 1, gtr.OtherFuzzyPositionsFor(new FingerPosition(0, 1)).Count);
 		}
 
 	}
