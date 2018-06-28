@@ -24,4 +24,57 @@
     <xunit Assemblies="@(TestAssemblies)" />
 
   </Target>
+  
+  	<PropertyGroup>
+		<OpenCoverMSBuildTasksPath>$(MSBuildThisFileDirectory)packages\OpenCover.4.6.519\MSBuild</OpenCoverMSBuildTasksPath>
+	</PropertyGroup>
+	
+	<Import Project="$(OpenCoverMSBuildTasksPath)\OpenCover.targets" />
+	
+	<ItemGroup>
+		<Test Include="$(MSBuildThisFileDirectory)\Tedesco.Core.Tests\bin\debug\*.Tests.dll" />
+	</ItemGroup>
+
+	<PropertyGroup>
+        <ToolsDir Condition=" '$(ToolsDir)' == ''">$(MSBuildThisFileDirectory)packages\OpenCover.4.6.519\tools\</ToolsDir>
+		<XUnitConsolePath>$(MSBuildThisFileDirectory)packages\xunit.runner.console.2.3.1\tools\net452\xunit.console.exe</XUnitConsolePath>
+		<XUnitConsoleArgs>-nologo -noshadow</XUnitConsoleArgs>
+		<CoverageResultsDir>$(MSBuildThisFileDirectory)</CoverageResultsDir>
+        <ReportGeneratorMSBuildTasksPath>$(MSBuildThisFileDirectory)packages\ReportGenerator.3.1.2\tools</ReportGeneratorMSBuildTasksPath>
+    </PropertyGroup>
+
+    <UsingTask TaskName="ReportGenerator" AssemblyFile="$(ReportGeneratorMSBuildTasksPath)\ReportGenerator.exe" />
+
+	
+	<Target Name="Coverage">
+       <OpenCover 
+            ReturnTargetCode="true"
+            ToolPath="$(ToolsDir)"
+            ToolExe="OpenCover.Console.exe"
+            ExcludeByAttribute="System.ObsoleteAttribute"
+            Register="true"
+            ShowUnvisited="false"
+            MergeByHash="true"
+            Target="$(XUnitConsolePath)"
+            TargetArgs="%(Test.Identity) $(XUnitConsoleArgs)"
+            Output="$(CoverageResultsDir)xunit-coverage-%(Test.Filename).xml"
+            ContinueOnError="ErrorAndContinue"
+            />
+			
+		  <ItemGroup>
+			<CoverageFiles Include="xunit-coverage-*.xml" />
+		  </ItemGroup>
+
+		  <Message Text="Analysing @(CoverageFiles)" Importance="high" />
+    
+		  <ReportGenerator Condition=" '@(CoverageFiles)' != '' " 
+							ReportFiles="@(CoverageFiles)" 
+							TargetDirectory="CoverageReport" 
+							ReportTypes="Html" 
+							ContinueOnError="ErrorAndContinue"
+							/>
+  <!--                      VerbosityLevel="Verbose"  -->
+
+	</Target>
+
 </Project>
