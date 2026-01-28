@@ -65,7 +65,7 @@ class Note:
         letter = m.group(1).upper()
         accidental = m.group(2)
         octave = int(m.group(3))
-        return Note.from_name(letter + accidental, o
+        return Note.from_name(letter + accidental, octave);
     
     @staticmethod
     def from_absolute_semitone(abs_st: int) -> "Note":
