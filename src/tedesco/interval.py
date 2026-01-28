@@ -3,6 +3,7 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Interval:
+    """A chromatic interval measured in semitones (can be negative)."""
     semitones: int
 
     def __repr__(self) -> str:
