@@ -14,7 +14,6 @@ music related things
 * install dev dependencies
   - pip install -r requirements-dev.txt
 * add pre-commit
-  - pip install pre-commit
   - pre-commit install
   - pre-commit run --all-files        
   - tox -e lint
