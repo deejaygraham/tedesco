@@ -28,8 +28,7 @@ def _mod12(n: int) -> int:
 
 @dataclass(frozen=True)
 class Note:
-    
-"""
+    """
     A pitch class + octave, with 12-TET semitone arithmetic.
 
     - pitch_class: 0..11 (C=0)
