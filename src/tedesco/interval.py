@@ -16,6 +16,13 @@ class Interval:
         return NotImplemented
 
     def __mul__(self, k: int) -> "Interval":
-        return Interval(self.semitones * k)
+        # Accept only integers; reject floats and other types.
+        # (bool is a subclass of int; if you want to reject True/False, add `and not isinstance(k, bool)`.)
+        if isinstance(k, int):
+            return Interval(self.semitones * k)
+        return NotImplemented
 
-    __rmul__ = __mul__
+    
+    def __rmul__(self, k: int) -> "Interval":
+        # Delegate to __mul__ so 2 * Interval(...) works the same as Interval(...) * 2
+        return self.__mul__(k)
