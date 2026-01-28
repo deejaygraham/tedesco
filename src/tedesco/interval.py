@@ -26,10 +26,24 @@ class Interval:
     def __repr__(self) -> str:
         sign = "+" if self.semitones >= 0 else "-"
         return f"<Interval {sign}{abs(self.semitones)} st>"
+    
+    # ---- comparisons required by @total_ordering ----
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Interval):
+            return NotImplemented
+        return self.semitones == other.semitones
 
+    def __lt__(self, other: "Interval") -> bool:
+        if not isinstance(other, Interval):
+            return NotImplemented
+        return self.semitones < other.semitones
+    
     def __add__(self, other):
-        from .note import Note  # imported here to avoid circular import
-        if isinstance(other, Note):
+        try:
+            from .note import Note  # Lazy imported here to avoid circular import
+        except:
+            Note = None
+        if (Note is not None and if isinstance(other, Note):
             return other + self
         return NotImplemented
 
@@ -39,7 +53,6 @@ class Interval:
         if isinstance(k, int):
             return Interval(self.semitones * k)
         return NotImplemented
-
     
     def __rmul__(self, k: int) -> "Interval":
         # Delegate to __mul__ so 2 * Interval(...) works the same as Interval(...) * 2
