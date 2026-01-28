@@ -70,7 +70,7 @@ class Note:
         # quick flat-oriented mapping
         sharp_to_flat = {"C#": "Db", "D#": "Eb", "F#": "Gb", "G#": "Ab", "A#": "Bb"}
         sharp_name = _PC_TO_NAME[self.pitch_class]
-        return sharp_to_flat.get(sharp_name, sharp_na
+        return sharp_to_flat.get(sharp_name, sharp_name);
                                  
     def __repr__(self) -> str:
         return f"<Note {self.name()}{self.octave}>"
