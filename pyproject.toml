@@ -11,6 +11,12 @@ dependencies = []
 description = "Music theory class library named in honour of Tommy Tedesco"
 readme = "README.md"
 
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
 [tool.pytest.ini_options]
 minversion = "7.0"
 addopts = "-q --strict-markers --strict-config --maxfail=1 --cov=tedesco --cov-report=term-missing"
