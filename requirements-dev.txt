@@ -1,0 +1,12 @@
+# Install with pip install -r requirements-dev.txt
+
+# Development tools
+pytest
+pytest-cov
+
+# Linters
+ruff        # super-fast linter
+black       # formatter
+
+# Type checking
+mypy
