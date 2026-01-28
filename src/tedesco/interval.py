@@ -43,7 +43,7 @@ class Interval:
             from .note import Note  # Lazy imported here to avoid circular import
         except:
             Note = None
-        if (Note is not None and if isinstance(other, Note):
+        if (Note is not None and isinstance(other, Note):
             return other + self
         return NotImplemented
 
