@@ -84,3 +84,11 @@ def test_notimplemented_protocol_for_float():
     with pytest.raises(TypeError):
         operator.mul(i, 2.5)
 
+
+def test_interval_less_than_comparison():
+    assert Interval.Fifth < Interval.Octave
+
+
+def test_interval_maths_equals_static():
+    assert Interval.MajorThird * 2 == Interval.MajorSixth
+    assert 2 * Interval.Fifth == Interval(14)
