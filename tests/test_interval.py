@@ -1,6 +1,7 @@
 import re
 import pytest
 from dataclasses import FrozenInstanceError
+import operator
 
 from tedesco.interval import Interval
 
