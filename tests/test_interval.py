@@ -75,3 +75,11 @@ def test_add_with_unsupported_type_raises_typeerror():
     with pytest.raises(TypeError):
         _ = i + object()
 
+
+def test_notimplemented_protocol_for_float():
+    i = Interval(5)
+    assert Interval.__mul__(i, 2.5) is NotImplemented
+    # Using operator.mul triggers Python’s numeric protocol -> TypeError
+    with pytest.raises(TypeError):
+        operator.mul(i, 2.5)
+
