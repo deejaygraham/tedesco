@@ -86,7 +86,7 @@ def test_notimplemented_protocol_for_float():
 
 
 def test_interval_less_than_comparison():
-    assert Interval.Fifth < Interval.Octave
+    assert Interval.PerfectFifth < Interval.Octave
 
 
 def test_interval_maths_equals_static():
