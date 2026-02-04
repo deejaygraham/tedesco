@@ -90,7 +90,7 @@ class Chord:
             pattern = value
           
         degrees = _parse_csv(pattern)
-        self.intervals = [Interval(n) for n in degrees]
+        object.__setattr__(self, "intervals", [Interval(n) for n in degrees])
       
     # ---- Basic container protocol ------------------------------------------
     def __iter__(self) -> Iterator[Interval]:
