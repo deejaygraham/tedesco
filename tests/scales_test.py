@@ -12,8 +12,16 @@ def test_minor_pentatonic_pattern():
     xs = get_scale_intervals("minor_pentatonic")
     assert [i.semitones for i in xs] == [0,3,5,7,10]
 
+def test_aliases_map_to_case_insensitive():
+    # alias 'ionian' -> 'major'
+    xs = get_scale_intervals("Ionian")
+    assert [i.semitones for i in xs] == [0, 2, 4, 5, 7, 9, 11]
+
 def test_unknown_scale_raises_keyerror():
     import pytest
     with pytest.raises(KeyError):
         get_scale_intervals("unknown-scale")
       
+def test_values_are_intervals():
+    xs = get_scale_intervals("dorian")
+    assert all(isinstance(i, Interval) for i in xs)
