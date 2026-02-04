@@ -102,4 +102,4 @@ def get_scale_intervals(name: str) -> list[Interval]:
     except KeyError as exc:
         available = ", ".join(sorted(SCALE_PATTERNS))
         raise KeyError(f"Unknown scale '{name}'. Available: {available}") from exc
-    return Interval.list_from_string(csv, cumulative=False)
+    return Interval.list_from_string(csv, cumulative=True)
