@@ -83,3 +83,10 @@ def test_interval_greater_than_equal_comparison():
 
 def test_well_known_intervals_are_equal_to_plain():
     assert Interval(5) == Interval.PerfectFourth
+
+def test_intervals_separated_by_octave_are_related():
+    assert Interval(2).relatedTo(Interval(14))
+
+def test_intervals_unrelated_intervals_are_not_related():
+    assert not Interval(2).relatedTo(Interval(1))
+    
