@@ -82,4 +82,4 @@ def test_interval_greater_than_equal_comparison():
     assert Interval.Octave >= Interval(12)
 
 def test_well_known_intervals_are_equal_to_plain():
-    assert Interval(5) == Interval.Fourth
+    assert Interval(5) == Interval.PerfectFourth
