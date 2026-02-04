@@ -83,3 +83,6 @@ def test_interval_less_than_comparison():
 def test_interval_well_known_multiplication():
     assert Interval.MajorThird * 2 == Interval.MajorSixth
     assert 2 * Interval.Fifth == Interval(14)
+
+def test_well_known_intervals_are_equal_to_plain():
+    assert Interval(5) == Interval.Fourth
