@@ -9,10 +9,7 @@ from __future__ import annotations
 
 from .note import Note
 from .interval import Interval
-from .scales import (
-    SCALE_PATTERNS,
-    get_scale_intervals,
-)
+from .scales import Scale
 
 try:
     from importlib.metadata import version as _pkg_version
@@ -22,8 +19,7 @@ except Exception:  # pragma: no cover
 __all__ = [
     "Note",
     "Interval",
-    "SCALE_PATTERNS",
-    "get_scale_intervals",
+    "Scale",
 ]
 
 try:
