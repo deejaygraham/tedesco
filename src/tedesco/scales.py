@@ -1,5 +1,6 @@
 # Map canonical scale names to *cumulative* semitone offsets above the root,
 # expressed as comma-separated strings.
+from __future__ import annotations
 from .interval import Interval
 
 SCALE_PATTERNS: dict[str, str] = {
@@ -28,7 +29,7 @@ SCALE_PATTERNS: dict[str, str] = {
     "enigmatic":         "1,3,2,2,2,1,1",
     "enigmatic_minor":    "1,2,3,1,3,1,1",
     "ethiopian_araray":   "2,2,1,2,2,2,1",
-    "ethiopian_geez,     "2,1,2,2,1,2,2",
+    "ethiopian_geez":     "2,1,2,2,1,2,2",
     "half_whole_diminished": "1,2,1,2,1,2,1,2",
     "harmonic_major":     "2,2,1,2,1,3,1",
     "harmonic_minor":     "2,1,2,2,1,3,1",
@@ -83,6 +84,21 @@ SCALE_PATTERNS: dict[str, str] = {
     "wholetone":         "2,2,2,2,2,2"
 }
 
+ALIASES: dict[str, str] = {
+    "ionian": "major",
+    "aeolian": "natural_minor",
+    "maj": "major",
+    "min": "natural_minor",
+    "maj_pent": "major_pentatonic",
+    "min_pent": "minor_pentatonic",
+}
+
+
+def _resolve_name(name: str) -> str:
+    key = name.strip().lower()
+    return ALIASES.get(key, key)
+
+
 def get_scale_intervals(name: str) -> list[Interval]:
     """
     Return a list of Interval objects for the named scale.
@@ -96,7 +112,7 @@ def get_scale_intervals(name: str) -> list[Interval]:
     -------
     list[Interval]
     """
-    key = name.strip().lower()
+    key = _resolve_name(name)
     try:
         csv = SCALE_PATTERNS[key]
     except KeyError as exc:
