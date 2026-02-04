@@ -7,7 +7,7 @@ def test_major_scale_pattern_included_in_patterns():
 def test_major_scale_pattern_is_correct_intervals():
     xs = get_scale_intervals("major")
     print(xs)
-    assert [i.semitones for i in xs] == [0,2,4,5,7,9,11]
+    assert [i.semitones for i in xs] == [0,2,4,5,7,9,11, 12]
 
 def test_minor_pentatonic_pattern():
     xs = get_scale_intervals("minor_pentatonic")
@@ -16,7 +16,7 @@ def test_minor_pentatonic_pattern():
 def test_aliases_map_to_case_insensitive():
     # alias 'ionian' -> 'major'
     xs = get_scale_intervals("Ionian")
-    assert [i.semitones for i in xs] == [0, 2, 4, 5, 7, 9, 11]
+    assert [i.semitones for i in xs] == [0, 2, 4, 5, 7, 9, 11, 12]
 
 def test_unknown_scale_raises_keyerror():
     import pytest
