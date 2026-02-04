@@ -8,7 +8,8 @@ from typing import ClassVar
 class Interval:
     """A chromatic interval measured in semitones (can be negative)."""
     semitones: int
-    
+
+    """Well-known values"""
     Unison: ClassVar["Interval"]
     MinorSecond: ClassVar["Interval"]
     MajorSecond: ClassVar["Interval"]
@@ -47,16 +48,20 @@ class Interval:
             return other + self
         return NotImplemented
 
-    def __mul__(self, k: int) -> "Interval":
-        # Accept only integers; reject floats and other types.
-        # (bool is a subclass of int; if you want to reject True/False, add `and not isinstance(k, bool)`.)
-        if isinstance(k, int):
-            return Interval(self.semitones * k)
-        return NotImplemented
+    def __mul__(self, other):
+        raise TypeError("Interval objects do not support multiplication")
     
-    def __rmul__(self, k: int) -> "Interval":
-        # Delegate to __mul__ so 2 * Interval(...) works the same as Interval(...) * 2
-        return self.__mul__(k)
+    def __rmul__(self, other):
+        raise TypeError("Interval objects do not support multiplication")
+    
+    def __truediv__(self, other):
+        raise TypeError("Interval objects do not support division")
+    
+    def __floordiv__(self, other):
+        raise TypeError("Interval objects do not support division")
+    
+    def __mod__(self, other):
+        raise TypeError("Interval objects do not support modulo")
 
 
 # Define the static singletons *after* the class is created.
