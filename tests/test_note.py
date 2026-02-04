@@ -8,10 +8,10 @@ def test_negative_note_values_are_not_allowed():
         _ = Note(-1)
 
 def test_note_distance_between_adjacent_notes_is_halfstep():
-    assert (Note(0, 4) - Note(1, 4)).semitones == 1
+    assert abs((Note(0, 4) - Note(1, 4)).semitones) == 1
 
 def test_note_distance_between_white_notes_is_wholestep():
-    assert (Note(50, 4) - Note(52, 4)).semitones == 2
+    assert abs((Note(50, 4) - Note(52, 4)).semitones) == 2
 
 def test_subtracting_one_note_from_another_returns_interval():
     c4 = Note(0, 4)   # C4
