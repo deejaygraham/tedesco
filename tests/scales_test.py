@@ -1,28 +1,39 @@
-from tedesco.scales import get_scale_intervals, SCALE_PATTERNS
+from tedesco.scale import Scale
 from tedesco.interval import Interval
+from tedesco.note import Note
+import pytest
 
-def test_major_scale_pattern_included_in_patterns():
-    assert "major" in SCALE_PATTERNS
-  
-def test_major_scale_pattern_is_correct_intervals():
-    xs = get_scale_intervals("major")
-    print(xs)
-    assert [i.semitones for i in xs] == [0, 2, 4, 5, 7, 9, 11, 12]
+def test_from_known_scale():
+    sc = Scale("major")
+    assert [iv.semitones for iv in sc] == [0, 2, 4, 5, 7, 9, 11]
+    assert len(sc.degrees()) == 7
 
-def test_minor_pentatonic_pattern():
-    xs = get_scale_intervals("minor_pentatonic")
-    assert [i.semitones for i in xs] == [0, 3, 5, 7, 10, 12]
+def test_from_interval_string():
+    sc = Scale("0,3,7,10")
+    assert [iv.semitones for iv in sc] == [0, 3, 7, 10]
 
-def test_aliases_map_to_case_insensitive():
-    # alias 'ionian' -> 'major'
-    xs = get_scale_intervals("Ionian")
-    assert [i.semitones for i in xs] == [0, 2, 4, 5, 7, 9, 11, 12]
 
-def test_unknown_scale_raises_keyerror():
-    import pytest
-    with pytest.raises(KeyError):
-        get_scale_intervals("unknown-scale")
-      
-def test_values_are_intervals():
-    xs = get_scale_intervals("dorian")
-    assert all(isinstance(i, Interval) for i in xs)
+def test_csv_normalizes_missing_root():
+    sc = Scale("3,7,10")  # no leading 0; root will be prepended
+    assert [iv.semitones for iv in sc] == [0, 3, 7, 10]
+
+
+def test_to_notes():
+    scale = Scale("major")
+    root = Note(0, 4)
+    names = [n.name() for n in scale.to_notes(root)]
+    assert names == ["C", "D", "E", "F", "G", "A", "B"]
+
+
+def test_blank_name_throws_error():
+    with pytest.raises(ValueError):
+        Scale("")
+
+def test_blank_csv_throws_error():
+    with pytest.raises(ValueError):
+        Scale(" , , ")
+
+def test_unknown_string_throws_error():
+    with pytest.raises(ValueError):
+        Scale("0,foo,7")
+        
