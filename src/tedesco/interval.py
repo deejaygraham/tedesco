@@ -78,6 +78,17 @@ class Interval:
 
         degree = self.semitones % len(solfa)
         return solfa[degree]
+
+    def name(self) -> str:
+        names = [ "unison", "minor second", "major second", "minor third", "major third", "perfect fourth", "diminished fifth", 
+                 "perfect fifth", "minor sixth", "major sixth", "minor seventh", "major seventh", "octave", "minor ninth", "ninth" ]
+        
+        distance = abs(self.semitones)
+
+        if distance >= len(names):
+            return "unknown"
+            
+        return names[distance]
         
 # Define the static singletons *after* the class is created.
 Interval.Unison         = Interval(0)
