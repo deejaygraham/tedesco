@@ -11,7 +11,9 @@ class Interval:
 
     """Well-known values"""
     Unison: ClassVar["Interval"]
+    HalfStep: ClassVar["Interval"]
     MinorSecond: ClassVar["Interval"]
+    WholeStep: ClassVar["Interval"]
     MajorSecond: ClassVar["Interval"]
     MinorThird: ClassVar["Interval"]
     MajorThird: ClassVar["Interval"]
@@ -23,6 +25,8 @@ class Interval:
     MinorSeventh: ClassVar["Interval"]
     MajorSeventh: ClassVar["Interval"]
     Octave: ClassVar["Interval"]
+    MinorNinth: ClassVar["Interval"]
+    Ninth: ClassVar["Interval"]
 
     def __repr__(self) -> str:
         sign = "+" if self.semitones >= 0 else "-"
@@ -68,11 +72,19 @@ class Interval:
             return NotImplemented
 
         return self.semitones % 12 == other.semitones % 12
+
+    def asSolfege(self) -> str:
+        solfa = ["do", "di", "re", "ri", "mi", "fa", "fi", "so", "si", "la", "li", "ti"]
+
+        degree = self.semitones % len(solfa)
+        return solfa[degree]
         
 # Define the static singletons *after* the class is created.
 Interval.Unison         = Interval(0)
+Interval.HalfStep       = Interval(1)
 Interval.MinorSecond    = Interval(1)
 Interval.MajorSecond    = Interval(2)
+Interval.WholeStep      = Interval(2)
 Interval.MinorThird     = Interval(3)
 Interval.MajorThird     = Interval(4)
 Interval.PerfectFourth  = Interval(5)
@@ -83,3 +95,6 @@ Interval.MajorSixth     = Interval(9)
 Interval.MinorSeventh   = Interval(10)
 Interval.MajorSeventh   = Interval(11)
 Interval.Octave         = Interval(12)
+Interval.MinorNinth     = Interval(13)
+Interval.Ninth          = Interval(14)
+
