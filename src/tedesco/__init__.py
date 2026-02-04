@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from .note import Note
 from .interval import Interval
-from .scales import Scale
+from .scale import Scale
 
 try:
     from importlib.metadata import version as _pkg_version
