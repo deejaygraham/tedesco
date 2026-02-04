@@ -84,7 +84,7 @@ class Chord:
         - Otherwise, `value` is parsed as a CSV of cumulative semitone offsets.
         """
         name = value.strip().lower()
-        if key in KNOWN_CHORD_PATTERNS:
+        if name in KNOWN_CHORD_PATTERNS:
             pattern = KNOWN_CHORD_PATTERNS[name]
         else:
             pattern = value
