@@ -43,29 +43,21 @@ def test_interval_repr_format_zero():
     # zero uses + sign per implementation
     assert re.fullmatch(r"<Interval \+0 st>", repr(Interval(0)))
 
-def test_interval_can_be_multiplied_by_integer():
-    i = Interval(3)
-    assert (i * 2).semitones == 6
-    assert (2 * i).semitones == 6
-
-    j = Interval(-4)
-    assert (j * 3).semitones == -12
-    assert (3 * j).semitones == -12
-
-    # identity and zero
-    assert (i * 1).semitones == 3
-    assert (i * 0).semitones == 0
-
-def test_interval_multiplied_by_float_throws_error():
-    i = Interval(5)
-    # Unsupported scalar types should return NotImplemented → TypeError
-    with pytest.raises(TypeError):
-        _ = i * 2.5  # float not supported
-
-def test_interval_multiplied_by_string_throws_error():
+def test_interval_no_multiplication():
     i = Interval(5)
     with pytest.raises(TypeError):
-        _ = "x" * i  # __rmul__ only supports int, not str-left
+        i * 2
+    with pytest.raises(TypeError):
+        2 * i
+
+def test_interval_no_division():
+    i = Interval(5)
+    with pytest.raises(TypeError):
+        i / 2
+    with pytest.raises(TypeError):
+        i // 2
+    with pytest.raises(TypeError):
+        i % 2
 
 def test_add_with_unsupported_type_raises_typeerror():
     i = Interval(2)
@@ -88,10 +80,6 @@ def test_interval_greater_than_comparison():
 
 def test_interval_greater_than_equal_comparison():
     assert Interval.Octave >= Interval(12)
-    
-def test_interval_well_known_multiplication():
-    assert Interval.MajorThird * 2 == Interval.MajorSixth
-    assert 2 * Interval.Fifth == Interval(14)
 
 def test_well_known_intervals_are_equal_to_plain():
     assert Interval(5) == Interval.Fourth
