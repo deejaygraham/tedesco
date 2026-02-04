@@ -2,7 +2,7 @@
 Public API for the tedesco package.
 
 Usage for consumers:
-    from tedesco import Note, Interval
+    from tedesco import Note, Interval, Scale
 """
 
 from __future__ import annotations
