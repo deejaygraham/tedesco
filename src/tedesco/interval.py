@@ -63,7 +63,12 @@ class Interval:
     def __mod__(self, other):
         raise TypeError("Interval objects do not support modulo")
 
+    def relatedTo(self, other: "Interval") -> bool:
+        if not isinstance(other, Interval):
+            return NotImplemented
 
+        return self.semitones % 12 == other.semitones % 12
+        
 # Define the static singletons *after* the class is created.
 Interval.Unison         = Interval(0)
 Interval.MinorSecond    = Interval(1)
