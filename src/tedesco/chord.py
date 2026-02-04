@@ -75,7 +75,7 @@ class Chord:
     Use `Chord("maj7")` or `Chord("0,4,7,11")`.
     """
     intervals: List[Interval]
-  
+
     def __init__(self, value: str) -> "Chord":
         """
         Build a chord from either a known name or a CSV string of cumulative semitones.
@@ -90,7 +90,7 @@ class Chord:
             pattern = value
           
         degrees = _parse_csv(pattern)
-        object.__setattr__(self, "intervals", [Interval(n) for n in degrees])
+        self.intervals = [Interval(n) for n in degrees]
       
     # ---- Basic container protocol ------------------------------------------
     def __iter__(self) -> Iterator[Interval]:
