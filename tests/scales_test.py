@@ -6,6 +6,7 @@ def test_major_scale_pattern_included_in_patterns():
   
 def test_major_scale_pattern_is_correct_intervals():
     xs = get_scale_intervals("major")
+    print(xs)
     assert [i.semitones for i in xs] == [0,2,4,5,7,9,11]
 
 def test_minor_pentatonic_pattern():
