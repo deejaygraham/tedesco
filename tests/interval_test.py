@@ -90,3 +90,8 @@ def test_intervals_separated_by_octave_are_related():
 def test_intervals_unrelated_intervals_are_not_related():
     assert not Interval(2).relatedTo(Interval(1))
     
+def test_interval_as_solfege():
+    assert Interval(0).asSolfege() == "do"
+    assert Interval(2).asSolfege() == "re"
+    assert Interval.Octave.asSolfege() == "do"
+    
