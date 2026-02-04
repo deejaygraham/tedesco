@@ -80,6 +80,15 @@ def test_add_with_unsupported_type_raises_typeerror():
 def test_interval_less_than_comparison():
     assert Interval.PerfectFifth < Interval.Octave
 
+def test_interval_less_than_equal_comparison():
+    assert Interval.PerfectFifth <= Interval(7)
+
+def test_interval_greater_than_comparison():
+    assert Interval.Octave > Interval(1)
+
+def test_interval_greater_than_equal_comparison():
+    assert Interval.Octave >= Interval(12)
+    
 def test_interval_well_known_multiplication():
     assert Interval.MajorThird * 2 == Interval.MajorSixth
     assert 2 * Interval.Fifth == Interval(14)
