@@ -6,30 +6,6 @@ from typing import ClassVar, Dict, Iterable, Iterator, List, Optional
 from .interval import Interval
 from .note import Note
 
-def list_from_string(csv: str) -> list["Interval"]:
-    """
-    Parse a comma-separated string of integers and build a list of Intervals.
-    
-    Returns
-    -------
-    list[Interval]
-    """
-    if not isinstance(csv, str):
-        raise TypeError("csv must be a string of comma-separated integers")
-
-    values: list[int] = []
-    for raw in csv.split(","):
-        token = raw.strip()
-        if token == "":
-            continue
-        try:
-            n = int(token)
-        except ValueError as exc:
-            raise ValueError(f"Invalid integer in csv: {token!r}") from exc
-        values.append(n)
-
-        return [Interval(i) for i in values]
-
 
 class IntervalPattern:
     """
@@ -42,10 +18,24 @@ class IntervalPattern:
     intervals: list[Interval]
 
     def __init__(self, pattern: str):
+        if not isinstance(pattern, str):
+            raise TypeError("pattern must be a string of comma-separated integers")
+        
         if not pattern or not pattern.strip():
             raise ValueError("Pattern string must be non-empty")
-            
-        self.intervals = list_from_string(pattern)
+
+        values: list[int] = []
+        for raw in pattern.split(","):
+            token = raw.strip()
+            if token == "":
+                continue
+            try:
+                n = int(token)
+            except ValueError as exc:
+                raise ValueError(f"Invalid integer in csv: {token!r}") from exc
+            values.append(n)
+
+        self.intervals = [Interval(i) for i in values]
             
     def __iter__(self) -> Iterator[Interval]:
         return iter(self.intervals)
