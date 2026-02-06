@@ -9,6 +9,28 @@ class Interval:
     """A chromatic interval measured in semitones (can be negative)."""
     semitones: int
 
+    _NAME_TO_SEMITONES = {
+        "unison": 0, 
+        "minor second": 1, 
+        "major second": 2, 
+        "minor third": 3, 
+        "major third": 4, 
+        "perfect fourth": 5, 
+        "diminished fifth": 6, 
+        "perfect fifth": 7, 
+        "minor sixth": 8, 
+        "major sixth": 9, 
+        "minor seventh": 10, 
+        "major seventh": 11, 
+        "octave": 12, 
+        "minor ninth": 13, 
+        "ninth": 14,
+    }
+    
+    @classmethod
+    def from_name(cls, name: str) -> "Interval":
+        return cls(_NAME_TO_SEMITONES[name.strip().lower()])
+        
     """Well-known values"""
     Unison: ClassVar["Interval"]
     HalfStep: ClassVar["Interval"]
