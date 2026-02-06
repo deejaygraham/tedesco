@@ -6,19 +6,9 @@ from typing import ClassVar, Dict, Iterable, Iterator, List, Optional
 from .interval import Interval
 from .note import Note
 
-def list_from_string(csv: str, cumulative: bool = False) -> list["Interval"]:
+def list_from_string(csv: str) -> list["Interval"]:
     """
     Parse a comma-separated string of integers and build a list of Intervals.
-    
-    Parameters
-    ----------
-    csv : str
-        Comma-separated integers. Examples:
-          - Degrees: "0,2,4,5,7,9,11" (major scale) or "0,4,7" (major triad)
-          - Steps:   "2,2,1,2,2,2,1"  
-    cumulative : bool
-        If True, treat the numbers as step sizes and produce cumulative offsets
-        starting at 0. If False, use the numbers directly as semitone values.
     
     Returns
     -------
@@ -68,15 +58,11 @@ class IntervalPattern:
         degrees = list_from_string(pattern, cumulative = True)
         self.intervals = [Interval(i) for i in degrees]
             
-    # ---- Basic dunder helpers ----------------------------------------------
     def __iter__(self) -> Iterator[Interval]:
         return iter(self.intervals)
 
     def __len__(self) -> int:
         return len(self.intervals)
-
-    def __contains__(self, item: Interval) -> bool:
-        return item in self.intervals
         
     def to_notes(self, root: Note) -> list["Note"]:
         """
@@ -84,5 +70,9 @@ class IntervalPattern:
         """
         if not isinstance(root, Note):
             raise TypeError("root must be a tedesco.Note instance")
+
+        values: list[int] = [root]
+        for i in self.intervals:
+            values.append(root + i 
         return [root + i for i in self.intervals]
         
