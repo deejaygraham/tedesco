@@ -17,7 +17,7 @@ def list_from_string(csv: str) -> list["Interval"]:
     if not isinstance(csv, str):
         raise TypeError("csv must be a string of comma-separated integers")
 
-    numbers: list[int] = []
+    values: list[int] = []
     for raw in csv.split(","):
         token = raw.strip()
         if token == "":
@@ -26,19 +26,9 @@ def list_from_string(csv: str) -> list["Interval"]:
             n = int(token)
         except ValueError as exc:
             raise ValueError(f"Invalid integer in csv: {token!r}") from exc
-        
-        numbers.append(n)
+        values.append(n)
 
-        if cumulative:
-            total = 0
-            values: list[int] = [total]  # start at 0 semitones (root)
-            for step in numbers:
-                total += step
-                values.append(total)
-        else:
-            values = numbers
-
-        return [Interval(v) for v in values]
+        return [Interval(i) for i in values]
 
 
 class IntervalPattern:
@@ -55,7 +45,7 @@ class IntervalPattern:
         if not pattern or not pattern.strip():
             raise ValueError("Pattern string must be non-empty")
             
-        degrees = list_from_string(pattern, cumulative = True)
+        degrees = list_from_string(pattern)
         self.intervals = [Interval(i) for i in degrees]
             
     def __iter__(self) -> Iterator[Interval]:
