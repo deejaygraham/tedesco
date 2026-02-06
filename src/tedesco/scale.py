@@ -143,7 +143,7 @@ class Scale:
         if not value or not value.strip():
             raise ValueError("Scale name or CSV string must be non-empty")
             
-        resolved = _resolve_name(name)
+        resolved = _resolve_name(value)
         if resolved in SCALE_PATTERNS:
             pattern = SCALE_PATTERNS[resolved]
         else:
