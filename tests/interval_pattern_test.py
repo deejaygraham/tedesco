@@ -2,6 +2,7 @@ import re
 import pytest
 
 from tedesco.interval_pattern import IntervalPattern
+from tedesco.note import Note
 
 def test_pattern_must_not_be_blank():
     with pytest.raises(ValueError):
