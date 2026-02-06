@@ -20,5 +20,5 @@ def test_pattern_ignores_whitespace():
 
 def test_pattern_converts_to_notes():
     pattern = IntervalPattern("2, 1")
-    root = Note("C4")
+    root = Note(0, 4)
     assert len(pattern.to_notes(root)) == 3
