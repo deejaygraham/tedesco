@@ -7,6 +7,7 @@ from typing import ClassVar, Dict, Iterable, Iterator, List, Optional
 
 from .interval import Interval
 from .interval_pattern import IntervalPattern
+from .note import Note
 
 SCALE_PATTERNS: dict[str, str] = {
     "eighttone_spanish":  "1,2,1,1,1,2,2,2",
@@ -105,40 +106,35 @@ def _resolve_name(name: str) -> str:
 @dataclass(frozen=True)
 class Scale:
     """
-    A musical scale defined by cumulative semitone offsets from the root.
+    A musical scale defined by a root note and a pattern.
 
     Examples
     --------
-    a = Scale("major")
-    b = Scale("2,2,1,2,2,2,1") 
+    a = Scale(c4, "major")
+    b = Scale(fsharp3, "2,2,1,2,2,2,1") 
     """
-    pattern: IntervalPattern
+    notes: list[Note]
 
-    def __init__(self, value: str):
-        if not value or not value.strip():
-            raise ValueError("Scale name or CSV string must be non-empty")
+    def __init__(self, root: Note, pattern: str):
+        if not isinstance(pattern, str):
+            raise TypeError("Pattern must be a string of comma-separated integers")
+        
+        if not pattern or not pattern.strip():
+            raise ValueError("Pattern string must be non-empty")
             
-        resolved = _resolve_name(value)
+        resolved = _resolve_name(pattern)
         if resolved in SCALE_PATTERNS:
-            pattern = SCALE_PATTERNS[resolved]
+            values = SCALE_PATTERNS[resolved]
         else:
-            pattern = value
+            values = pattern
             
-        self.pattern = IntervalPattern(pattern)
+        self.notes = IntervalPattern(pattern).to_notes(root)
             
-    # ---- Basic dunder helpers ----------------------------------------------
-    def __iter__(self) -> Iterator[Interval]:
-        return iter(self.intervals)
+    def __iter__(self) -> Iterator[Note]:
+        return iter(self.notes)
 
     def __len__(self) -> int:
-        return len(self.pattern)
+        return len(self.notes)
 
-    def __contains__(self, item: Interval) -> bool:
-        return item in self.intervals
-
-    def degrees(self) -> List[int]:
-        """Return degree indices [1..N] for convenience; len == number of notes."""
-        return list(range(1, len(self.intervals) + 1))
-        
-    def to_notes(self, root_note) -> List:
-        return self.pattern.to_notes(root_note)
+    def __contains__(self, item: Note) -> bool:
+        return item in self.notes
