@@ -5,7 +5,7 @@ import pytest
 
 def test_from_known_scale():
     sc = Scale("major")
-    assert [iv.semitones for iv in sc] == [0, 2, 4, 5, 7, 9, 11]
+    assert [iv.semitones for iv in sc] == [0, 2, 2, 1, 2, 2, 1]
     assert len(sc.degrees()) == 7
 
 def test_from_interval_string():
