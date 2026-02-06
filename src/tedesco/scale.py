@@ -103,6 +103,10 @@ def _resolve_name(name: str) -> str:
     return ALIASES.get(key, key)
 
 def _parse_csv(csv: str) -> List[int]:
+    """
+    Parse a CSV of cumulative semitone offsets.
+    Ensures the root (0) is present and raises on empty/invalid input.
+    """
     if not isinstance(csv, str):
         raise TypeError("csv must be a comma-separated string of integers")
     out: List[int] = []
@@ -114,6 +118,13 @@ def _parse_csv(csv: str) -> List[int]:
             out.append(int(tok))
         except ValueError as exc:
             raise ValueError(f"Invalid integer in csv: {tok!r}") from exc
+    
+    if not out:
+        raise ValueError("Empty interval list; provide at least '0' for the root")
+    
+    # Normalize: if root 0 is missing, prepend it
+    if out[0] != 0:
+        out = [0] + out     
     return out
         
 @dataclass(frozen=True)
@@ -129,9 +140,12 @@ class Scale:
     intervals: List[Interval]
 
     def __init__(self, value: str):
-        name = value.strip().lower()
-        if name in SCALE_PATTERNS:
-            pattern = SCALE_PATTERNS[name]
+        if not value or not value.strip():
+            raise ValueError("Scale name or CSV string must be non-empty")
+            
+        resolved = _resolve_name(name)
+        if resolved in SCALE_PATTERNS:
+            pattern = SCALE_PATTERNS[resolved]
         else:
             pattern = value
             
