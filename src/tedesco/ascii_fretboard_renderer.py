@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import List, Optional, Set, Dict
+from typing import Optional, Set
 
 # === Note system (12-TET pitch classes) =====================================
 
@@ -35,7 +35,7 @@ def scale_pcs(root_name: str, intervals: List[int]) -> Set[int]:
     return {(root + i) % 12 for i in intervals}
 
 # Some handy interval patterns (in semitones) for common scales
-SCALE_PATTERNS: Dict[str, List[int]] = {
+SCALE_PATTERNS: dict[str, List[int]] = {
     "major":        [0, 2, 4, 5, 7, 9, 11],
     "natural_minor":[0, 2, 3, 5, 7, 8, 10],
     "dorian":       [0, 2, 3, 5, 7, 9, 10],
@@ -47,7 +47,7 @@ SCALE_PATTERNS: Dict[str, List[int]] = {
 # === Fingerboard generator ===================================================
 
 def render_fretboard(
-    tuning: List[str] = ["E", "A", "D", "G", "B", "E"],  # low→high (standard)
+    tuning: list[str] = ["E", "A", "D", "G", "B", "E"],  # low→high (standard)
     num_frets: int = 12,
     prefer_sharps: bool = True,
     show_note_names: bool = True,
@@ -55,7 +55,7 @@ def render_fretboard(
     scale_root: Optional[str] = None,
     scale_name: Optional[str] = None,  # e.g., "major", "minor_pent"
     highlight_root: bool = True,  # if scale_root provided, emphasize root
-    string_labels: Optional[List[str]] = None,  # custom labels for left margin
+    string_labels: Optional[list[str]] = None,  # custom labels for left margin
     fret_markers: Optional[Set[int]] = None,    # e.g., {3,5,7,9,12}
     col_width: int = 3,  # cell width per fret (3 works nicely)
 ) -> str:
