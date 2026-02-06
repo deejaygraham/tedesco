@@ -3,6 +3,7 @@
 # Development tools
 pytest
 pytest-cov
+tox 
 
 # Source Control
 pre-commit
