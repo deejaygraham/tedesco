@@ -4,9 +4,9 @@ import pytest
 from tedesco.interval_pattern import IntervalPattern
 
 def test_pattern_must_not_be_blank():
-    with pytest.raises(TypeError):
+    with pytest.raises(ValueError):
         IntervalPattern("")
-    with pytest.raises(TypeError):
+    with pytest.raises(ValueError):
         IntervalPattern("           ")
       
 def test_pattern_from_single_interval():
