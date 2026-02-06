@@ -45,8 +45,7 @@ class IntervalPattern:
         if not pattern or not pattern.strip():
             raise ValueError("Pattern string must be non-empty")
             
-        degrees = list_from_string(pattern)
-        self.intervals = [Interval(i) for i in degrees]
+        self.intervals = list_from_string(pattern)
             
     def __iter__(self) -> Iterator[Interval]:
         return iter(self.intervals)
