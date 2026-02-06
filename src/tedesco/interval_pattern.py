@@ -71,8 +71,7 @@ class IntervalPattern:
         if not isinstance(root, Note):
             raise TypeError("root must be a tedesco.Note instance")
 
-        values: list[int] = [root]
+        notes: list[int] = [root]
         for i in self.intervals:
-            values.append(root + i 
-        return [root + i for i in self.intervals]
-        
+            notes.append(root + i) 
+        return notes
