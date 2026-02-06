@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import ClassVar, Dict, Iterable, Iterator, List, Optional
 
 from .interval import Interval
+from .interval_pattern import IntervalPattern
 
 SCALE_PATTERNS: dict[str, str] = {
     "eighttone_spanish":  "1,2,1,1,1,2,2,2",
@@ -97,35 +98,9 @@ ALIASES: dict[str, str] = {
     "min_pent": "minor_pentatonic",
 }
 
-
 def _resolve_name(name: str) -> str:
     key = name.strip().lower()
     return ALIASES.get(key, key)
-
-def _parse_csv(csv: str) -> List[int]:
-    """
-    Parse a CSV of cumulative semitone offsets.
-    Ensures the root (0) is present and raises on empty/invalid input.
-    """
-    if not isinstance(csv, str):
-        raise TypeError("csv must be a comma-separated string of integers")
-    out: List[int] = []
-    for raw in csv.split(","):
-        tok = raw.strip()
-        if not tok:
-            continue
-        try:
-            out.append(int(tok))
-        except ValueError as exc:
-            raise ValueError(f"Invalid integer in csv: {tok!r}") from exc
-    
-    if not out:
-        raise ValueError("Empty interval list; provide at least '0' for the root")
-    
-    # Normalize: if root 0 is missing, prepend it
-    if out[0] != 0:
-        out = [0] + out     
-    return out
         
 @dataclass(frozen=True)
 class Scale:
@@ -137,7 +112,7 @@ class Scale:
     a = Scale("major")
     b = Scale("2,2,1,2,2,2,1") 
     """
-    intervals: List[Interval]
+    pattern: IntervalPattern
 
     def __init__(self, value: str):
         if not value or not value.strip():
@@ -149,16 +124,14 @@ class Scale:
         else:
             pattern = value
             
-        degrees = _parse_csv(pattern)
-        # For frozen dataclasses we must use object.__setattr__ in __init__
-        object.__setattr__(self, "intervals", [Interval(n) for n in degrees])
+        self.pattern = IntervalPattern(pattern)
             
     # ---- Basic dunder helpers ----------------------------------------------
     def __iter__(self) -> Iterator[Interval]:
         return iter(self.intervals)
 
     def __len__(self) -> int:
-        return len(self.intervals)
+        return len(self.pattern)
 
     def __contains__(self, item: Interval) -> bool:
         return item in self.intervals
@@ -168,13 +141,4 @@ class Scale:
         return list(range(1, len(self.intervals) + 1))
         
     def to_notes(self, root_note) -> List:
-        """
-        Given a Note return the concrete notes in this scale.
-        This avoids importing Note here to keep interval-only usage lightweight.
-        """
-        # lazy import to avoid circular import weight at module load time
-        from .note import Note  # type: ignore
-        if not isinstance(root_note, Note):
-            raise TypeError("root_note must be a tedesco.Note instance")
-        return [root_note + iv for iv in self.intervals]
-        
+        return self.pattern.to_notes(root_note)
