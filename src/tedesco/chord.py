@@ -77,4 +77,4 @@ class Chord:
         return len(self.notes)
 
     def __contains__(self, item: Interval) -> bool:
-        return item in self.intervals
+        return item in self.notes
