@@ -75,3 +75,5 @@ tox -e format
 tox -e typecheck
 tox -e auto
 ```
+
+We aim to follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) when committing code.  
