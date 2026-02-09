@@ -15,6 +15,14 @@ def test_scale_note_names_match_correct_scale():
     names = [n.name() for n in scale]
     assert names == ["C", "D", "E", "F", "G", "A", "B", "C"]
 
+def test_scale_with_bad_root_throws():
+    with pytest.raises(TypeError): 
+        Scale("not-a-note", "major")
+
+def test_scale_with_unknown_name_throws():
+    with pytest.raises(ValueError): 
+        Scale(Note(0, 4), "unknown-scale")
+
 def test_blank_name_throws_error():
     with pytest.raises(ValueError):
         Scale(Note(0, 4), "")
