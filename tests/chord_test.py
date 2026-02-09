@@ -15,14 +15,25 @@ def test_chord_constructed_from_known_name():#
 def test_chord_constructed_from_unknown_name_throws():
     with pytest.raises(ValueError): 
         Chord(Note(0, 4), "lost chord")
-        
+
+def test_chord_constructed_with_bad_string_throws():
+    with pytest.raises(ValueError): 
+        Chord(Note(0, 4), "0,foo,7")
+
 def test_chord_constructed_from_custom_intervals():
     root = Note(0, 4)#
     c = Chord(root,"0,3,7,10") 
     assert [iv.pitch_class for iv in c] == [0, 3, 7, 10]
 
+def test_chord_constructed_from_bad_type_throws():
+    with pytest.raises(TypeError): 
+        Chord(Note(0, 4), 123)
 
 def test_chord_allows_inversion_forms():
     root = Note(0, 4)#
     c = Chord(root, "4,7,11")  # major 7th chord with missing root
     assert [iv.pitch_class for iv in c] == [4, 7, 11]
+
+def test_chord_is_iteratable():
+    len(list(Chord(Note(0, 4), "maj7"))) == 4
+    
