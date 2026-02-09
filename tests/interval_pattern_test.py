@@ -31,7 +31,7 @@ def test_pattern_non_stepped_preserves_distances():
     p = IntervalPattern("0,4,7", stepped=False)
     assert [iv.semitones for iv in p] == [0, 4, 7]
 
-def test_pattern_non_stepped_inserts_root():
+def test_pattern_non_stepped_can_be_unrooted():
     p = IntervalPattern("4,7", stepped=False)
-    assert [iv.semitones for iv in p] == [0, 4, 7]
+    assert [iv.semitones for iv in p] == [4, 7]
     
