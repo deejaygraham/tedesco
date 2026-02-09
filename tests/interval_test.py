@@ -5,6 +5,20 @@ import operator
 
 from tedesco.interval import Interval
 
+def test_interval_constructed_from_known_name():
+    assert Interval.from_name("major third").semitones == 4
+    assert Interval.from_name(" Major Third ").semitones == 4
+
+def test_interval_constructed_from_invalid_name_throws():
+    with pytest.raises(KeyError): 
+        Interval.from_name("not an interval").
+                                                                                                               
+def test_interval_has_known_name():
+    assert Interval(3).name() == "minor third"
+    assert Interval(12).name() == "octave"
+
+def test_interval_out_of_range_is_unknown():
+    assert Interval(20).name() == "unknown"
 
 def test_positive_intervals_are_valid():
     i = Interval(7)
