@@ -112,54 +112,6 @@ class Interval:
             
         return names[distance]
 
-    @staticmethod
-    def list_from_string(
-        csv: str,
-        *,
-        cumulative: bool = False
-    ) -> list["Interval"]:
-        """
-        Parse a comma-separated string of integers and build a list of Intervals.
-
-        Parameters
-        ----------
-        csv : str
-            Comma-separated integers. Examples:
-              - Offsets: "0,2,4,5,7,9,11"  (major scale)
-              - Chord:   "0,4,7"           (major triad)
-              - Steps:   "2,2,1,2,2,2,1"   (if cumulative=True -> 0,2,4,5,7,9,11)
-        cumulative : bool
-            If True, treat the numbers as step sizes and produce cumulative offsets
-            starting at 0. If False, use the numbers directly as semitone values.
-
-        Returns
-        -------
-        list[Interval]
-        """
-        if not isinstance(csv, str):
-            raise TypeError("csv must be a string of comma-separated integers")
-
-        numbers: list[int] = []
-        for raw in csv.split(","):
-            token = raw.strip()
-            if token == "":
-                continue
-            try:
-                n = int(token)
-            except ValueError as exc:
-                raise ValueError(f"Invalid integer in csv: {token!r}") from exc
-            numbers.append(n)
-
-        if cumulative:
-            total = 0
-            values: list[int] = [0]  # start at 0 semitones (root)
-            for step in numbers:
-                total += step
-                values.append(total)
-        else:
-            values = numbers
-
-        return [Interval(v) for v in values]
         
 # Define the static singletons *after* the class is created.
 Interval.Unison         = Interval(0)
