@@ -13,7 +13,13 @@ def test_pattern_must_not_be_blank():
 def test_pattern_rejects_invalid_integer():
     with pytest.raises(ValueError, match="Invalid integer in csv"):
         IntervalPattern("0,foo,7")
-        
+
+def test_pattern_is_iterable():
+    p = IntervalPattern("2,1")
+    semis = [iv.semitones for iv in p]
+    assert semis == [2, 1]
+    assert len(p) == 2
+    
 def test_pattern_from_single_interval():
     i = IntervalPattern("3")
     assert len(i) == 1
