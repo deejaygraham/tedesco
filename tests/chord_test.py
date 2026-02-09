@@ -16,6 +16,18 @@ def test_min7_chord_from_name():
     root = Note(0, 4)  # C4
     c = Chord(root, "min7")
     assert [n.pitch_class for n in c] == [0, 3, 7, 10]
+
+def test_dom9_chord_from_name():
+    root = Note(0, 4)
+    c = Chord(root, "dom9")
+    # 1–9: 0,4,7,10,14 semitones above root
+    assert [n.pitch_class for n in c] == [0, 4, 7, 10, 2]  # 14 % 12 == 2
+
+def test_chord_from_inversion_pattern_does_not_add_root():
+    root = Note(0, 4)
+    c = Chord(root, "4,7,11")  # built as given, not forced to include 0
+    assert [n.pitch_class for n in c] == [4, 7, 11]
+    assert root not in c
     
 def test_chord_constructed_from_unknown_name_throws():
     with pytest.raises(ValueError): 
