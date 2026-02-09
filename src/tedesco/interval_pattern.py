@@ -37,6 +37,9 @@ class IntervalPattern:
                 raise ValueError(f"Invalid integer in csv: {token!r}") from exc
             values.append(n)
 
+        if len(values) == 0:
+            raise ValueError("Pattern must contain at least one interval")
+            
         self.stepped = stepped
         self.intervals = [Interval(i) for i in values]
 
