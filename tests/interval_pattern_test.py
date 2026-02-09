@@ -9,7 +9,11 @@ def test_pattern_must_not_be_blank():
         IntervalPattern("")
     with pytest.raises(ValueError):
         IntervalPattern("           ")
-      
+
+def test_pattern_rejects_invalid_integer():
+    with pytest.raises(ValueError, match="Invalid integer in csv"):
+        IntervalPattern("0,foo,7")
+        
 def test_pattern_from_single_interval():
     i = IntervalPattern("3")
     assert len(i.intervals) == 1
@@ -22,3 +26,12 @@ def test_pattern_converts_to_list_of_notes():
     pattern = IntervalPattern("2, 1")
     root = Note(0, 4)
     assert len(pattern.to_notes(root)) == 3
+
+def test_pattern_non_stepped_preserves_distances():
+    p = IntervalPattern("0,4,7", stepped=False)
+    assert [iv.semitones for iv in p] == [0, 4, 7]
+
+def test_pattern_non_stepped_inserts_root():
+    p = IntervalPattern("4,7", stepped=False)
+    assert [iv.semitones for iv in p] == [0, 4, 7]
+    
