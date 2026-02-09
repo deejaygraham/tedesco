@@ -17,7 +17,8 @@ class IntervalPattern:
     major_chord = IntervalPattern("0, 4, 7", stepped=False)
     """
     intervals: list[Interval]
-
+    stepped: bool
+    
     def __init__(self, pattern: str, stepped: bool = True):
         if not isinstance(pattern, str):
             raise TypeError("pattern must be a string of comma-separated integers")
@@ -36,13 +37,7 @@ class IntervalPattern:
                 raise ValueError(f"Invalid integer in csv: {token!r}") from exc
             values.append(n)
 
-        if not stepped:
-            if values[0] != 0:
-                values = [0] + values
-
-            for i in range(1, len(values)):
-                values[i] += values[i-1]
-            
+        self.stepped = stepped
         self.intervals = [Interval(i) for i in values]
 
             
@@ -59,7 +54,17 @@ class IntervalPattern:
         if not isinstance(root, Note):
             raise TypeError("root must be a tedesco.Note instance")
 
-        notes: list[int] = [root]
-        for i in self.intervals:
-            notes.append(root + i) 
+        notes: list[Note] = []
+        
+        if self.stepped:
+            notes.append(root)
+            last = root
+            for i in self.intervals:
+                note = last + i
+                notes.append(note)
+                last = note
+        else:
+            for i in self.intervals:
+                notes.append(root + i)
+  
         return notes
