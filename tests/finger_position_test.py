@@ -29,4 +29,4 @@ def test_position_different_strings_are_not_equal():
     assert FingerPosition(1, 9) != FingerPosition(2, 9)
 
 def test_position_different_frets_are_not_equal():
-    assert FingerPosition(1, 19) == FingerPosition(1, 9)
+    assert FingerPosition(1, 19) != FingerPosition(1, 9)
