@@ -28,10 +28,18 @@ def test_pattern_ignores_whitespace():
     j = IntervalPattern(" 2, 1  ")
     assert len(j) == 2
 
+def test_pattern_from_wrong_type_throws():
+    with pytest.raises(TypeError): 
+        IntervalPattern(123)
+
 def test_pattern_converts_to_list_of_notes():
     pattern = IntervalPattern("2, 1")
     root = Note(0, 4)
     assert len(pattern.to_notes(root)) == 3
+
+def test_pattern_convert_bad_root_throws():
+    with pytest.raises(TypeError): 
+        IntervalPattern("2, 1").to_notes("not-a-note")
 
 def test_pattern_non_stepped_preserves_distances():
     p = IntervalPattern("0,4,7", stepped=False)
