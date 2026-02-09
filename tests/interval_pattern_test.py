@@ -16,7 +16,7 @@ def test_pattern_rejects_invalid_integer():
         
 def test_pattern_from_single_interval():
     i = IntervalPattern("3")
-    assert len(i.intervals) == 1
+    assert len(i) == 1
 
 def test_pattern_ignores_whitespace():
     j = IntervalPattern(" 2, 1  ")
