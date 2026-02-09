@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from typing import Dict, Iterator, List
 
 from .interval import Interval
+from .interval_pattern import IntervalPattern
+from .note import Note
 
 # ---------------------------------------------------------------------------
 # Known chord patterns as cumulative semitone offsets from the root (0).
@@ -46,70 +48,33 @@ KNOWN_CHORD_PATTERNS: Dict[str, str] = {
 }
 
 
-def _parse_csv(csv: str) -> List[int]:
-    if not isinstance(csv, str):
-        raise TypeError("csv must be a comma-separated string of integers")
-    out: List[int] = []
-    for raw in csv.split(","):
-        tok = raw.strip()
-        if not tok:
-            continue
-        try:
-            out.append(int(tok))
-        except ValueError as exc:
-            raise ValueError(f"Invalid integer in csv: {tok!r}") from exc
-    if not out:
-        raise ValueError("Empty interval list; provide at least '0' for the root")
-    # Normalize: if root 0 is missing, prepend it
-    if out[0] != 0:
-        out = [0] + out
-    return out
-
-
-@dataclass(frozen=True)
+@dataclass(frozen=False)
 class Chord:
     """
     A chord represented as a list of cumulative semitone intervals above the root.
-
-    The class is intentionally simple—just a typed wrapper around List[Interval].
-    Use `Chord("maj7")` or `Chord("0,4,7,11")`.
     """
-    intervals: List[Interval]
+    notes: list[Note]
 
-    def __init__(self, value: str) -> "Chord":
-        """
-        Build a chord from either a known name or a CSV string of cumulative semitones.
-
-        - If `value.lower()` matches a key in KNOWN_CHORD_PATTERNS, that pattern is used.
-        - Otherwise, `value` is parsed as a CSV of cumulative semitone offsets.
-        """
-        name = value.strip().lower()
-        if name in KNOWN_CHORD_PATTERNS:
-            pattern = KNOWN_CHORD_PATTERNS[name]
+    def __init__(self, root: Note, pattern: str) -> "Chord":
+        if not isinstance(pattern, str):
+            raise TypeError("Pattern must be a string of comma-separated integers")
+        
+        if not pattern or not pattern.strip():
+            raise ValueError("Pattern string must be non-empty")
+            
+        if pattern in KNOWN_CHORD_PATTERNS:
+            values = KNOWN_CHORD_PATTERNS[pattern]
         else:
-            pattern = value
-          
-        degrees = _parse_csv(pattern)
-        # For frozen dataclasses we must use object.__setattr__ in __init__
-        object.__setattr__(self, "intervals", [Interval(n) for n in degrees])
+            values = pattern
+            
+        self.notes = IntervalPattern(values, stepped=False).to_notes(root)
       
     # ---- Basic container protocol ------------------------------------------
     def __iter__(self) -> Iterator[Interval]:
-        return iter(self.intervals)
+        return iter(self.notes)
 
     def __len__(self) -> int:
-        return len(self.intervals)
+        return len(self.notes)
 
     def __contains__(self, item: Interval) -> bool:
         return item in self.intervals
-
-    def to_notes(self, root_note) -> List:
-        """
-        Given a Note (from tedesco.note), return concrete notes for the chord.
-        Lazy-imports Note to avoid circular import at module load time.
-        """
-        from .note import Note  # lazy import
-        if not isinstance(root_note, Note):
-            raise TypeError("root_note must be a tedesco.Note instance")
-        return [root_note + iv for iv in self.intervals]
-      
