@@ -13,11 +13,12 @@ class IntervalPattern:
 
     Examples
     --------
-    major_scale = IntervalPattern("2,2,1,2,2,2,1") 
+    major_scale = IntervalPattern("2,2,1,2,2,2,1", stepped=True)  
+    major_chord = IntervalPattern("0, 4, 7", stepped=False)
     """
     intervals: list[Interval]
 
-    def __init__(self, pattern: str):
+    def __init__(self, pattern: str, stepped: bool = True):
         if not isinstance(pattern, str):
             raise TypeError("pattern must be a string of comma-separated integers")
         
@@ -35,7 +36,15 @@ class IntervalPattern:
                 raise ValueError(f"Invalid integer in csv: {token!r}") from exc
             values.append(n)
 
+        if not stepped:
+            if values[0] != 0:
+                values = [0] + values
+
+            for i in range(1, len(values)):
+                values[i] += values[i-1]
+            
         self.intervals = [Interval(i) for i in values]
+
             
     def __iter__(self) -> Iterator[Interval]:
         return iter(self.intervals)
