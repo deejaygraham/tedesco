@@ -9,7 +9,7 @@ from .interval import Interval
 from .interval_pattern import IntervalPattern
 from .note import Note
 
-SCALE_PATTERNS: dict[str, str] = {
+KNOWN_SCALE_PATTERNS: dict[str, str] = {
     "eighttone_spanish":  "1,2,1,1,1,2,2,2",
     "aeolian":           "2,1,2,2,1,2,2",
     "algerian":          "2,1,2,1,1,1,3,1",
@@ -103,7 +103,7 @@ def _resolve_name(name: str) -> str:
     key = name.strip().lower()
     return ALIASES.get(key, key)
         
-@dataclass(frozen=True)
+@dataclass(frozen=False)
 class Scale:
     """
     A musical scale defined by a root note and a pattern.
@@ -123,12 +123,12 @@ class Scale:
             raise ValueError("Pattern string must be non-empty")
             
         resolved = _resolve_name(pattern)
-        if resolved in SCALE_PATTERNS:
-            values = SCALE_PATTERNS[resolved]
+        if resolved in KNOWN_SCALE_PATTERNS:
+            values = KNOWN_SCALE_PATTERNS[resolved]
         else:
             values = pattern
             
-        self.notes = IntervalPattern(pattern).to_notes(root)
+        self.notes = IntervalPattern(values, stepped=True).to_notes(root)
             
     def __iter__(self) -> Iterator[Note]:
         return iter(self.notes)
