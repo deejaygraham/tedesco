@@ -11,7 +11,7 @@ def test_interval_constructed_from_known_name():
 
 def test_interval_constructed_from_invalid_name_throws():
     with pytest.raises(KeyError): 
-        Interval.from_name("not an interval").
+        Interval.from_name("not an interval")
                                                                                                                
 def test_interval_has_known_name():
     assert Interval(3).name() == "minor third"
