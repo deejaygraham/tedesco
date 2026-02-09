@@ -94,4 +94,7 @@ def test_interval_as_solfege():
     assert Interval(0).asSolfege() == "do"
     assert Interval(2).asSolfege() == "re"
     assert Interval.Octave.asSolfege() == "do"
+
+def test_interval_solfege_wraps_around():
+    assert Interval(0).asSolfege() == Interval(13).asSolfege()
     
