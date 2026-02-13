@@ -15,7 +15,7 @@ def test_chord_constructed_from_known_name():#
 def test_min7_chord_from_name():
     root = Note("C4") 
     c = Chord(root, "min7")
-    assert [n.pitch for n in c] == ['C', 'D#', 'G', 'B']
+    assert [n.pitch for n in c] == ['C', 'D#', 'G', 'A#']
 
 def test_dom9_chord_from_name():
     root = Note("C4")
