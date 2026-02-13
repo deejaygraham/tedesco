@@ -171,7 +171,7 @@ class Note:
         Transposition: Note + Interval -> Note
         """
         if isinstance(interval, Interval):
-            return Note.from_midi(self._midi + interval._midi)
+            return Note.from_midi(self._midi + interval.semitones)
         return NotImplemented
 
     def __radd__(self, interval: Interval) -> "Note":
