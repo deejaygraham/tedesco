@@ -40,7 +40,7 @@ class Note:
     """
     Musical note based on scientific pitch notation
     """
-    _midi
+    __slots__ = ("_midi",)
 
     def __init__(self, spn: str):
         """
