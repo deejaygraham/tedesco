@@ -9,12 +9,12 @@ def test_negative_note_values_are_not_allowed():
 
 def test_note_from_name_valid():
     c4 = Note("C4")
-    assert c4.pitch_class == 0
+    assert c4 == "C"
     assert c4.octave == 4
 
 def test_note_ignores_whitespace_name():
     fs3 = Note("  F#  3")
-    assert fs3.pitch_class == 6
+    assert fs3.pitch == "F#"
 
 def test_note_from_unknown_name_throws():
     with pytest.raises(ValueError):
@@ -22,7 +22,7 @@ def test_note_from_unknown_name_throws():
 
 def test_note_from_spn_parses_valid_string():
     c4 = Note("C4")
-    assert c4.pitch_class == 0
+    assert c4.pitch == "C"
     assert c4.octave == 4
 
 def test_note_from_spn_parses_whitespace_string():
@@ -102,7 +102,7 @@ def test_negative_intervals_downward_transposition():
     c4 = Note("C4")
     m3_down = Interval(-3)
     a3 = c4 + m3_down
-    assert a3.pitch_class == 9 and a3.octave == 3  # A3
+    assert a3.pitch == "A" and a3.octave == 3  # A3
 
 
 def test_unrelated_types_return_not_implemented():
@@ -114,7 +114,7 @@ def test_unrelated_types_return_not_implemented():
 
 def test_note_from_midi_and_to_midi_roundtrip():
     c4 = Note.from_midi(60)       # middle C
-    assert c4.pitch_class == 0
+    assert c4.pitch == "C"
     assert c4.octave == 4
     assert c4.to_midi() == 60
 
