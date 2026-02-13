@@ -47,7 +47,7 @@ class Note:
         Construct a Note from scientific pitch notation (e.g., 'C4', 'F#3', 'Db5', 'A♭4').
         Internally stores MIDI (int). Raises ValueError on invalid input or MIDI range.
         """
-        m = self._SPN_RE.match(spn)
+        m = _SPN_RE.match(spn)
         if not m:
             raise ValueError(f"Invalid scientific pitch notation: {spn!r}")
 
@@ -64,14 +64,14 @@ class Note:
         token = letter + acc
 
         # Normalize flats (and some edge enharmonics) to sharp names
-        if token in self._ENHARMONIC_TO_SHARP:
-            token = self._ENHARMONIC_TO_SHARP[token]
+        if token in _ENHARMONIC_TO_SHARP:
+            token = _ENHARMONIC_TO_SHARP[token]
 
-        if token not in self._SEMITONES_SHARP:
+        if token not in _SEMITONES_SHARP:
             # Handles rare double accidentals or unsupported spellings
             raise ValueError(f"Unsupported or unrecognized pitch class: {letter}{acc}")
 
-        semitone = self._SEMITONES_SHARP[token]
+        semitone = _SEMITONES_SHARP[token]
         midi = (octave + 1) * 12 + semitone
         if not (0 <= midi <= 127):
             raise ValueError(f"MIDI value out of 0–127 range for {spn!r}: {midi}")
@@ -151,7 +151,7 @@ class Note:
     @staticmethod
     def _pitch_from_semitone(semitone: int) -> str:
         """Map 0–11 semitone to canonical sharp pitch class."""
-        for name, val in Note._SEMITONES_SHARP.items():
+        for name, val in _SEMITONES_SHARP.items():
             if val == semitone:
                 return name
         # Should never happen
