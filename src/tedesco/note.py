@@ -1,4 +1,5 @@
 from __future__ import annotations
+from functools import total_ordering
 import re
 from .interval import Interval
 
