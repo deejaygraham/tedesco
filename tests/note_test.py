@@ -8,12 +8,12 @@ def test_negative_note_values_are_not_allowed():
         _ = Note(-1)
 
 def test_note_from_name_valid():
-    c4 = Note.from_name("C", 4)
+    c4 = Note("C4")
     assert c4.pitch_class == 0
     assert c4.octave == 4
 
 def test_note_ignores_whitespace_name():
-    fs3 = Note.from_name("  F#  ", 3)
+    fs3 = Note("  F#  3")
     assert fs3.pitch_class == 6
 
 def test_note_from_unknown_name_throws():
@@ -21,22 +21,22 @@ def test_note_from_unknown_name_throws():
         Note.from_name("H", 4)
 
 def test_note_from_spn_parses_valid_string():
-    c4 = Note.from_spn("C4")
+    c4 = Note("C4")
     assert c4.pitch_class == 0
     assert c4.octave == 4
 
 def test_note_from_spn_parses_whitespace_string():
-    eb5 = Note.from_spn(" Eb5 ")
+    eb5 = Note(" Eb5 ")
     assert eb5.pitch_class == 3
     assert eb5.octave == 5
 
 def test_note_from_spn_rejects_invalid():
     with pytest.raises(ValueError):
-        Note.from_spn("C")      # missing octave
+        Note("C")      # missing octave
     with pytest.raises(ValueError):
-        Note.from_spn("H4")     # bad letter
+        Note("H4")     # bad letter
     with pytest.raises(ValueError):
-        Note.from_spn("C#4x")   # junk suffix
+        Note("C#4x")   # junk suffix
 
 def test_note_distance_between_adjacent_notes_is_halfstep():
     assert abs((Note(0, 4) - Note(1, 4)).semitones) == 1
@@ -127,7 +127,7 @@ def test_note_name_prefers_sharps_and_flats():
     assert gsharp4.name() == "G#"
     assert gsharp4.name(prefer_sharps=False) == "Ab"
 
-    bb3 = Note.from_name("Bb", 3)
+    bb3 = Note("Bb3")
     # prefer_sharps will show A#
     assert bb3.name() == "A#"
     # flat-oriented path returns Bb
