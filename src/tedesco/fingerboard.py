@@ -1,5 +1,6 @@
 from __future__ import annotations
 from .note import Note
+from .string import String
 
 class Fingerboard:
     """Models a guitar fingerboard"""
