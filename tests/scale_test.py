@@ -3,17 +3,17 @@ from tedesco.interval import Interval
 from tedesco.note import Note
 import pytest
 
-def test_scale_constructed_from_known_name():
+def test_scale_pitches_match_correct_scale():
     root = Note("C4")
     major_scale = Scale(root, "major")
-    assert [iv.pitch_class for iv in major_scale] == [0, 2, 4, 5, 7, 9, 11, 0]
+    assert [iv.pitch for iv in major_scale] == ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C']
     assert len(major_scale) == 8
 
 def test_scale_note_names_match_correct_scale():
     root = Note("C4")
     scale = Scale(root, "major")
     names = [n.name() for n in scale]
-    assert names == ["C", "D", "E", "F", "G", "A", "B", "C"]
+    assert names == ["C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5"]
 
 def test_scale_with_bad_root_throws():
     with pytest.raises(TypeError): 
