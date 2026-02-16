@@ -45,7 +45,7 @@ class String:
     def tuning(self) -> Note:
         return self._tuning
     
-    def at_fret(self, fret: int) -> Note:
+    def at(self, fret: int) -> Note:
         """Returns the value of the string at a given fret"""
         if fret < 0 or fret > 24:
             raise ValueError("Fret number must be between 0 and 24")
