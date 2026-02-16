@@ -40,12 +40,16 @@ class Note:
     """
     Musical note based on scientific pitch notation
     """
-    __slots__ = ("_midi",)
+    __slots__ = ("_midi", "_base_octave")
 
-    def __init__(self, spn: str):
+    def __init__(self, spn: str, *, base_octave: int = -1):
         """
         Construct a Note from scientific pitch notation (e.g., 'C4', 'F#3', 'Db5', 'A♭4').
         Internally stores MIDI (int). Raises ValueError on invalid input or MIDI range.
+
+        base_octave controls the octave numbering convention:
+          -1 : MIDI standard (C-1 = 0, C4 = 60)
+           0 : C0 = 0 (used by some DAWs)
         """
         m = _SPN_RE.match(spn)
         if not m:
@@ -72,11 +76,12 @@ class Note:
             raise ValueError(f"Unsupported or unrecognized pitch class: {letter}{acc}")
 
         semitone = _SEMITONES_SHARP[token]
-        midi = (octave + 1) * 12 + semitone
+        midi = (octave - base_octave) * 12 + semitone
         if not (0 <= midi <= 127):
             raise ValueError(f"MIDI value out of 0–127 range for {spn!r}: {midi}")
 
         self._midi = midi
+        self._base_octave = base_octave
 
     @classmethod
     def from_midi(cls, midi: int) -> Note:
@@ -100,7 +105,7 @@ class Note:
     @property
     def octave(self) -> int:
         """Return the octave number according to scientific pitch notation."""
-        return self._midi // 12 - 1
+        return (self._midi // 12) + self._base_octave
 
     @property
     def pitch(self) -> str:
