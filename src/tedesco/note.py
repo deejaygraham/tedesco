@@ -31,10 +31,6 @@ _SPN_RE = re.compile(r"""
 """, re.VERBOSE)
 
 
-def _mod12(n: int) -> int:
-    return n % 12
-
-
 @total_ordering
 class Note:
     """
@@ -113,13 +109,6 @@ class Note:
         Return the pitch class as a canonical sharp name, e.g., 'C', 'C#', 'D', ..., 'B'.
         """
         return self._pitch_from_semitone(self._midi % 12)     
-
-    
-    @staticmethod
-    def from_absolute_semitone(abs_st: int) -> "Note":
-        """Inverse of absolute_semitone, normalizing to 0..11 pitch class."""
-        octave, pc = divmod(abs_st, 12)
-        return Note(pc, octave)
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Note):
