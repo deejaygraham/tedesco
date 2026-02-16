@@ -19,7 +19,11 @@ def test_note_accidentals_are_resolved_to_ascii():
 def test_note_name_with_whitespace_throws():
     with pytest.raises(ValueError):
         Note("  F#  3")
-    
+        
+def test_note_octave_too_high_throws():
+    with pytest.raises(ValueError):
+        Note("C12")
+        
 def test_note_from_unknown_name_throws():
     with pytest.raises(ValueError):
         Note("H4")
@@ -41,7 +45,7 @@ def test_note_from_spn_rejects_invalid():
         Note("H4")     # bad letter
     with pytest.raises(ValueError):
         Note("C#4x")   # junk suffix
-
+    
 def test_note_distance_between_adjacent_notes_is_halfstep():
     assert abs((Note.from_midi(48) - Note.from_midi(49)).semitones) == 1
 
@@ -91,6 +95,17 @@ def test_octave_wrap_on_addition():
     assert c5.pitch == 'C'
     assert c5.octave == 5
 
+def test_transpose_note_up_returns_new_note():
+    root = Note("B4")  
+    upper = root.transpose(1)
+    assert upper.midi == root.midi + 1
+    assert upper.name == 'C5'    
+    
+def test_transpose_note_down_returns_new_note():
+    root = Note("F4")
+    lower = root.transpose(-1)
+    assert lower.midi == root.midi - 1
+    assert lower.name == 'E4'    
 
 def test_negative_intervals_downward_transposition():
     c4 = Note("C4")
@@ -112,6 +127,14 @@ def test_note_from_midi_and_to_midi_roundtrip():
     assert c4.octave == 4
     assert c4.midi == 60
 
+def test_note_too_low_midi_value_throws():
+    with pytest.raises(ValueError):
+        Note.from_midi(-1)
+  
+def test_note_too_high_midi_value_throws():
+    with pytest.raises(ValueError):
+        Note.from_midi(255)
+        
 def test_note_from_midi_requires_int():
     with pytest.raises(TypeError):
         Note.from_midi(60.5)
