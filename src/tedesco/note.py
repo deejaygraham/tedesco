@@ -92,6 +92,13 @@ class Note:
         semitone = midi % 12
         pitch = cls._pitch_from_semitone(semitone)
         return cls(f"{pitch}{octave}")
+     
+    @property
+    def name(self) -> str:
+        """
+        Alias for str(self): normalized SPN with sharps.
+        """
+        return str(self)
         
     @property
     def midi(self) -> int:
@@ -126,12 +133,6 @@ class Note:
 
     def __repr__(self) -> str:
         return f"Note({str(self)!r})"
-
-    def name(self) -> str:
-        """
-        Alias for str(self): normalized SPN with sharps.
-        """
-        return str(self)
         
     def transpose(self, semitones: int) -> Note:
         """
