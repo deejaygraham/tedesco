@@ -34,7 +34,7 @@ def test_pattern_from_wrong_type_throws():
 
 def test_pattern_converts_to_list_of_notes():
     pattern = IntervalPattern("2, 1")
-    root = Note(0, 4)
+    root = Note("C4")
     assert len(pattern.to_notes(root)) == 3
 
 def test_pattern_convert_bad_root_throws():
