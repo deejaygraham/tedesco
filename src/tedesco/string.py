@@ -30,6 +30,12 @@ class String:
         """Returns a hash of the string"""
         return hash((self._number, self._tuning))
 
+    def __iter__(self) -> Iterator[Interval]:
+        return iter([self._tuning + Interval(i) for i in range(24)])
+
+    def __len__(self) -> int:
+        return 24
+        
     def tune_to(self, tuning: Note):
         """Tunes the string to a given tuning"""
         if not isinstance(tuning, Note):
