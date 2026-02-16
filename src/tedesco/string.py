@@ -1,14 +1,15 @@
 from __future__ import annotations
+from typing import Final
 import re
 from .note import Note
 from .interval import Interval
 
 class String:
 
-    MIN_STRING_ID = 1
-    MAX_STRING_ID = 6
-    MIN_FRET = 0
-    MAX_FRET = 24
+    MIN_STRING_ID: Final = 1
+    MAX_STRING_ID: Final = 6
+    MIN_FRET: Final = 0
+    MAX_FRET: Final = 24
     
     """Models a guitar string"""
 
