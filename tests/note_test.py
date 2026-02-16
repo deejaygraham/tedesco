@@ -9,7 +9,7 @@ def test_negative_note_values_are_not_allowed():
 
 def test_note_from_name_valid():
     c4 = Note("C4")
-    assert c4 == "C"
+    assert c4.name == "C"
     assert c4.octave == 4
 
 def test_note_ignores_whitespace_name():
