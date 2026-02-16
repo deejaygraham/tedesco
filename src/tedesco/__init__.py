@@ -11,6 +11,7 @@ from .note import Note
 from .interval import Interval
 from .scale import Scale
 from .chord import Chord
+from .string import String
 
 try:
     from importlib.metadata import version as _pkg_version
@@ -21,6 +22,7 @@ __all__ = [
     "Note",
     "Interval",
     "Scale",
+    "String",
     "Chord",
 ]
 
