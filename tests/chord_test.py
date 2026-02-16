@@ -55,7 +55,7 @@ def test_chord_constructed_from_bad_type_throws():
 def test_chord_allows_inversion_forms():
     root = Note("C4")
     c = Chord(root, "4,7,11")  # major 7th chord with missing root
-    assert [iv.pitch for iv in c] == ['C', 'E', 'G', 'A#', 'D']
+    assert [iv.pitch for iv in c] == ['E', 'G', 'B']
 
 def test_chord_is_iteratable():
     len(list(Chord(Note("C4"), "maj7"))) == 4
