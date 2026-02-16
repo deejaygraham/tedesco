@@ -9,7 +9,7 @@ class String:
         """Initializes the string with a number and a midi tuning"""
         if string_number < 1 or string_number > 6:
             raise ValueError("String number must be between 1 and 6")
-        if not isinstance(other, Note):
+        if not isinstance(tuning, Note):
             raise ValueError(f"Tuning must be a valid note")
 
         self.number = string_number
@@ -40,7 +40,7 @@ class String:
 
     def at_fret(self, fret: int) -> Note:
         """Returns the value of the string at a given fret"""
-        if number < 0 or number > 24:
+        if fret < 0 or fret > 24:
             raise ValueError("Fret number must be between 0 and 24")
             
         return self.tuning + fret
