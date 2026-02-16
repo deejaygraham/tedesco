@@ -7,7 +7,7 @@ from tedesco.interval import Interval
 from tedesco.note import Note
 
 
-def test_chord_constructed_from_known_name():#
+def test_chord_constructed_from_known_name():
     root = Note("C4")
     c = Chord(root,"maj7")
     assert [iv.pitch for iv in c] == ['C', 'E', 'G', 'B']
