@@ -46,7 +46,7 @@ def test_chord_constructed_with_bad_string_throws():
 def test_chord_constructed_from_custom_intervals():
     root = Note("C4")
     c = Chord(root,"0,3,7,10") 
-    assert [iv.pitch for iv in c] == ['C', 'E', 'G', 'A#', 'D']
+    assert [iv.pitch for iv in c] == ['C', 'D#', 'G', 'A#']
 
 def test_chord_constructed_from_bad_type_throws():
     with pytest.raises(TypeError): 
