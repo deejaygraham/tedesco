@@ -13,8 +13,8 @@ def test_string_can_be_retuned():
 
 def test_string_note_at_fret_is_higher_than_open():
     s = String(1, Note("E5"))
-    assert s.at_fret(1) > s.at_fret(0)
-    assert s.at_fret(12) > s.at_fret(5)
+    assert s.at(1) > s.at_fret(0)
+    assert s.at(12) > s.at_fret(5)
 
 def test_string_same_note_same_number_are_equal():
     assert String(1, Note("E5")) == String(1, Note("E5"))
@@ -34,5 +34,5 @@ def test_string_unknown_number_throws():
 
 def test_string_note_behind_nut_throws():
     with pytest.raises(ValueError):
-        String(1, Note("E5")).at_fret(-1)
+        String(1, Note("E5")).at(-1)
         
