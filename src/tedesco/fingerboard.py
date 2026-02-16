@@ -29,11 +29,11 @@ class Fingerboard:
         return hash(tuple(self.strings))
 
     def note_at(self, string: int, fret: int) -> Note:
-        s = next((o for o in self.string if o.id == string), None)
+        s = next((o for o in self.strings if o.id == string), None)
 
         if s is None:
             return None
             
-        return s.note_at(fret)
+        return s.at(fret)
         
         
