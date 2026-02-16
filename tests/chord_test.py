@@ -25,7 +25,7 @@ def test_dom9_chord_from_name():
 def test_chord_from_inversion_pattern_does_not_add_root():
     root = Note("C4")
     c = Chord(root, "4,7,11")  
-    assert [n.pitch for n in c] == ['C', 'E', 'G', 'A#', 'D']
+    assert [n.pitch for n in c] == ['E', 'G', 'B']
     assert root not in c
     
 def test_chord_constructed_from_unknown_name_throws():
