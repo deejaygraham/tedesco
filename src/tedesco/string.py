@@ -38,6 +38,10 @@ class String:
         self._tuning = tuning
 
     @property
+    def id(self) -> int:
+        return self._number
+    
+    @property
     def tuning(self) -> Note:
         return self._tuning
     
