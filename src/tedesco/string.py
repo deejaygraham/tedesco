@@ -16,10 +16,14 @@ class String:
 
     def __init__(self, string_number: int, tuning: Note):
         """Initializes the string with a number and a midi tuning"""
+        if not isinstance(string_number, int):
+            raise TypeError(f"string_number must be int, got {type(string_number).__name__}")
         if string_number < MIN_STRING_ID or string_number > MAX_STRING_ID:
-            raise ValueError("String number must be between 1 and 6")
+            raise ValueError(
+                f"string_number out of bounds [{MIN_STRING_ID}, {MAX_STRING_ID}]: {string_number}"
+            )
         if not isinstance(tuning, Note):
-            raise ValueError(f"Tuning must be a valid note")
+            raise TypeError(f"tuning must be a Note, got {type(tuning).__name__}")
 
         self._number = string_number
         self._tuning = tuning
