@@ -12,6 +12,10 @@ def test_note_from_name_valid():
     assert c4.pitch == "C"
     assert c4.octave == 4
 
+def test_note_accidentals_are_resolved_to_ascii():
+    assert Note("C♯4").pitch == "C#"
+    assert Note("B♭5").pitch == "A#"
+    
 def test_note_name_with_whitespace_throws():
     with pytest.raises(ValueError):
         Note("  F#  3")
