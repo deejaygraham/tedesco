@@ -12,6 +12,7 @@ from .interval import Interval
 from .scale import Scale
 from .chord import Chord
 from .string import String
+from .fingerboard import Fingerboard
 
 try:
     from importlib.metadata import version as _pkg_version
@@ -24,6 +25,7 @@ __all__ = [
     "Scale",
     "String",
     "Chord",
+    "Fingerboard",
 ]
 
 try:
