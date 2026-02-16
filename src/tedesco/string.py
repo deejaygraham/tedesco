@@ -4,13 +4,19 @@ from .note import Note
 from .interval import Interval
 
 class String:
+
+    MIN_STRING_ID = 1
+    MAX_STRING_ID = 6
+    MIN_FRET = 0
+    MAX_FRET = 24
+    
     """Models a guitar string"""
 
     __slots__ = ("_number", "_tuning")
 
     def __init__(self, string_number: int, tuning: Note):
         """Initializes the string with a number and a midi tuning"""
-        if string_number < 1 or string_number > 6:
+        if string_number < MIN_STRING_ID or string_number > MAX_STRING_ID:
             raise ValueError("String number must be between 1 and 6")
         if not isinstance(tuning, Note):
             raise ValueError(f"Tuning must be a valid note")
@@ -31,10 +37,10 @@ class String:
         return hash((self._number, self._tuning))
 
     def __iter__(self) -> Iterator[Interval]:
-        return iter([self._tuning + Interval(i) for i in range(24)])
+        return iter([self._tuning + Interval(i) for i in range(MAX_FRET)])
 
     def __len__(self) -> int:
-        return 24
+        return MAX_FRET
         
     def tune_to(self, tuning: Note):
         """Tunes the string to a given tuning"""
@@ -53,7 +59,7 @@ class String:
     
     def at(self, fret: int) -> Note:
         """Returns the value of the string at a given fret"""
-        if fret < 0 or fret > 24:
+        if fret < MIN_FRET or fret > MAX_FRET:
             raise ValueError("Fret number must be between 0 and 24")
             
         return self.tuning + Interval(fret)
