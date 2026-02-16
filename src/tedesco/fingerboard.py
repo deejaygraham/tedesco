@@ -28,7 +28,7 @@ class Fingerboard:
         """Returns a hash of the fingerboard"""
         return hash(tuple(self.strings))
 
-    def note_at(self, string: int, fret: int) -> Note:
+    def at(self, string: int, fret: int) -> Note:
         s = next((o for o in self.strings if o.id == string), None)
 
         if s is None:
