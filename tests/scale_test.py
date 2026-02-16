@@ -12,7 +12,7 @@ def test_scale_pitches_match_correct_scale():
 def test_scale_note_names_match_correct_scale():
     root = Note("C4")
     scale = Scale(root, "major")
-    names = [n.name() for n in scale]
+    names = [n.name for n in scale]
     assert names == ["C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5"]
 
 def test_scale_with_bad_root_throws():
